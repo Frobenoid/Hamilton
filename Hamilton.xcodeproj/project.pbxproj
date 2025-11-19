@@ -1,0 +1,556 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		DCBBD7332EC9255E00A06357 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBBD71C2EC9255D00A06357 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCBBD7232EC9255D00A06357;
+			remoteInfo = Hamilton;
+		};
+		DCBBD73D2EC9255E00A06357 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DCBBD71C2EC9255D00A06357 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCBBD7232EC9255D00A06357;
+			remoteInfo = Hamilton;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DCBBD7242EC9255D00A06357 /* Hamilton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hamilton.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCBBD7322EC9255E00A06357 /* HamiltonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HamiltonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DCBBD73C2EC9255E00A06357 /* HamiltonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HamiltonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DCBBD7262EC9255D00A06357 /* Hamilton */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Hamilton;
+			sourceTree = "<group>";
+		};
+		DCBBD7352EC9255E00A06357 /* HamiltonTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HamiltonTests;
+			sourceTree = "<group>";
+		};
+		DCBBD73F2EC9255E00A06357 /* HamiltonUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = HamiltonUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DCBBD7212EC9255D00A06357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCBBD72F2EC9255E00A06357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCBBD7392EC9255E00A06357 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DCBBD71B2EC9255D00A06357 = {
+			isa = PBXGroup;
+			children = (
+				DCBBD7262EC9255D00A06357 /* Hamilton */,
+				DCBBD7352EC9255E00A06357 /* HamiltonTests */,
+				DCBBD73F2EC9255E00A06357 /* HamiltonUITests */,
+				DCBBD7252EC9255D00A06357 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DCBBD7252EC9255D00A06357 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DCBBD7242EC9255D00A06357 /* Hamilton.app */,
+				DCBBD7322EC9255E00A06357 /* HamiltonTests.xctest */,
+				DCBBD73C2EC9255E00A06357 /* HamiltonUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DCBBD7232EC9255D00A06357 /* Hamilton */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCBBD7462EC9255E00A06357 /* Build configuration list for PBXNativeTarget "Hamilton" */;
+			buildPhases = (
+				DCBBD7202EC9255D00A06357 /* Sources */,
+				DCBBD7212EC9255D00A06357 /* Frameworks */,
+				DCBBD7222EC9255D00A06357 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DCBBD7262EC9255D00A06357 /* Hamilton */,
+			);
+			name = Hamilton;
+			packageProductDependencies = (
+			);
+			productName = Hamilton;
+			productReference = DCBBD7242EC9255D00A06357 /* Hamilton.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DCBBD7312EC9255E00A06357 /* HamiltonTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCBBD7492EC9255E00A06357 /* Build configuration list for PBXNativeTarget "HamiltonTests" */;
+			buildPhases = (
+				DCBBD72E2EC9255E00A06357 /* Sources */,
+				DCBBD72F2EC9255E00A06357 /* Frameworks */,
+				DCBBD7302EC9255E00A06357 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCBBD7342EC9255E00A06357 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DCBBD7352EC9255E00A06357 /* HamiltonTests */,
+			);
+			name = HamiltonTests;
+			packageProductDependencies = (
+			);
+			productName = HamiltonTests;
+			productReference = DCBBD7322EC9255E00A06357 /* HamiltonTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DCBBD73B2EC9255E00A06357 /* HamiltonUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DCBBD74C2EC9255E00A06357 /* Build configuration list for PBXNativeTarget "HamiltonUITests" */;
+			buildPhases = (
+				DCBBD7382EC9255E00A06357 /* Sources */,
+				DCBBD7392EC9255E00A06357 /* Frameworks */,
+				DCBBD73A2EC9255E00A06357 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DCBBD73E2EC9255E00A06357 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DCBBD73F2EC9255E00A06357 /* HamiltonUITests */,
+			);
+			name = HamiltonUITests;
+			packageProductDependencies = (
+			);
+			productName = HamiltonUITests;
+			productReference = DCBBD73C2EC9255E00A06357 /* HamiltonUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DCBBD71C2EC9255D00A06357 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1630;
+				LastUpgradeCheck = 1630;
+				TargetAttributes = {
+					DCBBD7232EC9255D00A06357 = {
+						CreatedOnToolsVersion = 16.3;
+					};
+					DCBBD7312EC9255E00A06357 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = DCBBD7232EC9255D00A06357;
+					};
+					DCBBD73B2EC9255E00A06357 = {
+						CreatedOnToolsVersion = 16.3;
+						TestTargetID = DCBBD7232EC9255D00A06357;
+					};
+				};
+			};
+			buildConfigurationList = DCBBD71F2EC9255D00A06357 /* Build configuration list for PBXProject "Hamilton" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DCBBD71B2EC9255D00A06357;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DCBBD7252EC9255D00A06357 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DCBBD7232EC9255D00A06357 /* Hamilton */,
+				DCBBD7312EC9255E00A06357 /* HamiltonTests */,
+				DCBBD73B2EC9255E00A06357 /* HamiltonUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DCBBD7222EC9255D00A06357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCBBD7302EC9255E00A06357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCBBD73A2EC9255E00A06357 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DCBBD7202EC9255D00A06357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCBBD72E2EC9255E00A06357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DCBBD7382EC9255E00A06357 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DCBBD7342EC9255E00A06357 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCBBD7232EC9255D00A06357 /* Hamilton */;
+			targetProxy = DCBBD7332EC9255E00A06357 /* PBXContainerItemProxy */;
+		};
+		DCBBD73E2EC9255E00A06357 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCBBD7232EC9255D00A06357 /* Hamilton */;
+			targetProxy = DCBBD73D2EC9255E00A06357 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DCBBD7442EC9255E00A06357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DCBBD7452EC9255E00A06357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		DCBBD7472EC9255E00A06357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hamilton/Hamilton.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Frobenoid.Hamilton;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		DCBBD7482EC9255E00A06357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Hamilton/Hamilton.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Frobenoid.Hamilton;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				REGISTER_APP_GROUPS = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		DCBBD74A2EC9255E00A06357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Frobenoid.HamiltonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hamilton.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hamilton";
+			};
+			name = Debug;
+		};
+		DCBBD74B2EC9255E00A06357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Frobenoid.HamiltonTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Hamilton.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Hamilton";
+			};
+			name = Release;
+		};
+		DCBBD74D2EC9255E00A06357 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Frobenoid.HamiltonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Hamilton;
+			};
+			name = Debug;
+		};
+		DCBBD74E2EC9255E00A06357 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S7D5C47W34;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Frobenoid.HamiltonUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = Hamilton;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DCBBD71F2EC9255D00A06357 /* Build configuration list for PBXProject "Hamilton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBBD7442EC9255E00A06357 /* Debug */,
+				DCBBD7452EC9255E00A06357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCBBD7462EC9255E00A06357 /* Build configuration list for PBXNativeTarget "Hamilton" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBBD7472EC9255E00A06357 /* Debug */,
+				DCBBD7482EC9255E00A06357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCBBD7492EC9255E00A06357 /* Build configuration list for PBXNativeTarget "HamiltonTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBBD74A2EC9255E00A06357 /* Debug */,
+				DCBBD74B2EC9255E00A06357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DCBBD74C2EC9255E00A06357 /* Build configuration list for PBXNativeTarget "HamiltonUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DCBBD74D2EC9255E00A06357 /* Debug */,
+				DCBBD74E2EC9255E00A06357 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DCBBD71C2EC9255D00A06357 /* Project object */;
+}
