@@ -14,6 +14,8 @@ class Node {
 
     func execute() throws {}
 
+    /// Used inside the evaluation loop. Returns the current value of the
+    /// output socket at the specified location.
     public func getUntypedOutput(at output: SocketID) throws(GraphError) -> Any?
     {
         if output < outputs.count {
@@ -23,11 +25,13 @@ class Node {
         }
     }
 
+    /// Adds an input to the node, wrapping a desired type.
     public func addInput<T>(_ input: Input<T>) {
         input.id = inputs.count
         inputs.append(input)
     }
 
+    /// Adds an output to the node, wrapping a desired type.
     public func addOutput<T>(_ output: Output<T>) {
         output.id = outputs.count
         outputs.append(output)

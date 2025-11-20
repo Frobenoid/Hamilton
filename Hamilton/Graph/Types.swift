@@ -9,4 +9,4 @@ import Foundation
 
 typealias NodeID = Int
 typealias SocketID = Int
-typealias LinkID = Int
+typealias EdgeID = Int

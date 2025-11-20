@@ -1,5 +1,5 @@
 //
-//  Link.swift
+//  Edge.swift
 //  Hamilton
 //
 //  Created by Milton Montiel on 15/11/25.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-class Link {
+class Edge {
     // Index inside parent edges.
-    var id: LinkID = -1
+    var id: EdgeID = -1
 
     // This is mutable since deletion of a node may
     // required to shift a node index and thus all the
-    // incoming/outgoing links need to be updated
+    // incoming/outgoing edges need to be updated
     // to follow such index.
     var sourceNode: NodeID
     var destinationNode: NodeID

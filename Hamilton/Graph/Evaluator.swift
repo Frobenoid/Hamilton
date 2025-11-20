@@ -79,12 +79,12 @@ extension Evaluator {
             // Get neighbors of current node.
             .filter { $0.sourceNode == node }
             // Propagate values for each neighbor.
-            .forEach { link in
-                let output = try! graph.nodes[link.sourceNode]
-                    .getUntypedOutput(at: link.sourceSocket)
+            .forEach { edge in
+                let output = try! graph.nodes[edge.sourceNode]
+                    .getUntypedOutput(at: edge.sourceSocket)
 
-                try! graph.nodes[link.destinationNode]
-                    .inputs[link.destinationSocket]
+                try! graph.nodes[edge.destinationNode]
+                    .inputs[edge.destinationSocket]
                     .setUntypedCurrentValue(to: output!)
             }
     }

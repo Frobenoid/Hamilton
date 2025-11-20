@@ -9,7 +9,7 @@ import Foundation
 
 class Graph {
     public var nodes: [Node] = []
-    private(set) var edges: [Link] = []
+    private(set) var edges: [Edge] = []
 
     public func addNode(_ node: Node) {
         node.id = nodes.count
@@ -19,7 +19,7 @@ class Graph {
     /// Deletes a node and all of its incident edges.
     public func deleteNode(withID id: NodeID) {
         // First we remove all incoming and
-        // outgoing links.
+        // outgoing edges.
         edges.filter({
             $0.destinationNode == id || $0.sourceNode == id
         })
@@ -60,40 +60,40 @@ class Graph {
         nodes.removeLast()
     }
 
-    /// Connects two nodes as specified by the provided ``Link``.
-    public func connect(_ link: Link) {
-        link.id = edges.count
-        edges.append(link)
+    /// Connects two nodes as specified by the provided ``Edge``.
+    public func connect(_ edge: Edge) {
+        edge.id = edges.count
+        edges.append(edge)
 
         // Mark destination socket as connected.
-        nodes[link.destinationNode]
-            .inputs[link.destinationSocket]
+        nodes[edge.destinationNode]
+            .inputs[edge.destinationSocket]
             .toggleConnection()
 
     }
 
-    /// Deletes the provided link.
-    public func disconnect(_ link: LinkID) {
+    /// Deletes the provided edge.
+    public func disconnect(_ edge: EdgeID) {
         // Restore values to default.
-        let edge = edges[link]
+        let arrow = edges[edge]
 
-        nodes[edge.sourceNode]
-            .outputs[edge.sourceSocket]
+        nodes[arrow.sourceNode]
+            .outputs[arrow.sourceSocket]
             .restoreToDefaultValue()
 
-        nodes[edge.destinationNode]
-            .inputs[edge.destinationSocket]
+        nodes[arrow.destinationNode]
+            .inputs[arrow.destinationSocket]
             .restoreToDefaultValue()
 
         // Mark destination socket as receiving
         // no connection.
-        nodes[edge.destinationNode]
-            .inputs[edge.destinationSocket]
+        nodes[arrow.destinationNode]
+            .inputs[arrow.destinationSocket]
             .toggleConnection()
 
-        // Delete link.
-        edges.swapAt(link, edges.count - 1)
-        edges[link].id = link
+        // Delete edge.
+        edges.swapAt(edge, edges.count - 1)
+        edges[edge].id = edge
         edges.removeLast()
 
     }

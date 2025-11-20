@@ -20,7 +20,7 @@ struct HamiltonTests {
 
         // 0 -> 2
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 0,
                 sourceSocket: 0,
                 destinationNode: 2,
@@ -30,7 +30,7 @@ struct HamiltonTests {
 
         // 1 -> 2
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 1,
                 sourceSocket: 0,
                 destinationNode: 2,
@@ -40,7 +40,7 @@ struct HamiltonTests {
 
         // 2 -> 3
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 2,
                 sourceSocket: 0,
                 destinationNode: 3,
@@ -50,7 +50,7 @@ struct HamiltonTests {
 
         // 1 -> 3
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 1,
                 sourceSocket: 0,
                 destinationNode: 3,
@@ -80,7 +80,7 @@ struct HamiltonTests {
 
         // 0 -> 2
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 0,
                 sourceSocket: 0,
                 destinationNode: 2,
@@ -90,7 +90,7 @@ struct HamiltonTests {
 
         // 1 -> 2
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 1,
                 sourceSocket: 0,
                 destinationNode: 2,
@@ -100,7 +100,7 @@ struct HamiltonTests {
 
         // 2 -> 3
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 2,
                 sourceSocket: 0,
                 destinationNode: 3,
@@ -110,7 +110,7 @@ struct HamiltonTests {
 
         // 1 -> 3
         graph.connect(
-            Link(
+            Edge(
                 sourceNode: 1,
                 sourceSocket: 0,
                 destinationNode: 3,
@@ -127,5 +127,11 @@ struct HamiltonTests {
         try! evaluator.evaluate()
 
         #expect(graph.nodes[2].outputs[0].currentValue as! Float == 1.0)
+        
+        graph.disconnect(0)
+        
+        try! evaluator.evaluate()
+
+        #expect(graph.nodes[2].outputs[0].currentValue as! Float == 0)
     }
 }
