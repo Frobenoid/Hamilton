@@ -64,6 +64,12 @@ class Graph {
     public func connect(_ link: Link) {
         link.id = edges.count
         edges.append(link)
+
+        // Mark destination socket as connected.
+        nodes[link.destinationNode]
+            .inputs[link.destinationSocket]
+            .toggleConnection()
+
     }
 
     /// Deletes the provided link.
@@ -78,6 +84,12 @@ class Graph {
         nodes[edge.destinationNode]
             .inputs[edge.destinationSocket]
             .restoreToDefaultValue()
+
+        // Mark destination socket as receiving
+        // no connection.
+        nodes[edge.destinationNode]
+            .inputs[edge.destinationSocket]
+            .toggleConnection()
 
         // Delete link.
         edges.swapAt(link, edges.count - 1)

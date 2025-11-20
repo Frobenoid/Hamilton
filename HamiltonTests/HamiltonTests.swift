@@ -72,7 +72,7 @@ struct HamiltonTests {
     @Test func graphEvaluation() {
         var graph = Graph()
         let evaluator = Evaluator(graph: &graph)
-        
+
         graph.addNode(ConstantNode())  // 0
         graph.addNode(ConstantNode())  // 1
         graph.addNode(BinOpNode())  // 2
@@ -117,13 +117,13 @@ struct HamiltonTests {
                 destinationSocket: 1
             )
         )
-        
+
         try! evaluator.evaluate()
-        
+
         #expect(graph.nodes[3].outputs[0].currentValue as! Float == 3.0)
 
         graph.deleteNode(withID: 2)
-        
+
         try! evaluator.evaluate()
 
         #expect(graph.nodes[2].outputs[0].currentValue as! Float == 1.0)

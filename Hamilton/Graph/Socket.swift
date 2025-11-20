@@ -9,22 +9,25 @@ import Foundation
 
 protocol Socket {
     associatedtype S
-
+    
     var currentValue: S? { get }
     var defaultValue: S? { get }
-
+    
     /// Used to construct the socket.
     func withDefaultValue(_ defaultValue: S) -> Self
-
+    
     /// Id inside parent node.
     var id: SocketID { get set }
-
+    
     /// Tries to cast from `Any` to `T`.
     func setUntypedCurrentValue(to value: Any) throws(GraphError)
     /// Returns the current value wrapped by the input.
     func untypedCurrentValue() -> Any?
     /// Sets the current value to the default one, which could be null.
     func restoreToDefaultValue()
+    
+    /// Marks this as connected to another socket.
+    func toggleConnection()
 }
 
 class Output<T>: Socket {
@@ -54,8 +57,14 @@ class Output<T>: Socket {
         currentValue = defaultValue
     }
 
+    func toggleConnection() {}
 }
 
 class Input<T>: Output<T> {
     var isConnected: Bool = false
+    
+    override func toggleConnection() {
+        isConnected.toggle()
+    }
+    
 }
