@@ -20,17 +20,22 @@ class Graph {
     public func deleteNode(withID id: NodeID) {
         // First we remove all incoming and
         // outgoing links.
-        edges.filter({ $0.destinationNode == id || $0.sourceNode == id })
-            .forEach {
-                disconnect($0.id)
-            }
+        edges.filter({
+            $0.destinationNode == id || $0.sourceNode == id
+        })
+        .forEach {
+            disconnect($0.id)
+        }
 
         if id < nodes.count - 1 {
             let prevId = nodes.count - 1
+
             nodes.swapAt(id, prevId)
+
             // Update swapped node id.
             nodes[id].id = id
-            // Updates the origin of all connections that
+
+            // Update the origin of all connections that
             // were previously linked to the node at the top
             // of the stack.
 
@@ -73,7 +78,7 @@ class Graph {
         nodes[edge.destinationNode]
             .inputs[edge.destinationSocket]
             .restoreToDefaultValue()
-        
+
         // Delete link.
         edges.swapAt(link, edges.count - 1)
         edges[link].id = link
