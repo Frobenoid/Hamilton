@@ -14,7 +14,17 @@ class Evaluator {
         self.graph = graph
     }
 
-    func evaluate() {
+    func evaluate() throws(GraphError) {
+        // TODO: Handle errors!
+        try! validateGraph()
+
+        executionOrder
+            .reversed()
+            .forEach { node in
+                execute(node)
+                propagateValues(for: node)
+            }
+
     }
 }
 
@@ -63,7 +73,7 @@ extension Evaluator {
 
     }
 
-    private func propagateValue(for node: NodeID) {
+    private func propagateValues(for node: NodeID) {
         graph
             .edges
             // Get neighbors of current node.
@@ -80,8 +90,8 @@ extension Evaluator {
     }
 
     /// ``node`` should always be within range.
-    private func execute(node: NodeID) {
-        // TODO: Handle error. 
-        try! graph.nodes[node].execute()
+    private func execute(_ node: NodeID) {
+        try? graph.nodes[node].execute()
     }
+
 }

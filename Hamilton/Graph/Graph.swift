@@ -7,10 +7,6 @@
 
 import Foundation
 
-class FinalNode {
-
-}
-
 class Graph {
     public var nodes: [Node] = []
     private(set) var edges: [Link] = []
@@ -67,9 +63,22 @@ class Graph {
 
     /// Deletes the provided link.
     public func disconnect(_ link: LinkID) {
+        // Restore values to default.
+        let edge = edges[link]
+
+        nodes[edge.sourceNode]
+            .outputs[edge.sourceSocket]
+            .restoreToDefaultValue()
+
+        nodes[edge.destinationNode]
+            .inputs[edge.destinationSocket]
+            .restoreToDefaultValue()
+        
+        // Delete link.
         edges.swapAt(link, edges.count - 1)
         edges[link].id = link
         edges.removeLast()
+
     }
 
 }

@@ -63,6 +63,7 @@ class Output<T>: Socket {
     
     func withDefaultValue(_ defaultValue: T) -> Self {
         self.defaultValue = defaultValue
+        self.currentValue = defaultValue
         return self
     }
 
