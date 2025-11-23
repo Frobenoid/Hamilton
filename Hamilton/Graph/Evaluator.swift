@@ -14,9 +14,8 @@ class Evaluator {
         self.graph = graph
     }
 
-    func evaluate() throws(GraphError) {
-        // TODO: Handle errors!
-        try! validateGraph()
+    func evaluate() throws  {
+        try validateGraph()
 
         executionOrder
             .reversed()
@@ -33,25 +32,25 @@ extension Evaluator {
         case white, gray, black
     }
 
-    private func validateGraph() throws(GraphError) {
+    private func validateGraph() throws {
         executionOrder = []
         try dfs()
     }
 
-    private func dfs() throws(GraphError) {
+    private func dfs() throws {
         colors = Dictionary(
             uniqueKeysWithValues: graph.nodes.indices.map { ($0, .white) }
         )
 
         // TODO: This should start with the distinguished node.
-        try? graph.nodes.indices.forEach { nodeId in
+        try graph.nodes.indices.forEach { nodeId in
             if colors[nodeId] == .white {
                 try visit(nodeId)
             }
         }
     }
 
-    private func visit(_ node: NodeID) throws(GraphError) {
+    private func visit(_ node: NodeID) throws {
         // Mark as discovered
         colors[node] = .gray
 
@@ -63,8 +62,8 @@ extension Evaluator {
         }
 
         // Visit unexplored nodes.
-        neighbors.filter { colors[$0.destinationNode] == .white }.forEach {
-            try? visit($0.destinationNode)
+        try neighbors.filter { colors[$0.destinationNode] == .white }.forEach {
+            try visit($0.destinationNode)
         }
 
         // Mark as explored

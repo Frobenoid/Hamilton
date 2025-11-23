@@ -127,11 +127,45 @@ struct HamiltonTests {
         try! evaluator.evaluate()
 
         #expect(graph.nodes[2].outputs[0].currentValue as! Float == 1.0)
-        
+
         graph.disconnect(0)
-        
+
         try! evaluator.evaluate()
 
         #expect(graph.nodes[2].outputs[0].currentValue as! Float == 0)
+    }
+
+    @Test func cycleDetection() {
+        var graph = Graph()
+        let evaluator = Evaluator(graph: &graph)
+
+        graph.addNode(BinOpNode())
+        graph.addNode(BinOpNode())
+
+        graph.connect(
+            Edge(
+                sourceNode: 0,
+                sourceSocket: 0,
+                destinationNode: 1,
+                destinationSocket: 0
+            )
+        )
+
+        graph.connect(
+            Edge(
+                sourceNode: 1,
+                sourceSocket: 0,
+                destinationNode: 0,
+                destinationSocket: 0
+            )
+        )
+
+        #expect(
+            throws: (any Error).self,
+            "Contains a cycle.",
+            performing: {
+                try evaluator.evaluate()
+            }
+        )
     }
 }
