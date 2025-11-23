@@ -11,7 +11,13 @@ class Node {
     var inputs: [any Socket] = []
     var outputs: [any Socket] = []
     var id: Int = -1
-
+    
+    // UI Related (move this)
+    var label: String = ""
+    var isSelected: Bool = false
+    var isDragging: Bool = false
+    var offset: CGSize = .zero
+    
     public func execute() throws {}
 
     /// Used inside the evaluation loop. Returns the current value of the

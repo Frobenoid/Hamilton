@@ -15,6 +15,7 @@ class BinOpNode: Node {
 
     init(variant: Operation = .sum) {
         super.init()
+        label = "Binary Operation"
 
         addInput(
             Input<Float>()

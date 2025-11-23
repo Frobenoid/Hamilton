@@ -10,6 +10,10 @@ import Foundation
 class ConstantNode: Node {
     override init() {
         super.init()
-        addOutput(Output<Float>().withDefaultValue(1))
+        label = "Constant"
+        addOutput(
+            Output<Float>()
+                .withDefaultValue(1)
+        )
     }
 }

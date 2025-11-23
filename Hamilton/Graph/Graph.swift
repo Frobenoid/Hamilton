@@ -7,6 +7,7 @@
 
 import Foundation
 
+@Observable
 class Graph {
     public var nodes: [Node] = []
     private(set) var edges: [Edge] = []
