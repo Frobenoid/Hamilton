@@ -12,16 +12,26 @@ class Node {
     var outputs: [any Socket] = []
     var id: Int = -1
 
-    func execute() throws {}
+    public func execute() throws {}
 
     /// Used inside the evaluation loop. Returns the current value of the
     /// output socket at the specified location.
     public func getUntypedOutput(at output: SocketID) throws(GraphError) -> Any?
     {
         if output < outputs.count {
-            return outputs[output].currentValue
+            return outputs[output].untypedCurrentValue()
         } else {
             throw GraphError.outOfRangeOutput(output: output)
+        }
+    }
+
+    public func setUntypedInput(at input: SocketID, to value: Any)
+        throws(GraphError)
+    {
+        if input < inputs.count {
+            try inputs[input].setUntypedCurrentValue(to: value)
+        } else {
+            throw GraphError.outOfRangeInput(input: input)
         }
     }
 

@@ -13,18 +13,20 @@ class BinOpNode: Node {
         case sum, mul, sub, div
     }
 
-    override init() {
+    init(variant: Operation = .sum) {
         super.init()
 
-        self.addInput(
+        addInput(
             Input<Float>()
                 .withDefaultValue(0)
         )
-        self.addInput(
+
+        addInput(
             Input<Float>()
                 .withDefaultValue(0)
         )
-        self.addOutput(
+
+        addOutput(
             Output<Float>()
                 .withDefaultValue(0)
         )
