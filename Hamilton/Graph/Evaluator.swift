@@ -10,7 +10,7 @@ class Evaluator {
     private var colors: [NodeID: Color] = [:]
     private var executionOrder: [NodeID] = []
 
-    init(graph: inout Graph) {
+    init(graph: Graph) {
         self.graph = graph
     }
 
