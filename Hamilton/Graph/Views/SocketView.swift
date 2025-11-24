@@ -53,12 +53,7 @@ struct InputView: View {
                     }
                 )
 
-            if input.isConnected {
-                Text("\(input.currentValue)")
-                    .foregroundStyle(.secondary)
-            } else if input.isUserModifiable {
-                SocketDeclarationView(socket: input)
-            }
+            SocketDeclarationView(socket: input, displayOnly: input.isConnected)
         }
     }
 }
@@ -69,10 +64,7 @@ struct OutputView: View {
 
     var body: some View {
         HStack {
-            Text("\(output.currentValue)")
-            if output.isUserModifiable {
-                SocketDeclarationView(socket: output)
-            }
+            SocketDeclarationView(socket: output)
             Circle()
                 .fill(Color.red)
                 .frame(width: 20)
