@@ -17,9 +17,12 @@ protocol Socket {
     var currentValue: T? { get }
     var defaultValue: T? { get }
     var isConnected: Bool { get set }
+    var isUserModifiable: Bool { get }
 
     /// Used to construct the socket.
     func withDefaultValue(_ defaultValue: T) -> Self
+
+    func asUserModifiable() -> Self
 
     /// Tries to cast from `Any` to `T`.
     func setUntypedCurrentValue(to value: Any) throws(GraphError)
@@ -57,10 +60,16 @@ class Output<T>: Socket {
     var defaultValue: T?
     var currentValue: T?
     var isConnected = false
+    var isUserModifiable = false
 
     func withDefaultValue(_ defaultValue: T) -> Self {
         self.defaultValue = defaultValue
         self.currentValue = defaultValue
+        return self
+    }
+
+    func asUserModifiable() -> Self {
+        isUserModifiable = true
         return self
     }
 

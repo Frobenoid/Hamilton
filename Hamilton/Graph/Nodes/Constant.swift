@@ -14,6 +14,8 @@ class ConstantNode: Node {
         addOutput(
             Output<Float>()
                 .withDefaultValue(1)
+                .asUserModifiable()
         )
+        
     }
 }

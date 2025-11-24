@@ -53,12 +53,10 @@ struct InputView: View {
                     }
                 )
 
-            // Bidirectional / Reactive Value Display
             if input.isConnected {
-                // Read-only when connected (value comes from source)
                 Text("\(input.currentValue)")
                     .foregroundStyle(.secondary)
-            } else {
+            } else if input.isUserModifiable {
                 if let inp = input as? Input<Float> {
                     Slider(
                         value: Binding(
@@ -67,14 +65,12 @@ struct InputView: View {
                                 try? inp.setUntypedCurrentValue(
                                     to: newValue
                                 )
-                                // 2. Trigger Reactivity (Propagate)
                                 try? Evaluator(graph: graph).evaluate()
                             }
                         ),
                         in: 0...1
                     )
                 }
-                // Editable when disconnected
             }
         }
     }
@@ -87,21 +83,21 @@ struct OutputView: View {
     var body: some View {
         HStack {
             Text("\(output.currentValue)")
-            if let out = output as? Output<Float> {
-
-                Slider(
-                    value: Binding(
-                        get: { out.currentValue ?? 0.0 },
-                        set: { newValue in
-                            try? out.setUntypedCurrentValue(
-                                to: newValue
-                            )
-                            // 2. Trigger Reactivity (Propagate)
-                            try? Evaluator(graph: graph).evaluate()
-                        }
-                    ),
-                    in: -1...1
-                )
+            if output.isUserModifiable {
+                if let out = output as? Output<Float> {
+                    Slider(
+                        value: Binding(
+                            get: { out.currentValue ?? 0.0 },
+                            set: { newValue in
+                                try? out.setUntypedCurrentValue(
+                                    to: newValue
+                                )
+                                try? Evaluator(graph: graph).evaluate()
+                            }
+                        ),
+                        in: -1...1
+                    )
+                }
             }
             Circle()
                 .fill(Color.red)
