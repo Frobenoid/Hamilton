@@ -13,6 +13,7 @@ struct ContentView: View {
         g.addNode(ConstantNode())
         g.addNode(ConstantNode())
         g.addNode(BinOpNode())
+        g.addNode(PrimitiveNode())
         
         return g
     }()

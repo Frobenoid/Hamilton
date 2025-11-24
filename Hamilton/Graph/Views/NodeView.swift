@@ -46,7 +46,7 @@ struct NodeView: View {
             }
         }
         .background()
-        .frame(width: 200, height: 170)
+        .frame(width: 350, height: 170)
         .offset(
             self.node.isDragging
                 ? CGSize(
@@ -77,7 +77,7 @@ struct NodeView: View {
 #Preview {
     @Previewable @State var graph = {
         var g = Graph()
-        g.addNode(BinOpNode())
+        g.addNode(PrimitiveNode())
         return g
     }()
 

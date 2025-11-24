@@ -57,20 +57,7 @@ struct InputView: View {
                 Text("\(input.currentValue)")
                     .foregroundStyle(.secondary)
             } else if input.isUserModifiable {
-                if let inp = input as? Input<Float> {
-                    Slider(
-                        value: Binding(
-                            get: { inp.currentValue ?? 0.0 },
-                            set: { newValue in
-                                try? inp.setUntypedCurrentValue(
-                                    to: newValue
-                                )
-                                try? Evaluator(graph: graph).evaluate()
-                            }
-                        ),
-                        in: 0...1
-                    )
-                }
+                SocketDeclarationView(socket: input)
             }
         }
     }
@@ -84,20 +71,7 @@ struct OutputView: View {
         HStack {
             Text("\(output.currentValue)")
             if output.isUserModifiable {
-                if let out = output as? Output<Float> {
-                    Slider(
-                        value: Binding(
-                            get: { out.currentValue ?? 0.0 },
-                            set: { newValue in
-                                try? out.setUntypedCurrentValue(
-                                    to: newValue
-                                )
-                                try? Evaluator(graph: graph).evaluate()
-                            }
-                        ),
-                        in: -1...1
-                    )
-                }
+                SocketDeclarationView(socket: output)
             }
             Circle()
                 .fill(Color.red)
