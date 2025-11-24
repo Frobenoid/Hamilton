@@ -18,6 +18,7 @@ protocol Socket {
     var defaultValue: T? { get }
     var isConnected: Bool { get set }
     var isUserModifiable: Bool { get }
+    var label: String { get }
 
     /// Used to construct the socket.
     func withDefaultValue(_ defaultValue: T) -> Self
@@ -61,6 +62,7 @@ class Output<T>: Socket {
     var currentValue: T?
     var isConnected = false
     var isUserModifiable = false
+    var label: String = ""
 
     func withDefaultValue(_ defaultValue: T) -> Self {
         self.defaultValue = defaultValue
@@ -70,6 +72,11 @@ class Output<T>: Socket {
 
     func asUserModifiable() -> Self {
         isUserModifiable = true
+        return self
+    }
+
+    func withLabel(_ newLabel: String) -> Self {
+        label = newLabel
         return self
     }
 

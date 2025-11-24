@@ -19,10 +19,20 @@ enum PrimitiveType: String, CaseIterable, Identifiable {
 class PrimitiveNode: Node {
     override init() {
         super.init()
+        // Type of the primitive.
         addOutput(
             Output<PrimitiveType>()
                 .withDefaultValue(.box)
                 .asUserModifiable()
+                .withLabel("Primitive Type")
+        )
+
+        // Scale
+        addInput(
+            Input<Float>()
+                .withDefaultValue(1.0)
+                .asUserModifiable()
+                .withLabel("Scale")
         )
     }
 }
