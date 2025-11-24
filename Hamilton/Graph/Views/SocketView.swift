@@ -47,7 +47,7 @@ struct InputView: View {
                         [
                             SocketAnchor(
                                 nodeID: input.parentID,
-                                socketID: input.id
+                                socketID: input.id,
                             ): anchor
                         ]
                     }
@@ -65,26 +65,27 @@ struct OutputView: View {
             Circle()
                 .fill(Color.red)
                 .frame(width: 20)
+                .anchorPreference(
+                    key: SocketAnchorKey.self,
+                    value: .center,
+                    transform: {
+                        anchor in
+                        [
+                            SocketAnchor(
+                                nodeID: output.parentID,
+                                socketID: output.id,
+                                isOutput: true
+                            ): anchor
+                        ]
+                    }
+                )
+                .draggable(
+                    DraggableData(
+                        sourceSocket: output.id,
+                        sourceNode: output.parentID,
+                    )
+                )
         }
-        .anchorPreference(
-            key: SocketAnchorKey.self,
-            value: .center,
-            transform: {
-                anchor in
-                [
-                    SocketAnchor(
-                        nodeID: output.parentID,
-                        socketID: output.id
-                    ): anchor
-                ]
-            }
-        )
-        .draggable(
-            DraggableData(
-                sourceSocket: output.id,
-                sourceNode: output.parentID
-            )
-        )
     }
 }
 

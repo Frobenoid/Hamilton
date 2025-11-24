@@ -47,6 +47,7 @@ public struct SocketAnchorKey: PreferenceKey {
 public struct SocketAnchor: Hashable {
     public let nodeID: NodeID
     public let socketID: SocketID
+    public var isOutput: Bool = false
 }
 
 class Output<T>: Socket {
