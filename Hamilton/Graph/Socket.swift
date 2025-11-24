@@ -50,6 +50,7 @@ public struct SocketAnchor: Hashable {
     public var isOutput: Bool = false
 }
 
+@Observable
 class Output<T>: Socket {
     var id: SocketID = -1
     var parentID: NodeID = -1

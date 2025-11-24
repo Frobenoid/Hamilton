@@ -7,6 +7,7 @@
 
 import Foundation
 
+@Observable
 class Node {
     var inputs: [any Socket] = []
     var outputs: [any Socket] = []

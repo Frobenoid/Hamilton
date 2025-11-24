@@ -57,6 +57,7 @@ struct GraphCanvas: View {
                             TapGesture(count: 2).onEnded({
                                 _ in
                                 graph.disconnect(edge.id)
+                                try! Evaluator(graph: graph).evaluate()
                             })
                         )
                 }
