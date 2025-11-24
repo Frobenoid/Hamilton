@@ -52,16 +52,57 @@ struct InputView: View {
                         ]
                     }
                 )
-            Text("\(input.currentValue)")
+
+            // Bidirectional / Reactive Value Display
+            if input.isConnected {
+                // Read-only when connected (value comes from source)
+                Text("\(input.currentValue)")
+                    .foregroundStyle(.secondary)
+            } else {
+                if let inp = input as? Input<Float> {
+                    Slider(
+                        value: Binding(
+                            get: { inp.currentValue ?? 0.0 },
+                            set: { newValue in
+                                try? inp.setUntypedCurrentValue(
+                                    to: newValue
+                                )
+                                // 2. Trigger Reactivity (Propagate)
+                                try? Evaluator(graph: graph).evaluate()
+                            }
+                        ),
+                        in: 0...1
+                    )
+                }
+                // Editable when disconnected
+            }
         }
     }
 }
 
 struct OutputView: View {
     var output: any Socket
+    @Environment(Graph.self) var graph
+
     var body: some View {
         HStack {
             Text("\(output.currentValue)")
+            if let out = output as? Output<Float> {
+
+                Slider(
+                    value: Binding(
+                        get: { out.currentValue ?? 0.0 },
+                        set: { newValue in
+                            try? out.setUntypedCurrentValue(
+                                to: newValue
+                            )
+                            // 2. Trigger Reactivity (Propagate)
+                            try? Evaluator(graph: graph).evaluate()
+                        }
+                    ),
+                    in: -1...1
+                )
+            }
             Circle()
                 .fill(Color.red)
                 .frame(width: 20)
@@ -90,7 +131,10 @@ struct OutputView: View {
 }
 
 #Preview {
-    @Previewable @State var input: any Socket = Input<Int>().withDefaultValue(0)
+    @Previewable @State var graph = Graph()
+    @Previewable @State var input: any Socket = Input<Float>().withDefaultValue(
+        0
+    )
 
-    InputView(input: input)
+    InputView(input: input).environment(graph)
 }
