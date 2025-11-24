@@ -81,5 +81,5 @@ struct NodeView: View {
         return g
     }()
 
-    NodeView(node: graph.nodes[0])
+    NodeView(node: graph.nodes[0]).environment(graph)
 }
