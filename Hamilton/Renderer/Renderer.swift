@@ -27,7 +27,6 @@ class Renderer: NSObject {
         return device.makeDefaultLibrary()
     }()
 
-    var triangle = Mesh.triangle
     var mesh: MTKMesh!
     var vertexBuffer: MTLBuffer!
 
@@ -52,16 +51,11 @@ class Renderer: NSObject {
         Self.device = device
         Self.commandQueue = commandQueue
         metalView.device = Self.device
-        
-
-        // MARK: - Render pass initialization.
-        //        forwardPass = ForwardPass(view: metalView)
-        //        wireframePass = WireframePass(view: metalView)
 
         // Mesh creation
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
         let mdlMesh = MDLMesh(
-            boxWithExtent: [1, 1, 1],
+            boxWithExtent: [1, 1, 0.5],
             segments: [1, 1, 1],
             inwardNormals: false,
             geometryType: .triangles,
@@ -76,7 +70,7 @@ class Renderer: NSObject {
 
         vertexBuffer = mesh.vertexBuffers[0].buffer
 
-//        metalView.depthStencilPixelFormat = .depth32Float
+        //        metalView.depthStencilPixelFormat = .depth32Float
         // Metal library setup
         let library = Renderer.device.makeDefaultLibrary()
         Self.library = library
@@ -90,7 +84,7 @@ class Renderer: NSObject {
         pipelineDescriptor.colorAttachments[0].pixelFormat =
             metalView.colorPixelFormat
         pipelineDescriptor.vertexDescriptor =
-            MTKMetalVertexDescriptorFromModelIO(mdlMesh.vertexDescriptor)
+            .defaultLayout
 
         do {
             pipelineState = try Renderer.device.makeRenderPipelineState(
@@ -179,15 +173,19 @@ extension Renderer {
         //        )
 
         renderEncoder.setRenderPipelineState(pipelineState)
-        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-        for submesh in mesh.submeshes {
-            renderEncoder.drawIndexedPrimitives(
-                type: .triangle,
-                indexCount: submesh.indexCount,
-                indexType: submesh.indexType,
-                indexBuffer: submesh.indexBuffer.buffer,
-                indexBufferOffset: submesh.indexBuffer.offset
-            )
+//        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+//        for submesh in mesh.submeshes {
+//            renderEncoder.drawIndexedPrimitives(
+//                type: .lineStrip,
+//                indexCount: submesh.indexCount,
+//                indexType: submesh.indexType,
+//                indexBuffer: submesh.indexBuffer.buffer,
+//                indexBufferOffset: submesh.indexBuffer.offset
+//            )
+//        }
+
+        for model in scene.models {
+            model.render(encoder: renderEncoder)
         }
 
         renderEncoder.endEncoding()

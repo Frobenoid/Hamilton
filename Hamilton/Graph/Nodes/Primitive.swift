@@ -57,10 +57,10 @@ class PrimitiveNode: Node {
                 .asUserModifiable()
         )
 
-        addOutput(
-            Output<Mesh>()
-                .withDefaultValue(.triangle)
-                .withLabel("Output Mesh")
-        )
+//        addOutput(
+//            Output<Mesh>()
+//                .withDefaultValue(.triangle)
+//                .withLabel("Output Mesh")
+//        )
     }
 }

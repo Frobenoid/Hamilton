@@ -10,12 +10,18 @@ import Foundation
 @Observable
 class HScene {
 
+    var models: [Model] = []
+
+    init() {
+        self.models.append(Model(name: "sphere", type: .box))
+    }
+
     func update(size: CGSize) {
-//        camera.update(size: size)
-//        camera.currentViewSize = size
+        //        camera.update(size: size)
+        //        camera.currentViewSize = size
     }
 
     func update(deltaTime: Float) {
-//        camera.update(deltaTime: deltaTime)
+        //        camera.update(deltaTime: deltaTime)
     }
 }
