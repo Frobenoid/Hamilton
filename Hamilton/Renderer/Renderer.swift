@@ -27,6 +27,11 @@ class Renderer: NSObject {
         return device.makeDefaultLibrary()
     }()
 
+    var triangle = Mesh.triangle
+    var mesh: MTKMesh!
+    var vertexBuffer: MTLBuffer!
+
+    var pipelineState: MTLRenderPipelineState!
     // MARK: - Render passes
     //    var forwardPass: ForwardPass
     //    var wireframePass: WireframePass
@@ -38,23 +43,74 @@ class Renderer: NSObject {
     var lastTime: Double = CFAbsoluteTimeGetCurrent()
 
     init(metalView: MTKView) {
+        guard
+            let device = MTLCreateSystemDefaultDevice(),
+            let commandQueue = device.makeCommandQueue()
+        else {
+            fatalError("Metal is not supported on this device.")
+        }
+        Self.device = device
+        Self.commandQueue = commandQueue
         metalView.device = Self.device
+        
 
         // MARK: - Render pass initialization.
         //        forwardPass = ForwardPass(view: metalView)
         //        wireframePass = WireframePass(view: metalView)
 
-        metalView.clearColor = MTLClearColor(
-            red: 0.86,
-            green: 0.86,
-            blue: 0.96,
-            alpha: 1
+        // Mesh creation
+        let allocator = MTKMeshBufferAllocator(device: Renderer.device)
+        let mdlMesh = MDLMesh(
+            boxWithExtent: [1, 1, 1],
+            segments: [1, 1, 1],
+            inwardNormals: false,
+            geometryType: .triangles,
+            allocator: allocator
         )
+
+        do {
+            mesh = try MTKMesh(mesh: mdlMesh, device: Renderer.device)
+        } catch {
+            print(error.localizedDescription)
+        }
+
+        vertexBuffer = mesh.vertexBuffers[0].buffer
+
+//        metalView.depthStencilPixelFormat = .depth32Float
+        // Metal library setup
+        let library = Renderer.device.makeDefaultLibrary()
+        Self.library = library
+        let vertexFunction = library?.makeFunction(name: "vertex_main")
+        let fragmentFunction = library?.makeFunction(name: "fragment_main")
+
+        // PSO creation
+        let pipelineDescriptor = MTLRenderPipelineDescriptor()
+        pipelineDescriptor.vertexFunction = vertexFunction
+        pipelineDescriptor.fragmentFunction = fragmentFunction
+        pipelineDescriptor.colorAttachments[0].pixelFormat =
+            metalView.colorPixelFormat
+        pipelineDescriptor.vertexDescriptor =
+            MTKMetalVertexDescriptorFromModelIO(mdlMesh.vertexDescriptor)
+
+        do {
+            pipelineState = try Renderer.device.makeRenderPipelineState(
+                descriptor: pipelineDescriptor
+            )
+        } catch {
+            fatalError(error.localizedDescription)
+        }
 
         super.init()
 
-        metalView.depthStencilPixelFormat = .depth32Float
+        metalView.clearColor = MTLClearColor(
+            red: 1.0,
+            green: 1.0,
+            blue: 0.8,
+            alpha: 1.0
+        )
+
         mtkView(metalView, drawableSizeWillChange: metalView.drawableSize)
+
     }
 
     static func buildDepthStencilState() -> MTLDepthStencilState? {
@@ -78,37 +134,63 @@ extension Renderer {
     }
 
     func updateUniforms(scene: HScene) {
-//        uniforms.viewMatrix = scene.camera.viewMatrix
-//        uniforms.projectionMatrix = scene.camera.projectionMatrix
-//        params.cameraPosition = scene.camera.position
-//        params.lightCount = UInt32(scene.lighting.lights.count)
+        //        uniforms.viewMatrix = scene.camera.viewMatrix
+        //        uniforms.projectionMatrix = scene.camera.projectionMatrix
+        //        params.cameraPosition = scene.camera.position
+        //        params.lightCount = UInt32(scene.lighting.lights.count)
     }
 
     /// Called each frame from ``Scene``.
     func draw(scene: HScene, in view: MTKView) {
         guard
             let commandBuffer = Self.commandQueue.makeCommandBuffer(),
-            let descriptor = view.currentRenderPassDescriptor
+            let descriptor = view.currentRenderPassDescriptor,
+            let renderEncoder = commandBuffer.makeRenderCommandEncoder(
+                descriptor: descriptor
+            )
         else { return }
 
         updateUniforms(scene: scene)
 
+        //        renderEncoder.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+        //        renderEncoder.drawIndexedPrimitives(
+        //            type: .triangle,
+        //            indexCount: 3,
+        //            indexType: .uint32,
+        //            indexBuffer: ,
+        //            indexBufferOffset: 0
+        //        )
+
         // MARK: - Render passes
-//        wireframePass.descriptor = descriptor
-//        wireframePass.draw(
-//            commandBuffer: commandBuffer,
-//            scene: scene,
-//            uniforms: uniforms,
-//            params: params
-//        )
-//
-//        forwardPass.descriptor = descriptor
-//        forwardPass.draw(
-//            commandBuffer: commandBuffer,
-//            scene: scene,
-//            uniforms: uniforms,
-//            params: params
-//        )
+        //        wireframePass.descriptor = descriptor
+        //        wireframePass.draw(
+        //            commandBuffer: commandBuffer,
+        //            scene: scene,
+        //            uniforms: uniforms,
+        //            params: params
+        //        )
+        //
+        //        forwardPass.descriptor = descriptor
+        //        forwardPass.draw(
+        //            commandBuffer: commandBuffer,
+        //            scene: scene,
+        //            uniforms: uniforms,
+        //            params: params
+        //        )
+
+        renderEncoder.setRenderPipelineState(pipelineState)
+        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+        for submesh in mesh.submeshes {
+            renderEncoder.drawIndexedPrimitives(
+                type: .triangle,
+                indexCount: submesh.indexCount,
+                indexType: submesh.indexType,
+                indexBuffer: submesh.indexBuffer.buffer,
+                indexBufferOffset: submesh.indexBuffer.offset
+            )
+        }
+
+        renderEncoder.endEncoding()
 
         // MARK: - Presenting to a drawable
         guard let drawable = view.currentDrawable else {
