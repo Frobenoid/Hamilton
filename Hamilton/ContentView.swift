@@ -19,8 +19,11 @@ struct ContentView: View {
         return g
     }()
 
+    @State private var scene = HScene()
+
     var body: some View {
         ZStack {
+            MetalView(scene: $scene)
             ScrollView([.horizontal, .vertical]) {
                 GraphCanvas()
                     .frame(width: 2000, height: 2000)
@@ -29,6 +32,7 @@ struct ContentView: View {
                     .focusable(false)
             }
             .defaultScrollAnchor(UnitPoint(x: 0.5, y: 0.5))
+
         }.environment(nodeUI)
     }
 }
