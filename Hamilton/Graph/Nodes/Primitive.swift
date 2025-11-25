@@ -56,5 +56,11 @@ class PrimitiveNode: Node {
                 .withLabel("Z")
                 .asUserModifiable()
         )
+
+        addOutput(
+            Output<Mesh>()
+                .withDefaultValue(.triangle)
+                .withLabel("Output Mesh")
+        )
     }
 }
