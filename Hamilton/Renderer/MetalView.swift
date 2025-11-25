@@ -42,12 +42,15 @@ struct MetalViewRepresentable: NSViewRepresentable {
     }
 }
 
-//#Preview {
-//    @Previewable @State var graph = Graph()
-//    @Previewable @State var scene = HScene(graph: $graph)
-//
-//    VStack {
-//        Text("Metal View")
-//        MetalView(scene: $scene)
-//    }
-//}
+#Preview {
+    @Previewable @State var graph = {
+        var graph = Graph()
+        graph.addNode(OutputNode())
+        return graph
+    }()
+
+    VStack {
+        Text("Metal View")
+        MetalView().environment(graph)
+    }
+}

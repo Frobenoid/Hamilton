@@ -60,7 +60,7 @@ class Model {
 extension Model {
     func render(
         encoder: MTLRenderCommandEncoder,
-        primitiveType: MTLPrimitiveType = .triangle
+        primitiveType: MTLPrimitiveType = .lineStrip
     ) {
 
         for mesh in meshes {

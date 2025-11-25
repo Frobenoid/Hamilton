@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ModelIO
 import SwiftUI
 
 @Observable
@@ -20,6 +21,15 @@ class HScene {
         return [model]
     }
 
+    var camera: MDLCamera = {
+        let camera = MDLCamera()
+        camera.nearVisibilityDistance = 0.1
+        camera.farVisibilityDistance = 100.0
+        camera.fieldOfView = 45.0
+        camera.look(at: [0,0,0], from: [0,0,5])
+        return camera
+    }()
+
     var graph: Graph
 
     init(graph: Graph) {
@@ -27,6 +37,9 @@ class HScene {
     }
 
     func update(size: CGSize) {
+        // Update aspect ratio when window resizes
+        let aspect = Float(size.width / size.height)
+        camera.sensorAspect = aspect
     }
 
     func update(deltaTime: Float) {

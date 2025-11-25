@@ -172,17 +172,29 @@ extension Renderer {
         //            params: params
         //        )
 
+        var uniforms = Uniforms(
+            projectionMatrix: scene.camera.projectionMatrix,
+            worldViewMatrix: scene.camera.transform?.matrix.inverse ?? matrix_identity_float4x4
+            
+        )
+
+        renderEncoder.setVertexBytes(
+            &uniforms,
+            length: MemoryLayout<Uniforms>.stride,
+            index: 1
+        )
+
         renderEncoder.setRenderPipelineState(pipelineState)
-//        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-//        for submesh in mesh.submeshes {
-//            renderEncoder.drawIndexedPrimitives(
-//                type: .lineStrip,
-//                indexCount: submesh.indexCount,
-//                indexType: submesh.indexType,
-//                indexBuffer: submesh.indexBuffer.buffer,
-//                indexBufferOffset: submesh.indexBuffer.offset
-//            )
-//        }
+        //        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
+        //        for submesh in mesh.submeshes {
+        //            renderEncoder.drawIndexedPrimitives(
+        //                type: .lineStrip,
+        //                indexCount: submesh.indexCount,
+        //                indexType: submesh.indexType,
+        //                indexBuffer: submesh.indexBuffer.buffer,
+        //                indexBufferOffset: submesh.indexBuffer.offset
+        //            )
+        //        }
 
         for model in scene.models {
             model.render(encoder: renderEncoder)
