@@ -20,18 +20,21 @@ class BinOpNode: Node {
         addInput(
             Input<Float>()
                 .withDefaultValue(0)
+                .withLabel("Value")
                 .asUserModifiable()
         )
 
         addInput(
             Input<Float>()
                 .withDefaultValue(0)
+                .withLabel("Value")
                 .asUserModifiable()
         )
 
         addOutput(
             Output<Float>()
                 .withDefaultValue(0)
+                .withLabel("Value")
         )
     }
 

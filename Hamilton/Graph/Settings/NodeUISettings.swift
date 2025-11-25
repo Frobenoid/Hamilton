@@ -14,7 +14,8 @@ class NodeUISettings {
     public var widthFraction: CGFloat = 11
     public var minWidth: CGFloat = 200
     public var maxWidth: CGFloat = 350
-
+    public var socketPinSize: CGFloat = 20
+    
     public func length(total: CGFloat, _ l: CGFloat) -> CGFloat {
         return total * (l / widthFraction)
     }

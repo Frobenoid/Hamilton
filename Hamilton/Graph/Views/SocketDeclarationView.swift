@@ -35,14 +35,17 @@ struct SocketDeclarationView: View {
                 )
             case is PrimitiveType:
                 Picker(
-                    "Primitive",
                     selection: castedBinding(PrimitiveType.self)
                 ) {
                     ForEach(PrimitiveType.allCases) { type in
                         Text(type.rawValue.capitalized)
                             .tag(type)
                     }
+                } label : {
+                    
                 }
+                .pickerStyle(.menu)
+                .padding(.horizontal)
             default:
                 Text("Any")
             }

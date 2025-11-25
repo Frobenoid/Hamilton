@@ -16,9 +16,7 @@ struct InputView: View {
         GeometryReader { geo in
             HStack(spacing: 0) {
                 HStack {
-                    Circle()
-                        .fill(Color.blue)
-                        .frame(width: 20)
+                    SocketPin()
                         .dropDestination(for: DraggableData.self) {
                             draggableData,
                             destination in
@@ -87,9 +85,7 @@ struct OutputView: View {
                     .frame(width: geo.size.width * 9 / uiSettings.widthFraction)
                 Divider()
                 HStack {
-                    Circle()
-                        .fill(Color.red)
-                        .frame(width: 20)
+                    SocketPin()
                         .anchorPreference(
                             key: SocketAnchorKey.self,
                             value: .center,
@@ -111,7 +107,10 @@ struct OutputView: View {
                             )
                         )
                 }
-                .frame(width: geo.size.width / uiSettings.widthFraction)
+                .frame(
+                    width: geo.size.width / uiSettings.widthFraction,
+                    alignment: .center
+                )
             }
         }.frame(height: uiSettings.socketSectionSize)
     }
