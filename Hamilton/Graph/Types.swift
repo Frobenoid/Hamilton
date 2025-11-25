@@ -10,9 +10,3 @@ import Foundation
 public typealias NodeID = Int
 public typealias SocketID = Int
 public typealias EdgeID = Int
-
-struct Position: Equatable {
-    var x: Float
-    var y: Float
-    var z: Float
-}

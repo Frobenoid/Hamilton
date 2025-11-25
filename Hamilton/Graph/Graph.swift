@@ -78,8 +78,6 @@ class Graph {
         destinationNode: NodeID,
         destinationSocket: SocketID
     ) {
-        // TODO: This should only happen in destination input
-        // TODO: is not connected.
         var edge = Edge(
             sourceNode: sourceNode,
             sourceSocket: sourceSocket,
