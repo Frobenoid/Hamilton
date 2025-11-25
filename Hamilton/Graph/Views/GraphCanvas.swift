@@ -50,6 +50,10 @@ struct GraphCanvas: View {
                                     lineJoin: .round
                                 )
                             )
+                            .contentShape(
+                                EdgeShape(start: start, end: end)
+                                    .stroke(lineWidth: 15)  
+                            )
                             .gesture(
                                 TapGesture(count: 2).onEnded({
                                     _ in
