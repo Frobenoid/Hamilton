@@ -41,8 +41,8 @@ struct SocketDeclarationView: View {
                         Text(type.rawValue.capitalized)
                             .tag(type)
                     }
-                } label : {
-                    
+                } label: {
+
                 }
                 .pickerStyle(.menu)
                 .padding(.horizontal)

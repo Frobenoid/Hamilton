@@ -17,6 +17,5 @@ class ConstantNode: Node {
                 .withLabel("Value")
                 .asUserModifiable()
         )
-
     }
 }

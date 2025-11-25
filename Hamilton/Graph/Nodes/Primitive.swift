@@ -20,9 +20,10 @@ class PrimitiveNode: Node {
     override init() {
         super.init()
         label = "Primitive"
+
         // Type of the primitive.
-        addOutput(
-            Output<PrimitiveType>()
+        addInput(
+            Input<PrimitiveType>()
                 .withDefaultValue(.box)
                 .asUserModifiable()
                 .withLabel("Primitive Type")
@@ -32,8 +33,28 @@ class PrimitiveNode: Node {
         addInput(
             Input<Float>()
                 .withDefaultValue(1.0)
-                .asUserModifiable()
                 .withLabel("Scale")
+                .asUserModifiable()
+        )
+
+        // Position
+        addInput(
+            Input<Float>()
+                .withDefaultValue(0.0)
+                .withLabel("X")
+                .asUserModifiable()
+        )
+        addInput(
+            Input<Float>()
+                .withDefaultValue(0.0)
+                .withLabel("Y")
+                .asUserModifiable()
+        )
+        addInput(
+            Input<Float>()
+                .withDefaultValue(0.0)
+                .withLabel("Z")
+                .asUserModifiable()
         )
     }
 }
