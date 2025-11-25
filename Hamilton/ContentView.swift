@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var nodeUI = NodeUISettings()
     @State private var graph = {
         var g = Graph()
         g.addNode(ConstantNode())
         g.addNode(ConstantNode())
         g.addNode(BinOpNode())
         g.addNode(PrimitiveNode())
-        
+
         return g
     }()
 
@@ -27,7 +28,7 @@ struct ContentView: View {
                     .environment(graph)
             }
             .defaultScrollAnchor(UnitPoint(x: 0.5, y: 0.5))
-        }
+        }.environment(nodeUI)
     }
 }
 

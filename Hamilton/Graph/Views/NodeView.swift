@@ -10,20 +10,26 @@ import SwiftUI
 struct NodeView: View {
     let node: Node
 
+    let uiSettings = NodeUISettings()
     @State private var offset = CGSize.zero
     @GestureState private var dragOffset: CGSize = .zero
     @State private var isDragging = false
     @State private var isSelected = false
 
+    func nodeSize() -> CGFloat {
+        return
+            CGFloat((node.inputs.count + node.outputs.count))
+            * uiSettings.socketSectionSize + uiSettings.titleSize
+    }
+
     var body: some View {
         GeometryReader { geo in
-            VStack {
-                Spacer()
+            VStack(spacing: 0) {
 
                 Text("\(node.label)")
                     .font(.headline)
-
-                Spacer()
+                    .padding(10)
+                    .frame(height: uiSettings.titleSize)
 
                 if node.inputs.count > 0 {
                     Divider()
@@ -46,7 +52,17 @@ struct NodeView: View {
             }
         }
         .background()
-        .frame(width: 350, height: 170)
+        .cornerRadius(8)
+        .overlay(
+            RoundedRectangle(cornerRadius: 8)
+                .stroke(.gray.opacity(0.2), lineWidth: 1)
+        )
+        .frame(
+            minWidth: uiSettings.minWidth,
+            idealWidth: uiSettings.minWidth,
+            maxWidth: uiSettings.maxWidth
+        )
+        .frame(height: nodeSize())
         .offset(
             self.node.isDragging
                 ? CGSize(
@@ -78,8 +94,14 @@ struct NodeView: View {
     @Previewable @State var graph = {
         var g = Graph()
         g.addNode(PrimitiveNode())
+        g.addNode(BinOpNode())
         return g
     }()
 
-    NodeView(node: graph.nodes[0]).environment(graph)
+    @Previewable @State var settings = NodeUISettings()
+
+    NodeView(node: graph.nodes[1]).environment(graph).padding(10)
+        .environment(settings)
+    NodeView(node: graph.nodes[0]).environment(graph).padding(10)
+        .environment(settings)
 }

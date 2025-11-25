@@ -19,6 +19,7 @@ enum PrimitiveType: String, CaseIterable, Identifiable {
 class PrimitiveNode: Node {
     override init() {
         super.init()
+        label = "Primitive"
         // Type of the primitive.
         addOutput(
             Output<PrimitiveType>()
