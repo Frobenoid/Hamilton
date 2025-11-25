@@ -11,6 +11,13 @@ struct CustomStepper: View {
     @Binding var value: Float
 
     var label: String
+
+    private static var formatter: NumberFormatter {
+        var formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 3
+        return formatter
+    }
+
     func incrementStep() {
         value += 0.5
     }
@@ -20,14 +27,32 @@ struct CustomStepper: View {
     }
 
     var body: some View {
-        Stepper {
+        HStack {
             Text(
-                "\(label) : \(value.formatted(.number.precision(.fractionLength(3))))"
+                "\(label)"
             )
-        } onIncrement: {
-            incrementStep()
-        } onDecrement: {
-            decrementStep()
+            Spacer()
+            HStack {
+                Button(action: { decrementStep() }) {
+                    Image(systemName: "minus")
+                }
+                .buttonRepeatBehavior(.enabled)
+                TextField(
+                    "",
+                    value: $value,
+                    formatter: Self.formatter
+                )
+                .textFieldStyle(.plain)
+                .font(.callout)
+                .multilineTextAlignment(.center)
+
+                Button(action: { incrementStep() }) {
+                    Image(systemName: "plus")
+                }
+                .buttonRepeatBehavior(.enabled)
+            }
+            .background(Color.gray.opacity(0.3))
+            .cornerRadius(5)
         }
         .padding(.horizontal)
     }
