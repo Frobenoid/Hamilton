@@ -11,23 +11,24 @@ import SwiftUI
 @Observable
 class HScene {
 
-    var models: [Model] = []
+    var models: [Model] {
+        guard
+            let model = graph.nodes[0].inputs[0].currentValue as? Model
+        else {
+            return []
+        }
+        return [model]
+    }
+
     var graph: Graph
 
     init(graph: Graph) {
         self.graph = graph
-        self.models.append(
-            graph.nodes[0].inputs[0].currentValue as! Model
-        )
-
     }
 
     func update(size: CGSize) {
-        //        camera.update(size: size)
-        //        camera.currentViewSize = size
     }
 
     func update(deltaTime: Float) {
-        //        camera.update(deltaTime: deltaTime)
     }
 }
