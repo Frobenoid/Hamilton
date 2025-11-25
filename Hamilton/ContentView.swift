@@ -11,19 +11,15 @@ struct ContentView: View {
     @State private var nodeUI = NodeUISettings()
     @State private var graph = {
         var g = Graph()
-        g.addNode(ConstantNode())
-        g.addNode(ConstantNode())
-        g.addNode(BinOpNode())
+        g.addNode(OutputNode())
         g.addNode(PrimitiveNode())
 
         return g
     }()
 
-    @State private var scene = HScene()
-
     var body: some View {
         ZStack {
-            MetalView(scene: $scene)
+            MetalView().environment(graph)
             ScrollView([.horizontal, .vertical]) {
                 GraphCanvas()
                     .frame(width: 2000, height: 2000)

@@ -57,10 +57,17 @@ class PrimitiveNode: Node {
                 .asUserModifiable()
         )
 
-//        addOutput(
-//            Output<Mesh>()
-//                .withDefaultValue(.triangle)
-//                .withLabel("Output Mesh")
-//        )
+        addOutput(
+            Output<Model>()
+                .withLabel("Output Mesh")
+        )
+    }
+
+    override func execute() throws {
+        let primitiveType = inputs[0].currentValue as! PrimitiveType
+
+        let primitive = Model(name: "Primitive Model", type: primitiveType)
+
+        try outputs[0].setUntypedCurrentValue(to: primitive)
     }
 }

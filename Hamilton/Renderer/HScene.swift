@@ -6,14 +6,20 @@
 //
 
 import Foundation
+import SwiftUI
 
 @Observable
 class HScene {
 
     var models: [Model] = []
+    var graph: Graph
 
-    init() {
-        self.models.append(Model(name: "sphere", type: .box))
+    init(graph: Graph) {
+        self.graph = graph
+        self.models.append(
+            graph.nodes[0].inputs[0].currentValue as! Model
+        )
+
     }
 
     func update(size: CGSize) {

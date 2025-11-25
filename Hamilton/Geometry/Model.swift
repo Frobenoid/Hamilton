@@ -27,6 +27,23 @@ class Model {
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
 
         switch primitiveType {
+        case .box:
+            return MDLMesh(
+                boxWithExtent: [0.5, 0.5, 0.5],
+                segments: [1, 1, 1],
+                inwardNormals: false,
+                geometryType: .triangles,
+                allocator: allocator
+            )
+        case .cone:
+            return MDLMesh(
+                coneWithExtent: [0.5, 0.5, 0.5],
+                segments: [1, 1],
+                inwardNormals: false,
+                cap: false,
+                geometryType: .triangles,
+                allocator: allocator
+            )
         default:
             return MDLMesh(
                 sphereWithExtent: [0.5, 0.5, 0.5],

@@ -9,14 +9,19 @@ import MetalKit
 import SwiftUI
 
 struct MetalView: View {
-    @Binding var scene: HScene
+    @Environment(Graph.self) var graph
+    @State var scene: HScene?
     @State private var metalView = MTKView()
     @State private var controller: Controller?
 
     var body: some View {
         MetalViewRepresentable(metalView: $metalView)
             .onAppear {
-                controller = Controller(metalView: metalView, scene: $scene)
+                scene = HScene(graph: graph)
+                
+                if let scene = Binding($scene) {
+                    controller = Controller(metalView: metalView, scene: scene)
+                }
             }
     }
 }
@@ -37,11 +42,12 @@ struct MetalViewRepresentable: NSViewRepresentable {
     }
 }
 
-#Preview {
-    @Previewable @State var scene = HScene()
-
-    VStack {
-        Text("Metal View")
-        MetalView(scene: $scene)
-    }
-}
+//#Preview {
+//    @Previewable @State var graph = Graph()
+//    @Previewable @State var scene = HScene(graph: $graph)
+//
+//    VStack {
+//        Text("Metal View")
+//        MetalView(scene: $scene)
+//    }
+//}
