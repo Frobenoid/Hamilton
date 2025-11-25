@@ -7,12 +7,13 @@
 
 import Foundation
 
+@Observable
 class Graph {
     public var nodes: [Node] = []
     private(set) var edges: [Edge] = []
 
     public func addNode(_ node: Node) {
-        node.id = nodes.count
+        node.setID(to: nodes.count)
         nodes.append(node)
     }
 
@@ -33,7 +34,7 @@ class Graph {
             nodes.swapAt(id, prevId)
 
             // Update swapped node id.
-            nodes[id].id = id
+            nodes[id].setID(to: id)
 
             // Update the origin of all connections that
             // were previously linked to the node at the top
@@ -69,7 +70,27 @@ class Graph {
         nodes[edge.destinationNode]
             .inputs[edge.destinationSocket]
             .toggleConnection()
+    }
 
+    public func connect(
+        sourceNode: NodeID,
+        sourceSocket: SocketID,
+        destinationNode: NodeID,
+        destinationSocket: SocketID
+    ) {
+        var edge = Edge(
+            sourceNode: sourceNode,
+            sourceSocket: sourceSocket,
+            destinationNode: destinationNode,
+            destinationSocket: destinationSocket
+        )
+        edge.id = edges.count
+        edges.append(edge)
+
+        // Mark destination socket as connected.
+        nodes[edge.destinationNode]
+            .inputs[edge.destinationSocket]
+            .toggleConnection()
     }
 
     /// Deletes the provided edge.

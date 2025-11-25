@@ -7,6 +7,6 @@
 
 import Foundation
 
-typealias NodeID = Int
-typealias SocketID = Int
-typealias EdgeID = Int
+public typealias NodeID = Int
+public typealias SocketID = Int
+public typealias EdgeID = Int

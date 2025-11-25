@@ -15,20 +15,26 @@ class BinOpNode: Node {
 
     init(variant: Operation = .sum) {
         super.init()
+        label = "Binary Operation"
 
         addInput(
             Input<Float>()
                 .withDefaultValue(0)
+                .withLabel("Value")
+                .asUserModifiable()
         )
 
         addInput(
             Input<Float>()
                 .withDefaultValue(0)
+                .withLabel("Value")
+                .asUserModifiable()
         )
 
         addOutput(
             Output<Float>()
                 .withDefaultValue(0)
+                .withLabel("Value")
         )
     }
 

@@ -71,7 +71,7 @@ struct HamiltonTests {
 
     @Test func graphEvaluation() {
         var graph = Graph()
-        let evaluator = Evaluator(graph: &graph)
+        let evaluator = Evaluator(graph: graph)
 
         graph.addNode(ConstantNode())  // 0
         graph.addNode(ConstantNode())  // 1
@@ -137,7 +137,7 @@ struct HamiltonTests {
 
     @Test func cycleDetection() {
         var graph = Graph()
-        let evaluator = Evaluator(graph: &graph)
+        let evaluator = Evaluator(graph: graph)
 
         graph.addNode(BinOpNode())
         graph.addNode(BinOpNode())

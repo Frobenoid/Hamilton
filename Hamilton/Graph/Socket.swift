@@ -6,17 +6,24 @@
 //
 
 import Foundation
+import SwiftUI
 
 protocol Socket {
     associatedtype T
 
     /// Id inside parent node.
     var id: SocketID { get set }
+    var parentID: NodeID { get set }
     var currentValue: T? { get }
     var defaultValue: T? { get }
+    var isConnected: Bool { get set }
+    var isUserModifiable: Bool { get }
+    var label: String { get }
 
     /// Used to construct the socket.
     func withDefaultValue(_ defaultValue: T) -> Self
+
+    func asUserModifiable() -> Self
 
     /// Tries to cast from `Any` to `T`.
     func setUntypedCurrentValue(to value: Any) throws(GraphError)
@@ -29,14 +36,47 @@ protocol Socket {
     func toggleConnection()
 }
 
+public struct SocketAnchorKey: PreferenceKey {
+    public typealias Value = [SocketAnchor: Anchor<CGPoint>]
+    public static var defaultValue: [SocketAnchor: Anchor<CGPoint>] = [:]
+
+    public static func reduce(
+        value: inout [SocketAnchor: Anchor<CGPoint>],
+        nextValue: () -> [SocketAnchor: Anchor<CGPoint>]
+    ) {
+        value.merge(nextValue(), uniquingKeysWith: { $1 })
+    }
+}
+
+public struct SocketAnchor: Hashable {
+    public let nodeID: NodeID
+    public let socketID: SocketID
+    public var isOutput: Bool = false
+}
+
+@Observable
 class Output<T>: Socket {
     var id: SocketID = -1
+    var parentID: NodeID = -1
     var defaultValue: T?
     var currentValue: T?
+    var isConnected = false
+    var isUserModifiable = false
+    var label: String = ""
 
     func withDefaultValue(_ defaultValue: T) -> Self {
         self.defaultValue = defaultValue
         self.currentValue = defaultValue
+        return self
+    }
+
+    func asUserModifiable() -> Self {
+        isUserModifiable = true
+        return self
+    }
+
+    func withLabel(_ newLabel: String) -> Self {
+        label = newLabel
         return self
     }
 
@@ -64,8 +104,6 @@ class Output<T>: Socket {
 }
 
 class Input<T>: Output<T> {
-    var isConnected: Bool = false
-
     override func toggleConnection() {
         isConnected.toggle()
     }

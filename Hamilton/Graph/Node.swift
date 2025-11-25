@@ -7,10 +7,17 @@
 
 import Foundation
 
+@Observable
 class Node {
     var inputs: [any Socket] = []
     var outputs: [any Socket] = []
     var id: Int = -1
+
+    // UI Related (move this)
+    var label: String = ""
+    var isSelected: Bool = false
+    var isDragging: Bool = false
+    var offset: CGSize = .zero
 
     public func execute() throws {}
 
@@ -32,6 +39,19 @@ class Node {
             try inputs[input].setUntypedCurrentValue(to: value)
         } else {
             throw GraphError.outOfRangeInput(input: input)
+        }
+    }
+
+    /// Modifies the node ID and each of its sockets parent ID.
+    public func setID(to newID: NodeID) {
+        id = newID
+
+        inputs.indices.forEach { i in
+            inputs[i].parentID = newID
+        }
+
+        outputs.indices.forEach { i in
+            outputs[i].parentID = newID
         }
     }
 
