@@ -197,7 +197,7 @@ extension Renderer {
         //        }
 
         for model in scene.models {
-            model.render(encoder: renderEncoder)
+            model.render(encoder: renderEncoder, primitiveType: .lineStrip)
         }
 
         renderEncoder.endEncoding()
