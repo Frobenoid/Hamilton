@@ -5,7 +5,9 @@
 //  Created by Milton Montiel on 24/11/25.
 //
 
+import MetalKit
 import SwiftUI
+import simd
 
 struct SocketDeclarationView: View {
 
@@ -33,6 +35,36 @@ struct SocketDeclarationView: View {
                     value: castedBinding(Float.self),
                     label: socket.label
                 )
+            case is vector_uint3:
+                HStack {
+                    Vec3Field(
+                        value: castedBinding(vector_uint3.self),
+                        label: socket.label,
+                        format: .integer
+                    )
+                }
+                .multilineTextAlignment(.center)
+            case is vector_float3:
+                HStack {
+                    Vec3Field(
+                        value: castedBinding(vector_float3.self),
+                        label: socket.label
+                    )
+                }
+                .multilineTextAlignment(.center)
+            case is MDLGeometryType:
+                Picker(
+                    selection: castedBinding(MDLGeometryType.self)
+                ) {
+                    Text("Lines").tag(MDLGeometryType.lines)
+                    Text("Quads").tag(MDLGeometryType.quads)
+                    Text("Tris").tag(MDLGeometryType.triangles)
+
+                } label: {
+                    Text("Geometry Type")
+                }
+                .pickerStyle(.menu)
+                .padding(.horizontal)
             case is PrimitiveType:
                 Picker(
                     selection: castedBinding(PrimitiveType.self)
@@ -42,7 +74,7 @@ struct SocketDeclarationView: View {
                             .tag(type)
                     }
                 } label: {
-
+                    Text("Primtive")
                 }
                 .pickerStyle(.menu)
                 .padding(.horizontal)

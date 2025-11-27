@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import MetalKit
+import simd
 
 enum PrimitiveType: String, CaseIterable, Identifiable {
     var id: Self { self }
@@ -13,15 +15,26 @@ enum PrimitiveType: String, CaseIterable, Identifiable {
     case box
     case cylinder
     case cone
-    case torus
+    case capsule
 }
 
 class PrimitiveNode: Node {
+
+    private enum Inputs: Int {
+        case PrimitiveType = 0
+        case Extent = 1
+        case GeometryType = 2
+        case Segments = 3
+    }
+
+    private enum Outputs: Int {
+        case OutputMesh = 0
+    }
+
     override init() {
         super.init()
         label = "Primitive"
 
-        // Type of the primitive.
         addInput(
             Input<PrimitiveType>()
                 .withDefaultValue(.box)
@@ -29,32 +42,57 @@ class PrimitiveNode: Node {
                 .withLabel("Primitive Type")
         )
 
-        // Scale
         addInput(
-            Input<Float>()
-                .withDefaultValue(1.0)
-                .withLabel("Scale")
+            Input<vector_float3>()
+                .withDefaultValue([1.0, 1.0, 1.0])
+                .withLabel("Extent")
                 .asUserModifiable()
         )
 
-        // Position
         addInput(
-            Input<Float>()
-                .withDefaultValue(0.0)
-                .withLabel("X")
+            Input<MDLGeometryType>()
+                .withDefaultValue(.triangles)
+                .withLabel("Geometry Type")
                 .asUserModifiable()
         )
+        
         addInput(
-            Input<Float>()
-                .withDefaultValue(0.0)
-                .withLabel("Y")
+            Input<vector_uint3>()
+                .withDefaultValue(.one)
+                .withLabel("Segments")
                 .asUserModifiable()
         )
-        addInput(
-            Input<Float>()
-                .withDefaultValue(0.0)
-                .withLabel("Z")
-                .asUserModifiable()
+        
+        addOutput(
+            Output<Model>()
+                .withLabel("Output Mesh")
+        )
+    }
+
+    override func execute() throws {
+        let primitiveType =
+            inputs[Inputs.PrimitiveType.rawValue].currentValue as! PrimitiveType
+
+        let extent =
+            inputs[Inputs.Extent.rawValue].currentValue as! vector_float3
+
+        let geometryType =
+            inputs[Inputs.GeometryType.rawValue].currentValue
+            as! MDLGeometryType
+        
+        let segments = inputs[Inputs.Segments.rawValue].currentValue as! vector_uint3
+
+        let primitive = Model(
+            name: "Primitive Model",
+            type: primitiveType,
+            extent: extent,
+            segments: segments,
+            geometryType: geometryType
+        )
+        
+
+        try outputs[Outputs.OutputMesh.rawValue].setUntypedCurrentValue(
+            to: primitive
         )
     }
 }
