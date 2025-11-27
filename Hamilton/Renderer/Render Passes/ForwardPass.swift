@@ -39,6 +39,7 @@ struct ForwardPass: RenderPass {
             return
         }
 
+        // MARK: Encoder setup.
         renderEncoder.label = label
         renderEncoder.setDepthStencilState(depthStencilState)
         renderEncoder.setRenderPipelineState(pipelineState)

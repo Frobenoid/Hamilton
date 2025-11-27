@@ -9,28 +9,27 @@ import Foundation
 import MetalKit
 
 class Renderer: NSObject {
-    static var device: MTLDevice! = {
+    static var device: MTLDevice = {
         guard let device = MTLCreateSystemDefaultDevice() else {
             fatalError("Metal is not supported on this device.")
         }
         return device
     }()
 
-    static var commandQueue: MTLCommandQueue! = {
+    static var commandQueue: MTLCommandQueue = {
         guard let commandQueue = device.makeCommandQueue() else {
             fatalError("Could not create command queue.")
         }
         return commandQueue
     }()
 
-    static var library: MTLLibrary! = {
-        return device.makeDefaultLibrary()
+    static var library: MTLLibrary = {
+        guard let library = device.makeDefaultLibrary() else {
+            fatalError("Could not create default library.")
+        }
+        return library
     }()
 
-    var mesh: MTKMesh!
-    var vertexBuffer: MTLBuffer!
-
-    var pipelineState: MTLRenderPipelineState!
     // MARK: - Render passes
     var forwardPass: ForwardPass
 
