@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import MetalKit
+import simd
 
 enum PrimitiveType: String, CaseIterable, Identifiable {
     var id: Self { self }
@@ -17,6 +19,17 @@ enum PrimitiveType: String, CaseIterable, Identifiable {
 }
 
 class PrimitiveNode: Node {
+
+    private enum Inputs: Int {
+        case PrimitiveType = 0
+        case Extent = 1
+        case GeometryType = 2
+    }
+
+    private enum Outputs: Int {
+        case OutputMesh = 0
+    }
+
     override init() {
         super.init()
         label = "Primitive"
@@ -29,31 +42,17 @@ class PrimitiveNode: Node {
                 .withLabel("Primitive Type")
         )
 
-        // Scale
         addInput(
-            Input<Float>()
-                .withDefaultValue(1.0)
-                .withLabel("Scale")
+            Input<vector_float3>()
+                .withDefaultValue([1.0, 1.0, 1.0])
+                .withLabel("Extent")
                 .asUserModifiable()
         )
 
-        // Position
         addInput(
-            Input<Float>()
-                .withDefaultValue(0.0)
-                .withLabel("X")
-                .asUserModifiable()
-        )
-        addInput(
-            Input<Float>()
-                .withDefaultValue(0.0)
-                .withLabel("Y")
-                .asUserModifiable()
-        )
-        addInput(
-            Input<Float>()
-                .withDefaultValue(0.0)
-                .withLabel("Z")
+            Input<MDLGeometryType>()
+                .withDefaultValue(.triangles)
+                .withLabel("Geometry Type")
                 .asUserModifiable()
         )
 
@@ -64,10 +63,25 @@ class PrimitiveNode: Node {
     }
 
     override func execute() throws {
-        let primitiveType = inputs[0].currentValue as! PrimitiveType
+        let primitiveType =
+            inputs[Inputs.PrimitiveType.rawValue].currentValue as! PrimitiveType
 
-        let primitive = Model(name: "Primitive Model", type: primitiveType)
+        let extent =
+            inputs[Inputs.Extent.rawValue].currentValue as! vector_float3
 
-        try outputs[0].setUntypedCurrentValue(to: primitive)
+        let geometryType =
+            inputs[Inputs.GeometryType.rawValue].currentValue
+            as! MDLGeometryType
+
+        let primitive = Model(
+            name: "Primitive Model",
+            type: primitiveType,
+            extent: extent,
+            geometryType: geometryType
+        )
+
+        try outputs[Outputs.OutputMesh.rawValue].setUntypedCurrentValue(
+            to: primitive
+        )
     }
 }

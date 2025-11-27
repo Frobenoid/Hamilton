@@ -12,9 +12,18 @@ class Model {
     var name: String = "Untitled Model"
     var meshes: [Mesh]
 
-    init(name: String, type: PrimitiveType) {
+    init(
+        name: String,
+        type: PrimitiveType,
+        extent: vector_float3 = .one,
+        geometryType: MDLGeometryType = .triangles
+    ) {
         self.name = name
-        let mdlMesh = Self.createMesh(primitiveType: type)
+        let mdlMesh = Self.createMesh(
+            primitiveType: type,
+            extent: extent,
+            geometryType: geometryType
+        )
         mdlMesh.vertexDescriptor = MDLVertexDescriptor.defaultLayout
 
         let mtkMesh = try! MTKMesh(mesh: mdlMesh, device: Renderer.device)
@@ -23,52 +32,56 @@ class Model {
         self.meshes = [mesh]
     }
 
-    static func createMesh(primitiveType: PrimitiveType) -> MDLMesh {
+    static func createMesh(
+        primitiveType: PrimitiveType,
+        extent: vector_float3 = .one,
+        geometryType: MDLGeometryType = .triangles
+    ) -> MDLMesh {
         let allocator = MTKMeshBufferAllocator(device: Renderer.device)
 
         switch primitiveType {
         case .box:
             return MDLMesh(
-                boxWithExtent: [0.5, 0.5, 0.5],
+                boxWithExtent: extent,
                 segments: [1, 1, 1],
                 inwardNormals: false,
-                geometryType: .triangles,
+                geometryType: geometryType,
                 allocator: allocator
             )
         case .cone:
             return MDLMesh(
-                coneWithExtent: [0.5, 0.5, 0.5],
+                coneWithExtent: extent,
                 segments: [1, 1],
                 inwardNormals: false,
                 cap: false,
-                geometryType: .triangles,
+                geometryType: geometryType,
                 allocator: allocator
             )
         case .cylinder:
             return MDLMesh(
-                cylinderWithExtent: [1, 1, 1],
+                cylinderWithExtent: extent,
                 segments: [10, 10],
                 inwardNormals: false,
                 topCap: false,
                 bottomCap: false,
-                geometryType: .triangles,
+                geometryType: geometryType,
                 allocator: allocator
             )
         case .sphere:
             return MDLMesh(
-                sphereWithExtent: [0.5, 0.5, 0.5],
+                sphereWithExtent: extent,
                 segments: [10, 10],
                 inwardNormals: false,
-                geometryType: .triangles,
+                geometryType: geometryType,
                 allocator: allocator
             )
         case .capsule:
             return MDLMesh(
-                capsuleWithExtent: [1, 1, 1],
+                capsuleWithExtent: extent,
                 cylinderSegments: [5, 5],
                 hemisphereSegments: 1,
                 inwardNormals: false,
-                geometryType: .triangles,
+                geometryType: geometryType,
                 allocator: allocator
             )
         }
