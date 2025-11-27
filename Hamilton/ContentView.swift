@@ -13,7 +13,11 @@ struct ContentView: View {
         var g = Graph()
         g.addNode(OutputNode())
         g.addNode(PrimitiveNode())
-
+        g.addNode(BinOpNode())
+        g.addNode(ConstantNode())
+        g.addNode(ConstantNode())
+        g.addNode(VectorNode())
+        
         return g
     }()
 
