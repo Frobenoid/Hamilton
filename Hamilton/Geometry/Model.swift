@@ -94,8 +94,18 @@ class Model {
 extension Model {
     func render(
         encoder: MTLRenderCommandEncoder,
+        uniforms: Uniforms,
         primitiveType: MTLPrimitiveType = .triangle
     ) {
+
+        var uniforms = uniforms
+
+        encoder.setVertexBytes(
+            &uniforms,
+            length: MemoryLayout<Uniforms>.stride,
+            // TODO: Remove magic number.
+            index: 1
+        )
 
         for mesh in meshes {
             for (index, vertexBuffer) in mesh.vertexBuffers.enumerated() {
@@ -110,7 +120,6 @@ extension Model {
                     indexBuffer: submesh.indexBuffer,
                     indexBufferOffset: submesh.indexBufferOffset
                 )
-
             }
         }
 
