@@ -13,7 +13,7 @@ enum PrimitiveType: String, CaseIterable, Identifiable {
     case box
     case cylinder
     case cone
-    case torus
+    case capsule
 }
 
 class PrimitiveNode: Node {

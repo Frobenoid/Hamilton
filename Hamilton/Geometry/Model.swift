@@ -44,7 +44,17 @@ class Model {
                 geometryType: .triangles,
                 allocator: allocator
             )
-        default:
+        case .cylinder:
+            return MDLMesh(
+                cylinderWithExtent: [1, 1, 1],
+                segments: [10, 10],
+                inwardNormals: false,
+                topCap: false,
+                bottomCap: false,
+                geometryType: .triangles,
+                allocator: allocator
+            )
+        case .sphere:
             return MDLMesh(
                 sphereWithExtent: [0.5, 0.5, 0.5],
                 segments: [10, 10],
@@ -52,7 +62,15 @@ class Model {
                 geometryType: .triangles,
                 allocator: allocator
             )
-
+        case .capsule:
+            return MDLMesh(
+                capsuleWithExtent: [1, 1, 1],
+                cylinderSegments: [5, 5],
+                hemisphereSegments: 1,
+                inwardNormals: false,
+                geometryType: .triangles,
+                allocator: allocator
+            )
         }
     }
 }
