@@ -35,6 +35,15 @@ struct SocketDeclarationView: View {
                     value: castedBinding(Float.self),
                     label: socket.label
                 )
+            case is vector_uint3:
+                HStack {
+                    Vec3Field(
+                        value: castedBinding(vector_uint3.self),
+                        label: socket.label,
+                        format: .integer
+                    )
+                }
+                .multilineTextAlignment(.center)
             case is vector_float3:
                 HStack {
                     Vec3Field(
@@ -43,7 +52,6 @@ struct SocketDeclarationView: View {
                     )
                 }
                 .multilineTextAlignment(.center)
-
             case is MDLGeometryType:
                 Picker(
                     selection: castedBinding(MDLGeometryType.self)

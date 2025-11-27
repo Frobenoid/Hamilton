@@ -9,13 +9,25 @@ import SwiftUI
 import simd
 
 struct Vec3Field<Number: SIMDScalar>: View {
+    
+    enum Format {
+        case decimal, integer
+    }
+    
     @Binding var value: SIMD3<Number>
 
     var label: String
+    var format: Format = .decimal
 
-    private static var formatter: NumberFormatter {
+    var formatter: NumberFormatter {
         let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 3
+        if self.format == .integer {
+            formatter.minimumFractionDigits = 0
+            formatter.allowsFloats = false
+        } else {
+            formatter.minimumFractionDigits = 3
+            formatter.allowsFloats = true
+        }
         return formatter
     }
 
@@ -27,7 +39,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             TextField(
                 "",
                 value: $value.x,
-                formatter: Self.formatter
+                formatter: self.formatter
             )
             .textFieldStyle(.plain)
             .font(.callout)
@@ -37,7 +49,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             TextField(
                 "",
                 value: $value.y,
-                formatter: Self.formatter
+                formatter: self.formatter
             )
             .textFieldStyle(.plain)
             .font(.callout)
@@ -46,7 +58,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             TextField(
                 "",
                 value: $value.z,
-                formatter: Self.formatter
+                formatter: self.formatter
             )
             .textFieldStyle(.plain)
             .font(.callout)

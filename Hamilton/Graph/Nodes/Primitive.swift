@@ -24,6 +24,7 @@ class PrimitiveNode: Node {
         case PrimitiveType = 0
         case Extent = 1
         case GeometryType = 2
+        case Segments = 3
     }
 
     private enum Outputs: Int {
@@ -34,7 +35,6 @@ class PrimitiveNode: Node {
         super.init()
         label = "Primitive"
 
-        // Type of the primitive.
         addInput(
             Input<PrimitiveType>()
                 .withDefaultValue(.box)
@@ -55,7 +55,14 @@ class PrimitiveNode: Node {
                 .withLabel("Geometry Type")
                 .asUserModifiable()
         )
-
+        
+        addInput(
+            Input<vector_uint3>()
+                .withDefaultValue(.one)
+                .withLabel("Segments")
+                .asUserModifiable()
+        )
+        
         addOutput(
             Output<Model>()
                 .withLabel("Output Mesh")
@@ -72,13 +79,17 @@ class PrimitiveNode: Node {
         let geometryType =
             inputs[Inputs.GeometryType.rawValue].currentValue
             as! MDLGeometryType
+        
+        let segments = inputs[Inputs.Segments.rawValue].currentValue as! vector_uint3
 
         let primitive = Model(
             name: "Primitive Model",
             type: primitiveType,
             extent: extent,
+            segments: segments,
             geometryType: geometryType
         )
+        
 
         try outputs[Outputs.OutputMesh.rawValue].setUntypedCurrentValue(
             to: primitive
