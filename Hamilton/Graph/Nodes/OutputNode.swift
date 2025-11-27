@@ -10,7 +10,8 @@ import Foundation
 class OutputNode: Node {
     override init() {
         super.init()
-
+        label = "Output Mesh"
+        
         addInput(
             Input<Model>()
                 .withLabel("Output Model")

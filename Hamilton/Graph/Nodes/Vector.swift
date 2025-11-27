@@ -11,6 +11,7 @@ import simd
 class VectorNode : Node {
     override init() {
         super.init()
+        label = "Vector"
         
         addInput(
             Input<Float>()

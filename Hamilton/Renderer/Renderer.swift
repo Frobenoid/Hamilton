@@ -99,7 +99,7 @@ class Renderer: NSObject {
         metalView.clearColor = MTLClearColor(
             red: 1.0,
             green: 1.0,
-            blue: 0.8,
+            blue: 1.0,
             alpha: 1.0
         )
 
@@ -174,8 +174,9 @@ extension Renderer {
 
         var uniforms = Uniforms(
             projectionMatrix: scene.camera.projectionMatrix,
-            worldViewMatrix: scene.camera.transform?.matrix.inverse ?? matrix_identity_float4x4
-            
+            worldViewMatrix: scene.camera.transform?.matrix.inverse
+                ?? matrix_identity_float4x4
+
         )
 
         renderEncoder.setVertexBytes(
