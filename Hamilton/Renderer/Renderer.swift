@@ -36,7 +36,7 @@ class Renderer: NSObject {
     //    var wireframePass: WireframePass
 
     // Uniforms
-    //    var uniforms = Uniforms()
+    var uniforms = Uniforms()
     //    var params = Params()
 
     var lastTime: Double = CFAbsoluteTimeGetCurrent()
@@ -128,8 +128,9 @@ extension Renderer {
     }
 
     func updateUniforms(scene: HScene) {
-        //        uniforms.viewMatrix = scene.camera.viewMatrix
-        //        uniforms.projectionMatrix = scene.camera.projectionMatrix
+        uniforms.viewMatrix =
+            scene.camera.transform?.matrix ?? matrix_identity_float4x4
+        uniforms.projectionMatrix = scene.camera.projectionMatrix
         //        params.cameraPosition = scene.camera.position
         //        params.lightCount = UInt32(scene.lighting.lights.count)
     }
@@ -174,9 +175,8 @@ extension Renderer {
 
         var uniforms = Uniforms(
             projectionMatrix: scene.camera.projectionMatrix,
-            worldViewMatrix: scene.camera.transform?.matrix.inverse
+            viewMatrix: scene.camera.transform?.matrix.inverse
                 ?? matrix_identity_float4x4
-
         )
 
         renderEncoder.setVertexBytes(
@@ -186,19 +186,12 @@ extension Renderer {
         )
 
         renderEncoder.setRenderPipelineState(pipelineState)
-        //        renderEncoder.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-        //        for submesh in mesh.submeshes {
-        //            renderEncoder.drawIndexedPrimitives(
-        //                type: .lineStrip,
-        //                indexCount: submesh.indexCount,
-        //                indexType: submesh.indexType,
-        //                indexBuffer: submesh.indexBuffer.buffer,
-        //                indexBufferOffset: submesh.indexBuffer.offset
-        //            )
-        //        }
 
         for model in scene.models {
-            model.render(encoder: renderEncoder, primitiveType: .lineStrip)
+            model.render(
+                encoder: renderEncoder,
+                primitiveType: .lineStrip
+            )
         }
 
         renderEncoder.endEncoding()
