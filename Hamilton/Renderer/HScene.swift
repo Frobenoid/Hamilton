@@ -26,7 +26,7 @@ class HScene {
         camera.nearVisibilityDistance = 0.1
         camera.farVisibilityDistance = 100.0
         camera.fieldOfView = 45.0
-        camera.look(at: [0,0,0], from: [0,0,5])
+        camera.look(at: [0, 0, 0], from: [0, 0, 5])
         return camera
     }()
 
@@ -42,6 +42,5 @@ class HScene {
         camera.sensorAspect = aspect
     }
 
-    func update(deltaTime: Float) {
-    }
+    func update(deltaTime: Float) {}
 }

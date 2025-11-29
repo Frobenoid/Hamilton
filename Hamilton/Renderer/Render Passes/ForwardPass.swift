@@ -48,7 +48,8 @@ struct ForwardPass: RenderPass {
         scene.models.forEach { model in
             model.render(
                 encoder: renderEncoder,
-                uniforms: uniforms
+                uniforms: uniforms,
+                primitiveType: .lineStrip
             )
         }
         
