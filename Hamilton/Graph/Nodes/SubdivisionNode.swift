@@ -45,9 +45,6 @@ class SubdivisionNode: Node {
         addOutput(
             Output<Model>()
                 .withLabel("Subdivided")
-                .withDefaultValue(
-                    Model(name: "Remove this", type: .cone)
-                )
         )
     }
 

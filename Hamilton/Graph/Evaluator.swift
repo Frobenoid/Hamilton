@@ -17,11 +17,11 @@ class Evaluator {
     func evaluate() throws {
         try validateGraph()
 
-        try executionOrder
+        executionOrder
             .reversed()
             .forEach { node in
                 execute(node)
-                try propagateValues(for: node)
+                propagateValues(for: node)
             }
 
     }
@@ -72,18 +72,18 @@ extension Evaluator {
 
     }
 
-    private func propagateValues(for node: NodeID) throws {
-        try graph
+    private func propagateValues(for node: NodeID) {
+        graph
             .edges
             // Get neighbors of current node.
             .filter { $0.sourceNode == node }
             // Propagate values for each neighbor.
             .forEach { edge in
 
-                if let output = try graph.nodes[edge.sourceNode]
+                if let output = try? graph.nodes[edge.sourceNode]
                     .getUntypedOutput(at: edge.sourceSocket)
                 {
-                    try graph.nodes[edge.destinationNode]
+                    try! graph.nodes[edge.destinationNode]
                         .setUntypedInput(
                             at: edge.destinationSocket,
                             to: output
@@ -96,7 +96,7 @@ extension Evaluator {
 
     /// ``node`` should always be within range.
     private func execute(_ node: NodeID) {
-        try? graph.nodes[node].execute()
+        try! graph.nodes[node].execute()
     }
 
 }
