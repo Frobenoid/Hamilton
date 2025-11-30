@@ -7,8 +7,9 @@
 
 import Foundation
 import MetalKit
+import ModelIO
 
-class Model {
+struct Model {
     var name: String = "Untitled Model"
     var meshes: [Mesh]
 
@@ -19,7 +20,7 @@ class Model {
         segments: vector_uint3 = .one,
         geometryType: MDLGeometryType = .triangles
     ) {
-        self.name = name
+
         let mdlMesh = Self.createMesh(
             primitiveType: type,
             extent: extent,
@@ -32,6 +33,25 @@ class Model {
         let mesh = Mesh(mdlMesh: mdlMesh, mtkMesh: mtkMesh)
 
         self.meshes = [mesh]
+    }
+
+    mutating func subdivide(subdivisionLevels: Int) {
+
+        if let new = MDLMesh.newSubdividedMesh(
+            meshes.first!.mesh,
+            submeshIndex: 0,
+            subdivisionLevels: subdivisionLevels
+        ) {
+            new.vertexDescriptor = MDLVertexDescriptor.defaultLayout
+            let mtkMesh = try! MTKMesh(mesh: new, device: Renderer.device)
+            let mesh = Mesh(mdlMesh: new, mtkMesh: mtkMesh)
+
+            self.meshes = [mesh]
+
+        } else {
+            return
+        }
+
     }
 
     static func createMesh(

@@ -29,13 +29,18 @@ struct SocketDeclarationView: View {
     var body: some View {
         if socket.isUserModifiable && !displayOnly {
             switch socket.defaultValue {
+            case is Int:
+                IntStepper(
+                    value: castedBinding(Int.self),
+                    label: socket.label
+                )
             case is Float:
                 // TODO: Custom slider here.
                 CustomStepper(
                     value: castedBinding(Float.self),
                     label: socket.label
                 )
-            case is vector_uint3:
+                    case is vector_uint3:
                 HStack {
                     Vec3Field(
                         value: castedBinding(vector_uint3.self),

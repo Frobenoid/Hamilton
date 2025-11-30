@@ -8,45 +8,16 @@
 import Foundation
 import MetalKit
 
-//struct Mesh {
-//    public var vertices: [Vertex] = []
-//    public var indices: [UInt32] = []
-//
-//}
-//
-//extension Mesh {
-//    static let empty = Mesh()
-//
-//    static let cube: Mesh = {
-//        var mesh = Mesh()
-//
-//        return mesh
-//    }()
-//
-//    static let triangle: Mesh = {
-//        var mesh = Mesh()
-//
-//        mesh.vertices = [
-//            Vertex(position: [0.0, 0.0, 0.0]),
-//            Vertex(position: [0.0, 0.1, 0.0]),
-//            Vertex(position: [0.0, 0.0, 0.1]),
-//        ]
-//
-//        mesh.indices = [
-//            0, 1, 2,
-//        ]
-//
-//        return mesh
-//    }()
-//}
-
 struct Mesh {
     var vertexBuffers: [MTLBuffer]
     var submeshes: [Submesh]
+    var mesh: MDLMesh
 }
 
 extension Mesh {
     init(mdlMesh: MDLMesh, mtkMesh: MTKMesh) {
+        mesh = mdlMesh
+
         var vertexBuffers: [MTLBuffer] = []
         for mtkMeshBuffer in mtkMesh.vertexBuffers {
             vertexBuffers.append(mtkMeshBuffer.buffer)

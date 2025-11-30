@@ -79,19 +79,24 @@ extension Evaluator {
             .filter { $0.sourceNode == node }
             // Propagate values for each neighbor.
             .forEach { edge in
-                let output = try! graph.nodes[edge.sourceNode]
+
+                if let output = try? graph.nodes[edge.sourceNode]
                     .getUntypedOutput(at: edge.sourceSocket)
-
-                assert(output != nil)
-
-                try! graph.nodes[edge.destinationNode]
-                    .setUntypedInput(at: edge.destinationSocket, to: output!)
+                {
+                    try! graph.nodes[edge.destinationNode]
+                        .setUntypedInput(
+                            at: edge.destinationSocket,
+                            to: output
+                        )
+                } else {
+                    return
+                }
             }
     }
 
     /// ``node`` should always be within range.
     private func execute(_ node: NodeID) {
-        try? graph.nodes[node].execute()
+        try! graph.nodes[node].execute()
     }
 
 }

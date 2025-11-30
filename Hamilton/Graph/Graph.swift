@@ -78,7 +78,7 @@ class Graph {
         destinationNode: NodeID,
         destinationSocket: SocketID
     ) {
-        var edge = Edge(
+        let edge = Edge(
             sourceNode: sourceNode,
             sourceSocket: sourceSocket,
             destinationNode: destinationNode,
