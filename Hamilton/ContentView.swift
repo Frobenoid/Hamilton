@@ -13,11 +13,16 @@ struct ContentView: View {
         var g = Graph()
         g.addNode(OutputNode())
         g.addNode(PrimitiveNode())
-        g.addNode(BinOpNode())
-        g.addNode(ConstantNode())
-        g.addNode(ConstantNode())
-        g.addNode(VectorNode())
-        
+
+        g.connect(
+            Edge(
+                sourceNode: 1,
+                sourceSocket: 0,
+                destinationNode: 0,
+                destinationSocket: 0
+            )
+        )
+
         return g
     }()
 
