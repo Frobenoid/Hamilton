@@ -21,14 +21,7 @@ class HScene {
         return [model]
     }
 
-    var camera: MDLCamera = {
-        let camera = MDLCamera()
-        camera.nearVisibilityDistance = 0.1
-        camera.farVisibilityDistance = 100.0
-        camera.fieldOfView = 45.0
-        camera.look(at: [0, 0, 0], from: [0, 0, 5])
-        return camera
-    }()
+    var camera = FirstPerson()
 
     var graph: Graph
 
@@ -36,11 +29,36 @@ class HScene {
         self.graph = graph
     }
 
+    /// Update aspect ratio when window resizes
     func update(size: CGSize) {
-        // Update aspect ratio when window resizes
-        let aspect = Float(size.width / size.height)
-        camera.sensorAspect = aspect
+        camera.updateAspect(size: size)
     }
 
-    func update(deltaTime: Float) {}
+    /// Update the camera based on the delta time.
+    func update(deltaTime: Float) {
+
+        let input = InputController.sharedController
+
+        var transform = Transform()
+
+        if input.pressedKeys.contains(.keyW) {
+            transform.positon.z -= 1
+        }
+
+        if input.pressedKeys.contains(.keyS) {
+            transform.positon.z += 1
+        }
+
+        if input.pressedKeys.contains(.keyA) {
+            transform.positon.x -= 1
+        }
+
+        if input.pressedKeys.contains(.keyD) {
+            transform.positon.x += 1
+        }
+
+        if transform.positon != .zero {
+            camera.position += transform.positon
+        }
+    }
 }

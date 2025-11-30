@@ -38,6 +38,7 @@ extension Controller: MTKViewDelegate {
         let currentTime = CFAbsoluteTimeGetCurrent()
         let deltaTime = Float(currentTime - lastTime)
         lastTime = currentTime
+        
         scene.wrappedValue.update(deltaTime: deltaTime)
 
         renderer.draw(scene: scene.wrappedValue, in: view)

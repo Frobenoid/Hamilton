@@ -79,8 +79,7 @@ extension Renderer {
 
     func updateUniforms(scene: HScene) {
         uniforms.projectionMatrix = scene.camera.projectionMatrix
-        uniforms.viewMatrix =
-            scene.camera.transform?.matrix.inverse ?? matrix_identity_float4x4
+        uniforms.viewMatrix = scene.camera.viewMatrix
     }
 
     /// Called each frame from the controller.
