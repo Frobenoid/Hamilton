@@ -28,6 +28,13 @@ struct UIController: View {
             .defaultScrollAnchor(UnitPoint(x: 0.5, y: 0.5))
             .opacity(editorMode == .Edit ? 1 : 0)
 
+            VStack {
+                Spacer()
+                HStack {
+                    EditorModeView(editorMode: editorMode)
+                    Spacer()
+                }
+            }
         }.environment(nodeUI)
             .focusable()
             .focused($focused)

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UIMode {
+enum UIMode: String {
     /// Here the UI shows only the viewport.
     case Normal
     /// Here the node editor is shown on top of the viewport.

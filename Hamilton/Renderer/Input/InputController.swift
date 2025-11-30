@@ -5,7 +5,6 @@
 //  Created by Milton Montiel on 28/11/25.
 //
 
-import CoreGraphics
 import GameController
 
 class InputController {
