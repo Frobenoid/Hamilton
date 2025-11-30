@@ -36,7 +36,6 @@ struct UIController: View {
                 return .handled
             }
             .onKeyPress(keys: ["i"]) { _ in
-                print(editorMode)
                 editorMode = .Edit
                 return .handled
             }
@@ -44,6 +43,5 @@ struct UIController: View {
                 focused = true
             }
             .focusEffectDisabled()
-        
     }
 }
