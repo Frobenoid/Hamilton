@@ -36,7 +36,7 @@ class HScene {
 
     /// Handle input keys using the delta time.
     func update(deltaTime: Float) {
-        for command in InputController.sharedController.commands() {
+        for command in InputController.sharedController.cameraCommands() {
             command.execute(scene: self, deltaTime: deltaTime)
         }
     }

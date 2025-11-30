@@ -59,6 +59,10 @@ class InputController {
     }
 
     public func commands() -> [any Command] {
+        return []
+    }
+
+    public func cameraCommands() -> [any Command] {
         var commands: [any Command] = []
 
         if pressedKeys.contains(.keyW) {

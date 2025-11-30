@@ -27,18 +27,8 @@ struct ContentView: View {
     }()
 
     var body: some View {
-        ZStack {
-            MetalView().environment(graph)
-            ScrollView([.horizontal, .vertical]) {
-                GraphCanvas()
-                    .frame(width: 2000, height: 2000)
-                    .allowsHitTesting(true)
-                    .environment(graph)
-                    .focusable(false)
-            }
-            .defaultScrollAnchor(UnitPoint(x: 0.5, y: 0.5))
-
-        }.environment(nodeUI)
+        UIController(graph: $graph, nodeUI: nodeUI)
+            .focusable()
     }
 }
 
