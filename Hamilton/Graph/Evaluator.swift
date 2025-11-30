@@ -82,7 +82,7 @@ extension Evaluator {
                 let output = try! graph.nodes[edge.sourceNode]
                     .getUntypedOutput(at: edge.sourceSocket)
 
-                assert(output != nil)
+//                assert(output != nil)
 
                 try! graph.nodes[edge.destinationNode]
                     .setUntypedInput(at: edge.destinationSocket, to: output!)
