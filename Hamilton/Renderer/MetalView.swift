@@ -18,7 +18,7 @@ struct MetalView: View {
         MetalViewRepresentable(metalView: $metalView)
             .onAppear {
                 scene = HScene(graph: graph)
-                
+
                 if let scene = Binding($scene) {
                     controller = Controller(metalView: metalView, scene: scene)
                 }
