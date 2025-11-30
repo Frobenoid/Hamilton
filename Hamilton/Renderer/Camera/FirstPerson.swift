@@ -21,7 +21,7 @@ struct FirstPerson: Camera {
     }
 
     var viewMatrix: float4x4 {
-        (float4x4(translation: position)).inverse
+        (float4x4(translation: position) * float4x4(rotation: rotation)).inverse
     }
 
     var transform: Transform = Transform()
@@ -36,7 +36,7 @@ struct FirstPerson: Camera {
         camera.nearVisibilityDistance = near
         camera.farVisibilityDistance = far
         camera.fieldOfView = fov
-        transform.positon = [0, 0, 5]
+        transform.position = [0, 0, 5]
     }
 
     mutating func updateAspect(size: CGSize) {
@@ -44,7 +44,7 @@ struct FirstPerson: Camera {
     }
 
     mutating func update(deltaTime: Float) {
-        
+
     }
 
 }

@@ -57,4 +57,44 @@ class InputController {
 
             }
     }
+
+    public func commands() -> [any Command] {
+        var commands: [any Command] = []
+
+        if pressedKeys.contains(.keyW) {
+            commands.append(MoveCameraCommand.forward())
+        }
+
+        if pressedKeys.contains(.keyS) {
+            commands.append(MoveCameraCommand.backward())
+        }
+
+        if pressedKeys.contains(.keyD) {
+            commands.append(MoveCameraCommand.right())
+        }
+
+        if pressedKeys.contains(.keyA) {
+            commands.append(MoveCameraCommand.left())
+        }
+
+        if pressedKeys.contains(.rightArrow) {
+            commands.append(MoveCameraCommand.rotateRight())
+        }
+
+        if pressedKeys.contains(.leftArrow) {
+            commands.append(MoveCameraCommand.rotateLeft())
+        }
+
+        if pressedKeys.contains(.upArrow) {
+            commands.append(MoveCameraCommand.rotateUp())
+        }
+
+        if pressedKeys.contains(.downArrow) {
+            commands.append(MoveCameraCommand.rotateDown())
+        }
+        
+        return commands
+
+    }
+
 }

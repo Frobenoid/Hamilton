@@ -21,7 +21,7 @@ class HScene {
         return [model]
     }
 
-    var camera = FirstPerson()
+    var camera: any Camera = FirstPerson()
 
     var graph: Graph
 
@@ -34,31 +34,10 @@ class HScene {
         camera.updateAspect(size: size)
     }
 
-    /// Update the camera based on the delta time.
+    /// Handle input keys using the delta time.
     func update(deltaTime: Float) {
-
-        let input = InputController.sharedController
-
-        var transform = Transform()
-
-        if input.pressedKeys.contains(.keyW) {
-            transform.positon.z -= 1
-        }
-
-        if input.pressedKeys.contains(.keyS) {
-            transform.positon.z += 1
-        }
-
-        if input.pressedKeys.contains(.keyA) {
-            transform.positon.x -= 1
-        }
-
-        if input.pressedKeys.contains(.keyD) {
-            transform.positon.x += 1
-        }
-
-        if transform.positon != .zero {
-            camera.position += transform.positon
+        for command in InputController.sharedController.commands() {
+            command.execute(scene: self, deltaTime: deltaTime)
         }
     }
 }

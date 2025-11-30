@@ -16,4 +16,33 @@ extension float4x4 {
         matrix.columns.3 = SIMD4<Float>(position.x, position.y, position.z, 1.0)
         self = matrix
     }
+
+    init(rotationX amount: Float) {
+        var matrix: float4x4 = matrix_identity_float4x4
+        matrix.columns.1 = [0.0, cos(amount), sin(amount), 0.0]
+        matrix.columns.2 = [0.0, -sin(amount), cos(amount), 0.0]
+        self = matrix
+    }
+
+    init(rotationY amount: Float) {
+        var matrix: float4x4 = matrix_identity_float4x4
+        matrix.columns.0 = [cos(amount), 0, -sin(amount), 0]
+        matrix.columns.2 = [sin(amount), 0, cos(amount), 0]
+        self = matrix
+    }
+
+    init(rotationZ amount: Float) {
+        var matrix: float4x4 = matrix_identity_float4x4
+        matrix.columns.0 = [cos(amount), sin(amount), 0, 0]
+        matrix.columns.1 = [-sin(amount), cos(amount), 0, 0]
+        self = matrix
+    }
+
+    init(rotation angles: SIMD3<Float>) {
+        var xRotation: float4x4 = .init(rotationX: angles.x)
+        var yRotation: float4x4 = .init(rotationY: angles.y)
+        var zRotation: float4x4 = .init(rotationZ: angles.z)
+
+        self = xRotation * yRotation * zRotation
+    }
 }

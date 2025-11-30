@@ -1,5 +1,5 @@
 //
-//  Tranform.swift
+//  Transform.swift
 //  Hamilton
 //
 //  Created by Milton Montiel on 29/11/25.
@@ -9,16 +9,9 @@ import Foundation
 import simd
 
 struct Transform {
-    var positon: SIMD3<Float> = .zero
+    var position: SIMD3<Float> = .zero
     var rotation: SIMD3<Float> = .zero
     var scale: Float = 1
-
-    var modelMatrix: float4x4 {
-        let translation = float4x4(translation: positon)
-        // TODO: Rotation
-        // TODO: Scaling
-        return translation
-    }
 }
 
 protocol Transformable {
@@ -27,8 +20,8 @@ protocol Transformable {
 
 extension Transformable {
     var position: SIMD3<Float> {
-        get { transform.positon }
-        set { transform.positon = newValue }
+        get { transform.position }
+        set { transform.position = newValue }
     }
 
     var rotation: SIMD3<Float> {
