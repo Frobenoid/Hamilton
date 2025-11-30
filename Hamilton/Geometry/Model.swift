@@ -13,11 +13,6 @@ struct Model {
     var name: String = "Untitled Model"
     var meshes: [Mesh]
 
-    var type: PrimitiveType
-    var extent: vector_float3
-    var segments: vector_uint3
-    var geometryType: MDLGeometryType
-
     init(
         name: String,
         type: PrimitiveType,
@@ -25,12 +20,7 @@ struct Model {
         segments: vector_uint3 = .one,
         geometryType: MDLGeometryType = .triangles
     ) {
-        self.name = name
-        self.type = type
-        self.extent = extent
-        self.segments = segments
-        self.geometryType = geometryType
-        
+
         let mdlMesh = Self.createMesh(
             primitiveType: type,
             extent: extent,
@@ -46,25 +36,18 @@ struct Model {
     }
 
     mutating func subdivide(subdivisionLevels: Int) {
-        var newMesh = Self.createMesh(
-            primitiveType: self.type,
-            extent: self.extent,
-            segments: self.segments,
-            geometryType: self.geometryType
-        )
 
         if let new = MDLMesh.newSubdividedMesh(
-            newMesh,
+            meshes.first!.mesh,
             submeshIndex: 0,
             subdivisionLevels: subdivisionLevels
         ) {
-            newMesh = new
-            newMesh.vertexDescriptor = MDLVertexDescriptor.defaultLayout
-
-            let mtkMesh = try! MTKMesh(mesh: newMesh, device: Renderer.device)
-            let mesh = Mesh(mdlMesh: newMesh, mtkMesh: mtkMesh)
+            new.vertexDescriptor = MDLVertexDescriptor.defaultLayout
+            let mtkMesh = try! MTKMesh(mesh: new, device: Renderer.device)
+            let mesh = Mesh(mdlMesh: new, mtkMesh: mtkMesh)
 
             self.meshes = [mesh]
+
         } else {
             return
         }
