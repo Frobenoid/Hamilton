@@ -9,13 +9,14 @@ import Foundation
 import MetalKit
 import ModelIO
 
-class Model {
+struct Model {
     var name: String = "Untitled Model"
     var meshes: [Mesh]
 
     var type: PrimitiveType
     var extent: vector_float3
     var segments: vector_uint3
+    var geometryType: MDLGeometryType
 
     init(
         name: String,
@@ -28,7 +29,8 @@ class Model {
         self.type = type
         self.extent = extent
         self.segments = segments
-
+        self.geometryType = geometryType
+        
         let mdlMesh = Self.createMesh(
             primitiveType: type,
             extent: extent,
@@ -43,17 +45,18 @@ class Model {
         self.meshes = [mesh]
     }
 
-    func subdivide(subdivisionLevels: Int) {
+    mutating func subdivide(subdivisionLevels: Int) {
         var newMesh = Self.createMesh(
             primitiveType: self.type,
             extent: self.extent,
-            segments: self.segments
+            segments: self.segments,
+            geometryType: self.geometryType
         )
 
         if let new = MDLMesh.newSubdividedMesh(
             newMesh,
             submeshIndex: 0,
-            subdivisionLevels: 1
+            subdivisionLevels: subdivisionLevels
         ) {
             newMesh = new
             newMesh.vertexDescriptor = MDLVertexDescriptor.defaultLayout

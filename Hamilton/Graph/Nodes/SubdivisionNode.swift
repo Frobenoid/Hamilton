@@ -6,10 +6,29 @@
 //
 import ModelIO
 
-class Subdivision: Node {
+class SubdivisionNode: Node {
+
+    var inputModel: Model? {
+        inputs[0].currentValue as? Model
+    }
+
+    var subdivisionLevel: Int {
+        inputs[1].currentValue as! Int
+    }
+
+    var outputSubdividedModel: Model {
+        get {
+            outputs[0].currentValue as! Model
+        }
+        set {
+            try? outputs[0].setUntypedCurrentValue(to: newValue)
+        }
+    }
 
     override init() {
         super.init()
+
+        label = "Subdivision"
 
         addInput(
             Input<Model>()
@@ -19,7 +38,7 @@ class Subdivision: Node {
         addInput(
             Input<Int>()
                 .withDefaultValue(1)
-                .withLabel("Subdivision Level")
+                .withLabel("Level")
                 .asUserModifiable()
         )
 
@@ -33,16 +52,15 @@ class Subdivision: Node {
     }
 
     override func execute() throws {
+        if var model = inputModel {
 
-        if let model = inputs[0].untypedCurrentValue() as? Model {
-            let subdivisionLevels = inputs[1].untypedCurrentValue() as! Int
+            model.subdivide(
+                subdivisionLevels: subdivisionLevel
+            )
 
-            model.subdivide(subdivisionLevels: subdivisionLevels)
-
-            try outputs[0].setUntypedCurrentValue(to: model)
+            outputSubdividedModel = model
         } else {
             return
         }
-
     }
 }

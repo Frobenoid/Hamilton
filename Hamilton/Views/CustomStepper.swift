@@ -9,11 +9,11 @@ import SwiftUI
 import simd
 
 struct Vec3Field<Number: SIMDScalar>: View {
-    
+
     enum Format {
         case decimal, integer
     }
-    
+
     @Binding var value: SIMD3<Number>
 
     var label: String
@@ -70,6 +70,59 @@ struct Vec3Field<Number: SIMDScalar>: View {
     }
 }
 
+struct IntStepper: View {
+    @Binding var value: Int
+
+    var label: String
+
+    func incrementStep() {
+        value += 1
+    }
+
+    func decrementStep() {
+        value -= 1
+    }
+
+    private static var formatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 0
+        formatter.allowsFloats = false
+        return formatter
+    }
+
+    var body: some View {
+        HStack {
+            HStack {
+                Button(action: { decrementStep() }) {
+                    Image(systemName: "minus")
+                }
+                .buttonRepeatBehavior(.enabled)
+                HStack {
+                    Text(
+                        "\(label)"
+                    ).fontWeight(.bold)
+                    TextField(
+                        "",
+                        value: $value,
+                        formatter: Self.formatter
+                    )
+                    .textFieldStyle(.plain)
+                    .font(.callout)
+                }
+                .multilineTextAlignment(.center)
+
+                Button(action: { incrementStep() }) {
+                    Image(systemName: "plus")
+                }
+                .buttonRepeatBehavior(.enabled)
+            }
+            .background(Color.gray.opacity(0.3))
+            .cornerRadius(5)
+        }
+        .padding(.horizontal)
+    }
+
+}
 struct CustomStepper: View {
     @Binding var value: Float
 

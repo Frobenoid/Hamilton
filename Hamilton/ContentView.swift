@@ -13,7 +13,7 @@ struct ContentView: View {
         var g = Graph()
         g.addNode(OutputNode())
         g.addNode(PrimitiveNode())
-        g.addNode(Subdivision())
+        g.addNode(SubdivisionNode())
 
         g.connect(
             sourceNode: 1,
