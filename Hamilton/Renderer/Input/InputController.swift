@@ -85,14 +85,6 @@ class InputController {
             commands.append(MoveCameraCommand.rotateLeft())
         }
 
-        if pressedKeys.contains(.upArrow) {
-            commands.append(MoveCameraCommand.rotateUp())
-        }
-
-        if pressedKeys.contains(.downArrow) {
-            commands.append(MoveCameraCommand.rotateDown())
-        }
-        
         return commands
 
     }

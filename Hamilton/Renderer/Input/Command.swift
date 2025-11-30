@@ -16,7 +16,10 @@ struct MoveCameraCommand: Command {
 
     func execute(scene: HScene, deltaTime: Float) {
         let movementAmount = deltaTime
-        scene.camera.position += movementAmount * position
+        scene.camera.position +=
+            movementAmount
+            * (position.z * scene.camera.transform.forward + position.x
+                * scene.camera.transform.right)
         scene.camera.rotation += movementAmount * rotation
     }
 }
@@ -54,7 +57,7 @@ extension MoveCameraCommand {
         )
     }
 
-    static func rotateRight(speed: Float = 1.0) -> MoveCameraCommand {
+    static func rotateRight(speed: Float = 2.0) -> MoveCameraCommand {
         return MoveCameraCommand(
             position: .zero,
             rotation: [0, -speed, 0],
@@ -62,28 +65,11 @@ extension MoveCameraCommand {
         )
     }
 
-    static func rotateLeft(speed: Float = 1.0) -> MoveCameraCommand {
+    static func rotateLeft(speed: Float = 2.0) -> MoveCameraCommand {
         return MoveCameraCommand(
             position: .zero,
             rotation: [0, speed, 0],
             speed: speed
         )
     }
-
-    static func rotateUp(speed: Float = 1.0) -> MoveCameraCommand {
-        return MoveCameraCommand(
-            position: .zero,
-            rotation: [speed, 0, 0],
-            speed: speed
-        )
-    }
-
-    static func rotateDown(speed: Float = 1.0) -> MoveCameraCommand {
-        return MoveCameraCommand(
-            position: .zero,
-            rotation: [-speed, 0, 0],
-            speed: speed
-        )
-    }
-
 }

@@ -12,6 +12,14 @@ struct Transform {
     var position: SIMD3<Float> = .zero
     var rotation: SIMD3<Float> = .zero
     var scale: Float = 1
+
+    var forward: SIMD3<Float> {
+        normalize([sin(rotation.y), 0, cos(rotation.y)])
+    }
+
+    var right: SIMD3<Float> {
+        [forward.z, 0, -forward.x]
+    }
 }
 
 protocol Transformable {
