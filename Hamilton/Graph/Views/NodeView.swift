@@ -25,7 +25,6 @@ struct NodeView: View {
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: 0) {
-
                 Text("\(node.label)")
                     .font(.headline)
                     .padding(10)
