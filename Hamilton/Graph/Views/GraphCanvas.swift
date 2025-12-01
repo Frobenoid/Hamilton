@@ -14,6 +14,12 @@ struct GraphCanvas: View {
             ZStack {
                 ForEach(graph.nodes, id: \.id) { node in
                     NodeView(node: node)
+                        .focusable()
+                        .onDeleteCommand {
+                            if node.id != 0 {
+                                graph.deleteNode(withID: node.id)
+                            }
+                        }
                 }
             }
             .offset(geo.size / 2)
@@ -52,7 +58,7 @@ struct GraphCanvas: View {
                             )
                             .contentShape(
                                 EdgeShape(start: start, end: end)
-                                    .stroke(lineWidth: 15)  
+                                    .stroke(lineWidth: 15)
                             )
                             .gesture(
                                 TapGesture(count: 2).onEnded({
