@@ -25,7 +25,7 @@ class InputController {
     var mouseScroll: Point = .zero
 
     /// Keys handled by this input controller.
-    private let handledKeys: Set<UInt16> = [
+    final let handledKeys: Set<UInt16> = [
         CGKeyCode.kVK_ANSI_W,
         CGKeyCode.kVK_ANSI_S,
         CGKeyCode.kVK_ANSI_A,
@@ -35,6 +35,8 @@ class InputController {
         CGKeyCode.kVK_UpArrow,
         CGKeyCode.kVK_DownArrow,
     ]
+
+    private var keyEventMonitor: Any?
 
     private init() {
         let notificationCenter = NotificationCenter.default
@@ -55,10 +57,13 @@ class InputController {
                 }
 
                 keyboard.keyboardInput?.keyChangedHandler = {
+                    [weak self]
                     _,
                     _,
                     keyCode,
                     pressed in
+
+                    guard let self = self else { return }
 
                     if pressed {
                         self.pressedKeys.insert(keyCode)
@@ -68,18 +73,26 @@ class InputController {
                 }
             }
 
-        NSEvent.addLocalMonitorForEvents(matching: [
+        keyEventMonitor = NSEvent.addLocalMonitorForEvents(matching: [
             .keyUp, .keyDown,
         ]) {
             event in
 
-            if self.handledKeys.contains(event.keyCode) {
+            if self.handledKeys.contains(
+                event.keyCode
+            ) {
                 return nil
             }
 
             return event
         }
 
+    }
+
+    deinit {
+        if let monitor = keyEventMonitor {
+            NSEvent.removeMonitor(monitor)
+        }
     }
 
     public func cameraCommands() -> [any Command] {
