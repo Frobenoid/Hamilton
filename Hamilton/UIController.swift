@@ -11,7 +11,7 @@ import SwiftUI
 struct UIController: View {
     @Binding var graph: Graph
 
-    @State var editorMode: UIMode = .Edit
+    @State var editorMode: EditorMode = .Edit
     @State var nodeUI: NodeUISettings
     @FocusState var focused: Bool
 
@@ -35,20 +35,25 @@ struct UIController: View {
                     Spacer()
                 }
             }
-        }.environment(nodeUI)
-            .focusable()
-            .focused($focused)
-            .onKeyPress(.escape) {
-                editorMode = .Normal
-                return .handled
-            }
-            .onKeyPress(keys: ["i"]) { _ in
-                editorMode = .Edit
-                return .handled
-            }
-            .onAppear {
-                focused = true
-            }
-            .focusEffectDisabled()
+        }
+        .environment(nodeUI)
+        .focusable()
+        .focused($focused)
+        .onKeyPress(.escape) {
+            editorMode = .Normal
+            return .handled
+        }
+        .onKeyPress(keys: ["i"]) { _ in
+            editorMode = .Edit
+            return .handled
+        }
+        .onAppear {
+            focused = true
+        }
+        .focusEffectDisabled()
+        .contextMenu {
+            ContextMenu(editorMode: editorMode)
+                .environment(graph)
+        }
     }
 }

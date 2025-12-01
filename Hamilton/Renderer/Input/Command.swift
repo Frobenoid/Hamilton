@@ -9,6 +9,15 @@ protocol Command {
     func execute(scene: HScene, deltaTime: Float)
 }
 
+struct AddNodeCommand: Command {
+
+    let node: Node
+
+    func execute(scene: HScene, deltaTime: Float) {
+        scene.graph.addNode(node)
+    }
+}
+
 struct MoveCameraCommand: Command {
     let position: SIMD3<Float>
     let rotation: SIMD3<Float>

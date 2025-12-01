@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EditorModeView: View {
-    var editorMode: UIMode
+    var editorMode: EditorMode
     // TODO: This should be a full on information bar.
     var body: some View {
         Text("\(editorMode)")
