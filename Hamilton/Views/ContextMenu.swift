@@ -16,11 +16,11 @@ struct ContextMenu: View {
             Text("Add")
                 .font(.headline)
                 .bold()
+            // TODO: Instead of calling methods directly into
+            // TODO: the graph this should add them into a dispatch queue.
             Menu {
                 Button {
                     graph.addNode(ConstantNode())
-
-                    //  AddNodeCommand(node: ConstantNode())
                 } label: {
                     Image(systemName: "number")
                     Text("Constant")
@@ -28,7 +28,6 @@ struct ContextMenu: View {
 
                 Button {
                     graph.addNode(BinOpNode())
-                    //                        AddNodeCommand(node: BinOpNode())
                 } label: {
                     Image(systemName: "sum")
                     Text("Binary Operation")
@@ -36,7 +35,6 @@ struct ContextMenu: View {
 
                 Button {
                     graph.addNode(VectorNode())
-                    //                        AddNodeCommand(node: VectorNode())
                 } label: {
                     Image(systemName: "curlybraces")
                     Text("Vector")
@@ -48,7 +46,6 @@ struct ContextMenu: View {
 
             Button {
                 graph.addNode(PrimitiveNode())
-                //                    AddNodeCommand(node: PrimitiveNode())
             } label: {
                 Image(systemName: "rotate.3d")
                 Text("Primitive")
@@ -56,7 +53,6 @@ struct ContextMenu: View {
 
             Button {
                 graph.addNode(SubdivisionNode())
-                //                    AddNodeCommand(node: PrimitiveNode())
             } label: {
                 Image(systemName: "rotate.3d")
                 Text("Subdivision")
