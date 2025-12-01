@@ -39,9 +39,9 @@ extension float4x4 {
     }
 
     init(rotation angles: SIMD3<Float>) {
-        var xRotation: float4x4 = .init(rotationX: angles.x)
-        var yRotation: float4x4 = .init(rotationY: angles.y)
-        var zRotation: float4x4 = .init(rotationZ: angles.z)
+        let xRotation: float4x4 = .init(rotationX: angles.x)
+        let yRotation: float4x4 = .init(rotationY: angles.y)
+        let zRotation: float4x4 = .init(rotationZ: angles.z)
 
         self = xRotation * yRotation * zRotation
     }

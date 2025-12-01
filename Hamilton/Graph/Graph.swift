@@ -7,11 +7,14 @@
 
 import Foundation
 
+/// This graph object manages connections between nodes and
+/// their sockets. 
 @Observable
 class Graph {
     public var nodes: [Node] = []
     private(set) var edges: [Edge] = []
 
+    /// Inserts a node to the graph.
     public func addNode(_ node: Node) {
         node.setID(to: nodes.count)
         nodes.append(node)
