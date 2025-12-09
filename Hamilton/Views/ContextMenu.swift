@@ -71,6 +71,13 @@ struct ContextMenu: View {
                 Image(systemName: "waveform.path")
                 Text("Wave")
             }
+            
+            Button {
+                graph.addNode(TransformNode())
+            } label: {
+                Image(systemName: "move.3d")
+                Text("Transform")
+            }
         }
     }
 }

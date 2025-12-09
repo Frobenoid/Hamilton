@@ -47,7 +47,7 @@ extension float4x4 {
     }
 
     init(scale factor: Float) {
-        var matrix: float4x4 = matrix_identity_float4x4
-        self = matrix * factor
+        self = matrix_identity_float4x4
+        columns.3.w = 1 / factor
     }
 }

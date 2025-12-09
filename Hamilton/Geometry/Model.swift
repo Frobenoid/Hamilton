@@ -35,7 +35,6 @@ struct Model: Transformable {
         let mesh = Mesh(mdlMesh: mdlMesh, mtkMesh: mtkMesh)
 
         self.meshes = [mesh]
-        self.transform.scale = 0.05
     }
 
     mutating func subdivide(subdivisionLevels: Int) {
@@ -126,7 +125,6 @@ extension Model {
 
         unif.modelMatrix = transform.modelMatrix
         
-        print(unif.modelMatrix)
         encoder.setVertexBytes(
             &unif,
             length: MemoryLayout<Uniforms>.stride,
