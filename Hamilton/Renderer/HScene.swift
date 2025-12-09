@@ -39,5 +39,12 @@ class HScene {
         for command in InputController.sharedController.cameraCommands() {
             command.execute(scene: self, deltaTime: deltaTime)
         }
+
+        // Tick all time nodes and re-evaluate
+        let timeNodes = graph.nodes.compactMap { $0 as? TimeNode }
+        if !timeNodes.isEmpty {
+            timeNodes.forEach { $0.tick(deltaTime: deltaTime) }
+            try? Evaluator(graph: graph).evaluate()
+        }
     }
 }

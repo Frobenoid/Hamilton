@@ -40,7 +40,7 @@ struct SocketDeclarationView: View {
                     value: castedBinding(Float.self),
                     label: socket.label
                 )
-                    case is vector_uint3:
+            case is vector_uint3:
                 HStack {
                     Vec3Field(
                         value: castedBinding(vector_uint3.self),
@@ -92,6 +92,10 @@ struct SocketDeclarationView: View {
             case is Float:
                 Text(
                     "\((socket.currentValue as! Float).formatted(.number.precision(.fractionLength(3))))"
+                )
+            case is Int:
+                Text(
+                    "\((socket.currentValue as! Int).formatted(.number.precision(.fractionLength(0))))"
                 )
             case is PrimitiveType:
                 Text("\(socket.currentValue as! PrimitiveType)")
