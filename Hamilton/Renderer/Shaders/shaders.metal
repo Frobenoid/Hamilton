@@ -15,13 +15,15 @@ struct VertexIn {
 struct Uniforms {
     float4x4 projectionMatrix;
     float4x4 viewMatrix;
+    float4x4 modelMatrix;
 };
 
 vertex float4 vertex_main(const VertexIn vertexIn [[stage_in]],
-                          constant Uniforms &uniforms [[buffer(1)]]) {
+                          constant Uniforms &uniforms [[buffer(1)]]
+                          ) {
     float4 position = float4(vertexIn.position, 1);
     
-    return uniforms.projectionMatrix * uniforms.viewMatrix * position;
+    return uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position;
 }
 
 fragment float4 fragment_main() {

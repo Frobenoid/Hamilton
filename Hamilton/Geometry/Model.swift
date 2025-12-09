@@ -9,7 +9,9 @@ import Foundation
 import MetalKit
 import ModelIO
 
-struct Model {
+struct Model: Transformable {
+    var transform = Transform()
+    
     var name: String = "Untitled Model"
     var meshes: [Mesh]
 
@@ -33,6 +35,7 @@ struct Model {
         let mesh = Mesh(mdlMesh: mdlMesh, mtkMesh: mtkMesh)
 
         self.meshes = [mesh]
+        self.transform.scale = 0.05
     }
 
     mutating func subdivide(subdivisionLevels: Int) {
@@ -111,6 +114,7 @@ struct Model {
     }
 }
 
+
 extension Model {
     func render(
         encoder: MTLRenderCommandEncoder,
@@ -118,10 +122,13 @@ extension Model {
         primitiveType: MTLPrimitiveType = .triangle
     ) {
 
-        var uniforms = uniforms
+        var unif = uniforms
 
+        unif.modelMatrix = transform.modelMatrix
+        
+        print(unif.modelMatrix)
         encoder.setVertexBytes(
-            &uniforms,
+            &unif,
             length: MemoryLayout<Uniforms>.stride,
             // TODO: Remove magic number.
             index: 1

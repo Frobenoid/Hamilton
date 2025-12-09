@@ -45,4 +45,9 @@ extension float4x4 {
 
         self = xRotation * yRotation * zRotation
     }
+
+    init(scale factor: Float) {
+        var matrix: float4x4 = matrix_identity_float4x4
+        self = matrix * factor
+    }
 }
