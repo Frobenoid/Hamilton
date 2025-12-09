@@ -9,7 +9,9 @@ import Foundation
 import MetalKit
 import ModelIO
 
-struct Model {
+struct Model: Transformable {
+    var transform = Transform()
+    
     var name: String = "Untitled Model"
     var meshes: [Mesh]
 
@@ -111,6 +113,7 @@ struct Model {
     }
 }
 
+
 extension Model {
     func render(
         encoder: MTLRenderCommandEncoder,
@@ -118,10 +121,12 @@ extension Model {
         primitiveType: MTLPrimitiveType = .triangle
     ) {
 
-        var uniforms = uniforms
+        var unif = uniforms
 
+        unif.modelMatrix = transform.modelMatrix
+        
         encoder.setVertexBytes(
-            &uniforms,
+            &unif,
             length: MemoryLayout<Uniforms>.stride,
             // TODO: Remove magic number.
             index: 1

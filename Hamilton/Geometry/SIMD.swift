@@ -45,4 +45,9 @@ extension float4x4 {
 
         self = xRotation * yRotation * zRotation
     }
+
+    init(scale factor: Float) {
+        self = matrix_identity_float4x4
+        columns.3.w = 1 / factor
+    }
 }

@@ -20,6 +20,17 @@ struct Transform {
     var right: SIMD3<Float> {
         [forward.z, 0, -forward.x]
     }
+
+}
+
+extension Transform {
+    var modelMatrix: matrix_float4x4 {
+        let translation = float4x4(translation: position)
+        let rotation = float4x4(rotation: rotation)
+        let scale = float4x4(scale: scale)
+        let modelMatrix = translation * rotation * scale
+        return modelMatrix
+    }
 }
 
 protocol Transformable {
