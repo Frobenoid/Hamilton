@@ -57,7 +57,20 @@ struct ContextMenu: View {
                 Image(systemName: "rotate.3d")
                 Text("Subdivision")
             }
+            
+            Button {
+                graph.addNode(TimeNode())
+            } label: {
+                Image(systemName: "timer")
+                Text("Time")
+            }
 
+            Button {
+                graph.addNode(WaveNode())
+            } label: {
+                Image(systemName: "waveform.path")
+                Text("Wave")
+            }
         }
     }
 }
