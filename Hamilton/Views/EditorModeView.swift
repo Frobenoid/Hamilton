@@ -15,7 +15,7 @@ struct EditorModeView: View {
             .font(.title)
             .fontWeight(.bold)
             .frame(width: 100, height: 40)
-            .background(editorMode == .Edit ? Color.red : Color.blue)
+            .background(editorMode == .Edit ? Color.error : Color.neutral1)
             .clipShape(RoundedRectangle(cornerRadius: 4))
             .padding(8)
     }

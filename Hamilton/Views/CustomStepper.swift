@@ -35,7 +35,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
         HStack {
             Text(
                 "\(label)"
-            )
+            ).fontWeight(.bold)
             TextField(
                 "",
                 value: $value.x,
@@ -43,7 +43,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             )
             .textFieldStyle(.plain)
             .font(.callout)
-            .background(Color.gray.opacity(0.3))
+            .background(Color.neutral.opacity(0.3))
             .cornerRadius(5)
 
             TextField(
@@ -53,7 +53,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             )
             .textFieldStyle(.plain)
             .font(.callout)
-            .background(Color.gray.opacity(0.3))
+            .background(Color.neutral.opacity(0.3))
             .cornerRadius(5)
             TextField(
                 "",
@@ -62,7 +62,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             )
             .textFieldStyle(.plain)
             .font(.callout)
-            .background(Color.gray.opacity(0.3))
+            .background(Color.neutral.opacity(0.3))
             .cornerRadius(5)
         }
         .multilineTextAlignment(.center)
@@ -168,7 +168,7 @@ struct CustomStepper: View {
                 }
                 .buttonRepeatBehavior(.enabled)
             }
-            .background(Color.gray.opacity(0.3))
+            .background(Color.neutral1.opacity(0.3))
             .cornerRadius(5)
         }
         .padding(.horizontal)

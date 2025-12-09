@@ -9,11 +9,10 @@ import SwiftUI
 
 struct SocketPin: View {
     @Environment(NodeUISettings.self) var ui
-    
+
     var body: some View {
-        Circle()
-            .fill(Color.blue)
-            .frame(width: ui.socketPinSize)
+        RoundedRectangle(cornerRadius: 4)
+            .fill(Color.accent)
+            .frame(width: ui.socketPinSize, height: ui.socketPinSize)
     }
 }
-
