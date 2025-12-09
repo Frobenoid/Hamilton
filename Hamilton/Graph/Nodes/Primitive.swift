@@ -20,6 +20,18 @@ enum PrimitiveType: String, CaseIterable, Identifiable {
 
 class PrimitiveNode: Node {
 
+    var position: vector_float3 {
+        inputs[4].untypedCurrentValue() as! vector_float3
+    }
+
+    var rotation: vector_float3 {
+        inputs[5].untypedCurrentValue() as! vector_float3
+    }
+
+    var scale: Float {
+        inputs[6].untypedCurrentValue() as! Float
+    }
+
     private enum Inputs: Int {
         case PrimitiveType = 0
         case Extent = 1
@@ -55,14 +67,36 @@ class PrimitiveNode: Node {
                 .withLabel("Geometry Type")
                 .asUserModifiable()
         )
-        
+
         addInput(
             Input<vector_uint3>()
                 .withDefaultValue(.one)
-                .withLabel("Segments")
+                .withLabel("Segment")
                 .asUserModifiable()
         )
-        
+
+        // Transform
+        addInput(
+            Input<vector_float3>()
+                .withLabel("Position")
+                .withDefaultValue(.zero)
+                .asUserModifiable()
+        )
+
+        addInput(
+            Input<vector_float3>()
+                .withLabel("Rotation")
+                .withDefaultValue(.zero)
+                .asUserModifiable()
+        )
+
+        addInput(
+            Input<Float>()
+                .withLabel("Scale")
+                .withDefaultValue(1.0)
+                .asUserModifiable()
+        )
+
         addOutput(
             Output<Model>()
                 .withLabel("Output Mesh")
@@ -79,17 +113,23 @@ class PrimitiveNode: Node {
         let geometryType =
             inputs[Inputs.GeometryType.rawValue].currentValue
             as! MDLGeometryType
-        
-        let segments = inputs[Inputs.Segments.rawValue].currentValue as! vector_uint3
 
-        let primitive = Model(
+        let segments =
+            inputs[Inputs.Segments.rawValue].currentValue as! vector_uint3
+
+        var primitive = Model(
             name: "Primitive Model",
             type: primitiveType,
             extent: extent,
             segments: segments,
             geometryType: geometryType
         )
-        
+
+        primitive.transform = Transform(
+            position: position,
+            rotation: rotation,
+            scale: scale
+        )
 
         try outputs[Outputs.OutputMesh.rawValue].setUntypedCurrentValue(
             to: primitive
