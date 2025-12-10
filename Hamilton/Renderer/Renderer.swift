@@ -7,6 +7,7 @@
 
 import Foundation
 import MetalKit
+import SwiftUI
 
 class Renderer: NSObject {
     static var device: MTLDevice = {
@@ -45,10 +46,10 @@ class Renderer: NSObject {
         forwardPass = ForwardPass(view: metalView)
 
         metalView.clearColor = MTLClearColor(
-            red: 1.0,
-            green: 1.0,
-            blue: 1.0,
-            alpha: 1.0
+            red: 200.0,
+            green: 200.0,
+            blue: 200.0,
+            alpha: 1
         )
 
         super.init()

@@ -39,6 +39,14 @@ struct ContextMenu: View {
                     Image(systemName: "curlybraces")
                     Text("Vector")
                 }
+                
+                Button {
+                    graph.addNode(UIntVectorNode())
+                } label: {
+                    Image(systemName: "curlybraces")
+                    Text("UInt Vector")
+                }
+                
             } label: {
                 Image(systemName: "sum")
                 Text("Math")

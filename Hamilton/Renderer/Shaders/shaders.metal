@@ -27,5 +27,7 @@ vertex float4 vertex_main(const VertexIn vertexIn [[stage_in]],
 }
 
 fragment float4 fragment_main() {
+    // rgb(230, 57, 70)
+    //    return float4(0.89,0.222,0.273,1);
     return float4(0,0,0,1);
 }
