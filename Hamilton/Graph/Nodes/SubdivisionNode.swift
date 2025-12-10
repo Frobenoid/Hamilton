@@ -51,11 +51,11 @@ class SubdivisionNode: Node {
     override func execute() throws {
         if var model = inputModel {
 
-            model.subdivide(
-                subdivisionLevels: subdivisionLevel
+            outputSubdividedModel = Model.subdivide(
+                model,
+                level: subdivisionLevel
             )
 
-            outputSubdividedModel = model
         } else {
             return
         }

@@ -37,25 +37,6 @@ struct Model: Transformable {
         self.meshes = [mesh]
     }
 
-    mutating func subdivide(subdivisionLevels: Int) {
-
-        if let new = MDLMesh.newSubdividedMesh(
-            meshes.first!.mesh,
-            submeshIndex: 0,
-            subdivisionLevels: subdivisionLevels
-        ) {
-            new.vertexDescriptor = MDLVertexDescriptor.defaultLayout
-            let mtkMesh = try! MTKMesh(mesh: new, device: Renderer.device)
-            let mesh = Mesh(mdlMesh: new, mtkMesh: mtkMesh)
-
-            self.meshes = [mesh]
-
-        } else {
-            return
-        }
-
-    }
-
     static func createMesh(
         primitiveType: PrimitiveType,
         extent: vector_float3 = .one,
@@ -153,5 +134,28 @@ extension Model {
             }
         }
 
+    }
+}
+
+extension Model {
+    static func subdivide(_ model: Model, level: Int = 1) -> Model {
+
+        var newModel = model
+
+        for (idx, mesh) in newModel.meshes.enumerated() {
+            if let new = MDLMesh.newSubdividedMesh(
+                mesh.mesh,
+                submeshIndex: 0,
+                subdivisionLevels: level
+            ) {
+                new.vertexDescriptor = MDLVertexDescriptor.defaultLayout
+                let mtkMesh = try! MTKMesh(mesh: new, device: Renderer.device)
+                let mesh = Mesh(mdlMesh: new, mtkMesh: mtkMesh)
+
+                newModel.meshes[idx] = mesh
+            }
+        }
+
+        return newModel
     }
 }
