@@ -12,4 +12,8 @@ struct Uniforms {
     var projectionMatrix: float4x4 = matrix_identity_float4x4
     var viewMatrix: float4x4 = matrix_identity_float4x4
     var modelMatrix: float4x4 = matrix_identity_float4x4
+    // 0 = point
+    // 1 = line
+    // 2 = solid
+    var renderMode: UInt32 = 2
 }

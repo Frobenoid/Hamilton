@@ -31,6 +31,13 @@ class WaveNode: Node {
                 .asUserModifiable()
         )
 
+        addInput(
+            Input<Bool>()
+                .withLabel("Y-Offset")
+                .withDefaultValue(true)
+                .asUserModifiable()
+        )
+
         addOutput(
             Output<Float>()
                 .withLabel("Output")
@@ -42,10 +49,12 @@ class WaveNode: Node {
         let input = inputs[0].untypedCurrentValue() as! Float
         let frequency = inputs[1].untypedCurrentValue() as! Float
         let amplitude = inputs[2].untypedCurrentValue() as! Float
+        let shouldYOffset = inputs[3].untypedCurrentValue() as! Bool
 
         try outputs[0].setUntypedCurrentValue(
             to:
-               amplitude * sin(input*frequency)
+                amplitude * sin(input * frequency)
+                + (shouldYOffset ? amplitude : 0)
         )
     }
 }

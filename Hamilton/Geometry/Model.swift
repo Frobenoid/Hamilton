@@ -11,7 +11,7 @@ import ModelIO
 
 struct Model: Transformable {
     var transform = Transform()
-    
+
     var name: String = "Untitled Model"
     var meshes: [Mesh]
 
@@ -113,7 +113,6 @@ struct Model: Transformable {
     }
 }
 
-
 extension Model {
     func render(
         encoder: MTLRenderCommandEncoder,
@@ -124,11 +123,17 @@ extension Model {
         var unif = uniforms
 
         unif.modelMatrix = transform.modelMatrix
-        
+
         encoder.setVertexBytes(
             &unif,
             length: MemoryLayout<Uniforms>.stride,
             // TODO: Remove magic number.
+            index: 1
+        )
+
+        encoder.setFragmentBytes(
+            &unif,
+            length: MemoryLayout<Uniforms>.stride,
             index: 1
         )
 

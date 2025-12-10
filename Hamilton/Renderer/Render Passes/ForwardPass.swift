@@ -44,12 +44,36 @@ struct ForwardPass: RenderPass {
         renderEncoder.setDepthStencilState(depthStencilState)
         renderEncoder.setRenderPipelineState(pipelineState)
 
-        // MARK: Model rendering.
+        
+        // MARK: Solid color rendering
         scene.models.forEach { model in
             model.render(
                 encoder: renderEncoder,
                 uniforms: uniforms,
+                primitiveType: .triangleStrip
+            )
+        }
+        
+        var unif = uniforms
+        unif.renderMode = 1
+        
+        // MARK: Model rendering.
+        scene.models.forEach { model in
+            model.render(
+                encoder: renderEncoder,
+                uniforms: unif,
                 primitiveType: .lineStrip
+            )
+        }
+        
+        unif.renderMode = 0
+        
+        // MARK: Model rendering.
+        scene.models.forEach { model in
+            model.render(
+                encoder: renderEncoder,
+                uniforms: unif,
+                primitiveType: .point
             )
         }
         

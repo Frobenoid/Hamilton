@@ -12,22 +12,41 @@ struct VertexIn {
     float3 position [[attribute(0)]];
 };
 
+struct VertexOut {
+    float pointSize [[point_size]];
+    float4 position [[position]];
+};
+
 struct Uniforms {
     float4x4 projectionMatrix;
     float4x4 viewMatrix;
     float4x4 modelMatrix;
+    uint16_t renderMode;
 };
 
-vertex float4 vertex_main(const VertexIn vertexIn [[stage_in]],
+vertex VertexOut vertex_main(const VertexIn vertexIn [[stage_in]],
                           constant Uniforms &uniforms [[buffer(1)]]
                           ) {
-    float4 position = float4(vertexIn.position, 1);
+    float4 pos = float4(vertexIn.position, 1);
     
-    return uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position;
+    VertexOut out {
+        .position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * pos,
+        .pointSize = 10
+    };
+    
+    return out;
 }
 
-fragment float4 fragment_main() {
-    // rgb(230, 57, 70)
-    //    return float4(0.89,0.222,0.273,1);
-    return float4(0,0,0,1);
+fragment float4 fragment_main(
+                              const VertexOut vertexOut [[stage_in]],
+                              constant Uniforms &uniforms [[buffer(1)]]
+                              ) {
+    float4 pos = normalize(vertexOut.position);
+    
+    if (uniforms.renderMode == 0 || uniforms.renderMode == 1) {
+        return float4(0,0,0,1);
+    } else {
+        return float4(1,1,0,1) * pos;
+    }
+    
 }
