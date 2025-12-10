@@ -27,81 +27,56 @@ struct SocketDeclarationView: View {
     }
 
     var body: some View {
-        if socket.isUserModifiable && !displayOnly {
-            switch socket.defaultValue {
-            case is Int:
-                IntStepper(
-                    value: castedBinding(Int.self),
+        let this = socket.isUserModifiable && !displayOnly
+        if socket.currentValue is any SocketValueView {
+            switch socket.currentValue {
+            case let s as Float:
+                s.show(
+                    castedBinding(),
+                    when: this,
                     label: socket.label
                 )
-            case is Float:
-                // TODO: Custom slider here.
-                CustomStepper(
-                    value: castedBinding(Float.self),
+            case let s as Int:
+                s.show(
+                    castedBinding(),
+                    when: this,
                     label: socket.label
                 )
-            case is vector_uint3:
-                HStack {
-                    Vec3Field(
-                        value: castedBinding(vector_uint3.self),
-                        label: socket.label,
-                        format: .integer
-                    )
-                }
-                .multilineTextAlignment(.center)
-            case is vector_float3:
-                HStack {
-                    Vec3Field(
-                        value: castedBinding(vector_float3.self),
-                        label: socket.label
-                    )
-                }
-                .multilineTextAlignment(.center)
-            case is MDLGeometryType:
-                Picker(
-                    selection: castedBinding(MDLGeometryType.self)
-                ) {
-                    Text("Lines").tag(MDLGeometryType.lines)
-                    Text("Quads").tag(MDLGeometryType.quads)
-                    Text("Tris").tag(MDLGeometryType.triangles)
-
-                } label: {
-                    Text("Geometry Type")
-                }
-                .pickerStyle(.menu)
-                .padding(.horizontal)
-            case is PrimitiveType:
-                Picker(
-                    selection: castedBinding(PrimitiveType.self)
-                ) {
-                    ForEach(PrimitiveType.allCases) { type in
-                        Text(type.rawValue.capitalized)
-                            .tag(type)
-                    }
-                } label: {
-                    Text("Primtive")
-                }
-                .pickerStyle(.menu)
-                .padding(.horizontal)
+            case let s as vector_float3:
+                s.show(
+                    castedBinding(),
+                    when: this,
+                    label: socket.label
+                )
+            case let s as vector_uint3:
+                s.show(
+                    castedBinding(),
+                    when: this,
+                    label: socket.label
+                )
+            case let s as MDLGeometryType:
+                s.show(
+                    castedBinding(),
+                    when: this,
+                    label: socket.label
+                )
+            case let s as PrimitiveType:
+                s.show(
+                    castedBinding(),
+                    when: this,
+                    label: socket.label
+                )
+            case let s as Model:
+                s.show(
+                    castedBinding(),
+                    when: this,
+                    label: socket.label
+                )
             default:
-                Text("Any")
+                EmptyView()
             }
         } else {
-            // Display info only.
-            switch socket.defaultValue {
-            case is Float:
-                Text(
-                    "\((socket.currentValue as! Float).formatted(.number.precision(.fractionLength(3))))"
-                )
-            case is Int:
-                Text(
-                    "\((socket.currentValue as! Int).formatted(.number.precision(.fractionLength(0))))"
-                )
-            case is PrimitiveType:
-                Text("\(socket.currentValue as! PrimitiveType)")
-            default:
-                Text("Any")
-            }
+            Text("Unimplemented")
         }
     }
 }

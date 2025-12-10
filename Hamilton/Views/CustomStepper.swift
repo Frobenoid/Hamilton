@@ -8,6 +8,64 @@
 import SwiftUI
 import simd
 
+struct ScalarSlider<Number: Numeric>: View {
+
+    @Binding var value: Number
+    var label: String
+    
+    func incrementStep() {
+        value += 1
+    }
+
+    func decrementStep() {
+        value -= 1
+    }
+
+    var formatter: NumberFormatter {
+        let formatter = NumberFormatter()
+        if value is Int {
+            formatter.minimumFractionDigits = 0
+            formatter.allowsFloats = false
+        } else {
+            formatter.minimumFractionDigits = 3
+            formatter.allowsFloats = true
+        }
+        return formatter
+    }
+
+    var body: some View {
+        HStack {
+            HStack {
+                Button(action: { decrementStep() }) {
+                    Image(systemName: "minus")
+                }
+                .buttonRepeatBehavior(.enabled)
+                HStack {
+                    Text(
+                        "\(label)"
+                    ).fontWeight(.bold)
+                    TextField(
+                        "",
+                        value: $value,
+                        formatter: formatter
+                    )
+                    .textFieldStyle(.plain)
+                    .font(.callout)
+                }
+                .multilineTextAlignment(.center)
+
+                Button(action: { incrementStep() }) {
+                    Image(systemName: "plus")
+                }
+                .buttonRepeatBehavior(.enabled)
+            }
+            .background(Color.neutral1)
+            .cornerRadius(5)
+        }
+        .padding(.horizontal)
+    }
+}
+
 struct Vec3Field<Number: SIMDScalar>: View {
 
     enum Format {
@@ -35,7 +93,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
         HStack {
             Text(
                 "\(label)"
-            )
+            ).fontWeight(.bold)
             TextField(
                 "",
                 value: $value.x,
@@ -43,7 +101,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             )
             .textFieldStyle(.plain)
             .font(.callout)
-            .background(Color.gray.opacity(0.3))
+            .background(Color.neutral.opacity(0.3))
             .cornerRadius(5)
 
             TextField(
@@ -53,7 +111,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             )
             .textFieldStyle(.plain)
             .font(.callout)
-            .background(Color.gray.opacity(0.3))
+            .background(Color.neutral.opacity(0.3))
             .cornerRadius(5)
             TextField(
                 "",
@@ -62,7 +120,7 @@ struct Vec3Field<Number: SIMDScalar>: View {
             )
             .textFieldStyle(.plain)
             .font(.callout)
-            .background(Color.gray.opacity(0.3))
+            .background(Color.neutral.opacity(0.3))
             .cornerRadius(5)
         }
         .multilineTextAlignment(.center)
@@ -70,115 +128,11 @@ struct Vec3Field<Number: SIMDScalar>: View {
     }
 }
 
-struct IntStepper: View {
-    @Binding var value: Int
-
-    var label: String
-
-    func incrementStep() {
-        value += 1
-    }
-
-    func decrementStep() {
-        value -= 1
-    }
-
-    private static var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 0
-        formatter.allowsFloats = false
-        return formatter
-    }
-
-    var body: some View {
-        HStack {
-            HStack {
-                Button(action: { decrementStep() }) {
-                    Image(systemName: "minus")
-                }
-                .buttonRepeatBehavior(.enabled)
-                HStack {
-                    Text(
-                        "\(label)"
-                    ).fontWeight(.bold)
-                    TextField(
-                        "",
-                        value: $value,
-                        formatter: Self.formatter
-                    )
-                    .textFieldStyle(.plain)
-                    .font(.callout)
-                }
-                .multilineTextAlignment(.center)
-
-                Button(action: { incrementStep() }) {
-                    Image(systemName: "plus")
-                }
-                .buttonRepeatBehavior(.enabled)
-            }
-            .background(Color.gray.opacity(0.3))
-            .cornerRadius(5)
-        }
-        .padding(.horizontal)
-    }
-
-}
-struct CustomStepper: View {
-    @Binding var value: Float
-
-    var label: String
-
-    private static var formatter: NumberFormatter {
-        let formatter = NumberFormatter()
-        formatter.minimumFractionDigits = 3
-        return formatter
-    }
-
-    func incrementStep() {
-        value += 0.5
-    }
-
-    func decrementStep() {
-        value -= 0.5
-    }
-
-    var body: some View {
-        HStack {
-            HStack {
-                Button(action: { decrementStep() }) {
-                    Image(systemName: "minus")
-                }
-                .buttonRepeatBehavior(.enabled)
-                HStack {
-                    Text(
-                        "\(label)"
-                    ).fontWeight(.bold)
-                    TextField(
-                        "",
-                        value: $value,
-                        formatter: Self.formatter
-                    )
-                    .textFieldStyle(.plain)
-                    .font(.callout)
-                }
-                .multilineTextAlignment(.center)
-
-                Button(action: { incrementStep() }) {
-                    Image(systemName: "plus")
-                }
-                .buttonRepeatBehavior(.enabled)
-            }
-            .background(Color.gray.opacity(0.3))
-            .cornerRadius(5)
-        }
-        .padding(.horizontal)
-    }
-}
 
 #Preview {
     @Previewable @State var value: Float = 0
     @Previewable @State var vec: vector_float3 = .one
-    CustomStepper(value: $value, label: "Test")
+    ScalarSlider(value: $value, label: "Value")
 
     Vec3Field(value: $vec, label: "Vec")
 }

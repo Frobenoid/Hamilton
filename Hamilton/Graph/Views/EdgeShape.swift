@@ -17,7 +17,6 @@ struct EdgeShape: Shape {
         let deltaY = abs(end.y - start.y)
         let distance = hypot(end.x - start.x, end.y - start.y)
 
-        // Determine handle length based on distance
         let stemHeight = clamp(
             deltaY / 4.0,
             lowerBound: 5.0,

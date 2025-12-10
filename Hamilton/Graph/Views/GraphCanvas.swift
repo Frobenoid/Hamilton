@@ -49,7 +49,7 @@ struct GraphCanvas: View {
 
                         EdgeShape(start: start, end: end)
                             .stroke(
-                                Color.black.opacity(0.8),
+                                Color.background.opacity(0.8),
                                 style: StrokeStyle(
                                     lineWidth: 5,
                                     lineCap: .round,

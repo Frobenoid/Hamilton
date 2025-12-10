@@ -51,7 +51,7 @@ struct NodeView: View {
                 Spacer()
             }
         }
-        .background()
+        .background(Color.background)
         .cornerRadius(8)
         .overlay(
             RoundedRectangle(cornerRadius: 8)
