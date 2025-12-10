@@ -1,3 +1,17 @@
+
+<br />
+<div align="center">
+  <h1 align="center">Hamilton</h1>
+  <p align="center">
+    A minimalistic procedural modeling tool.
+    <br />
+  </p>
+  <a href="https://github.com/Frobenoid/Hamilton">
+    <img src="logo.png" alt="Logo" width="400" height="400">
+  </a>
+</div>
+
+
 <details>
   <summary>Table of Contents</summary>
   <ol>
@@ -78,7 +92,7 @@ Hamilton is currently an experimental tool, so expect rough edges, missing featu
 
 ## License
 
-Hamilton is released under the **MIT License**.
+Hamilton is released under the **GNU General Public License v3.0**.
 
 See the `LICENSE` file in this repository for the full license text.
 
