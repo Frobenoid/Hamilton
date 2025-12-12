@@ -49,7 +49,7 @@ class SubdivisionNode: Node {
     }
 
     override func execute() throws {
-        if var model = inputModel {
+        if let model = inputModel {
 
             outputSubdividedModel = Model.subdivide(
                 model,
