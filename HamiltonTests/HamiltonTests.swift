@@ -20,42 +20,34 @@ struct HamiltonTests {
 
         // 0 -> 2
         graph.connect(
-            Edge(
-                sourceNode: 0,
-                sourceSocket: 0,
-                destinationNode: 2,
-                destinationSocket: 0
-            )
+            sourceNode: 0,
+            sourceSocket: 0,
+            destinationNode: 2,
+            destinationSocket: 0
         )
 
         // 1 -> 2
         graph.connect(
-            Edge(
-                sourceNode: 1,
-                sourceSocket: 0,
-                destinationNode: 2,
-                destinationSocket: 1
-            )
+            sourceNode: 1,
+            sourceSocket: 0,
+            destinationNode: 2,
+            destinationSocket: 1
         )
 
         // 2 -> 3
         graph.connect(
-            Edge(
-                sourceNode: 2,
-                sourceSocket: 0,
-                destinationNode: 3,
-                destinationSocket: 0
-            )
+            sourceNode: 2,
+            sourceSocket: 0,
+            destinationNode: 3,
+            destinationSocket: 0
         )
 
         // 1 -> 3
         graph.connect(
-            Edge(
-                sourceNode: 1,
-                sourceSocket: 0,
-                destinationNode: 3,
-                destinationSocket: 1
-            )
+            sourceNode: 1,
+            sourceSocket: 0,
+            destinationNode: 3,
+            destinationSocket: 1
         )
 
         #expect(graph.nodes.count == 4)
@@ -80,42 +72,34 @@ struct HamiltonTests {
 
         // 0 -> 2
         graph.connect(
-            Edge(
-                sourceNode: 0,
-                sourceSocket: 0,
-                destinationNode: 2,
-                destinationSocket: 0
-            )
+            sourceNode: 0,
+            sourceSocket: 0,
+            destinationNode: 2,
+            destinationSocket: 0
         )
 
         // 1 -> 2
         graph.connect(
-            Edge(
-                sourceNode: 1,
-                sourceSocket: 0,
-                destinationNode: 2,
-                destinationSocket: 1
-            )
+            sourceNode: 1,
+            sourceSocket: 0,
+            destinationNode: 2,
+            destinationSocket: 1
         )
 
         // 2 -> 3
         graph.connect(
-            Edge(
-                sourceNode: 2,
-                sourceSocket: 0,
-                destinationNode: 3,
-                destinationSocket: 0
-            )
+            sourceNode: 2,
+            sourceSocket: 0,
+            destinationNode: 3,
+            destinationSocket: 0
         )
 
         // 1 -> 3
         graph.connect(
-            Edge(
-                sourceNode: 1,
-                sourceSocket: 0,
-                destinationNode: 3,
-                destinationSocket: 1
-            )
+            sourceNode: 1,
+            sourceSocket: 0,
+            destinationNode: 3,
+            destinationSocket: 1
         )
 
         try! evaluator.evaluate()
@@ -136,28 +120,24 @@ struct HamiltonTests {
     }
 
     @Test func cycleDetection() {
-        var graph = Graph()
+        let graph = Graph()
         let evaluator = Evaluator(graph: graph)
 
         graph.addNode(BinOpNode())
         graph.addNode(BinOpNode())
 
         graph.connect(
-            Edge(
-                sourceNode: 0,
-                sourceSocket: 0,
-                destinationNode: 1,
-                destinationSocket: 0
-            )
+            sourceNode: 0,
+            sourceSocket: 0,
+            destinationNode: 1,
+            destinationSocket: 0
         )
 
         graph.connect(
-            Edge(
-                sourceNode: 1,
-                sourceSocket: 0,
-                destinationNode: 0,
-                destinationSocket: 0
-            )
+            sourceNode: 1,
+            sourceSocket: 0,
+            destinationNode: 0,
+            destinationSocket: 0
         )
 
         #expect(

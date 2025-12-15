@@ -8,7 +8,7 @@
 import Foundation
 
 /// This graph object manages connections between nodes and
-/// their sockets. 
+/// their sockets.
 @Observable
 class Graph {
     public var nodes: [Node] = []
@@ -64,17 +64,7 @@ class Graph {
         nodes.removeLast()
     }
 
-    /// Connects two nodes as specified by the provided ``Edge``.
-    public func connect(_ edge: Edge) {
-        edge.id = edges.count
-        edges.append(edge)
-
-        // Mark destination socket as connected.
-        nodes[edge.destinationNode]
-            .inputs[edge.destinationSocket]
-            .toggleConnection()
-    }
-
+    /// Connects two nodes.
     public func connect(
         sourceNode: NodeID,
         sourceSocket: SocketID,
