@@ -125,11 +125,12 @@ class PrimitiveNode: Node {
             geometryType: geometryType
         )
 
-        primitive.transform = Transform(
-            position: position,
-            rotation: rotation,
-            scale: scale
-        )
+        let transform = MDLTransform()
+        transform.translation = position
+        transform.rotation = rotation
+        transform.scale = vector_float3(x: scale, y: scale, z: scale)
+
+        primitive.transform = transform
 
         try outputs[Outputs.OutputMesh.rawValue].setUntypedCurrentValue(
             to: primitive
