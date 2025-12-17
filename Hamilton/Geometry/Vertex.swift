@@ -12,6 +12,17 @@ struct Vertex {
     public var position: SIMD3<Float>
 }
 
+enum VertexAttribute: Int {
+    case position
+    case normal
+}
+
+extension VertexAttribute {
+    var index: Int {
+        self.rawValue
+    }
+}
+
 extension MTLVertexDescriptor {
     static var defaultLayout: MTLVertexDescriptor? {
         MTKMetalVertexDescriptorFromModelIO(.defaultLayout)
@@ -24,12 +35,13 @@ extension MDLVertexDescriptor {
         let vertexDescriptor = MDLVertexDescriptor()
 
         var offset = 0
-        vertexDescriptor.attributes[0] = MDLVertexAttribute(
-            name: MDLVertexAttributePosition,
-            format: .float3,
-            offset: 0,
-            bufferIndex: 0
-        )
+        vertexDescriptor.attributes[VertexAttribute.position.index] =
+            MDLVertexAttribute(
+                name: MDLVertexAttributePosition,
+                format: .float3,
+                offset: 0,
+                bufferIndex: 0
+            )
 
         offset += MemoryLayout<SIMD3<Float>>.stride
         vertexDescriptor.layouts[0] = MDLVertexBufferLayout(
