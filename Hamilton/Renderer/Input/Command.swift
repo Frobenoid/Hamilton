@@ -27,8 +27,8 @@ struct MoveCameraCommand: Command {
         let movementAmount = deltaTime
         scene.camera.position +=
             movementAmount
-            * (position.z * scene.camera.transform.forward + position.x
-                * scene.camera.transform.right)
+            * (position.z * scene.camera.forward + position.x
+                * scene.camera.right)
         scene.camera.rotation += movementAmount * rotation
     }
 }

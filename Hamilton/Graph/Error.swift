@@ -8,7 +8,6 @@
 import Foundation
 
 enum GraphError: Error {
-    case imposibleCasting(from: Any, to: Any)
     /// Out of range access.
     case outOfRangeNode(node: NodeID)
     case outOfRangeInput(input: SocketID)
@@ -16,4 +15,5 @@ enum GraphError: Error {
 
     /// Evaluator related errors.
     case containsDirectedCycle(graph: Graph, node: NodeID)
+    case imposibleCasting(from: Any, to: Any)
 }

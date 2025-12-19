@@ -9,8 +9,8 @@ import Foundation
 import MetalKit
 import ModelIO
 
-struct Model: Transformable {
-    var transform = Transform()
+struct Model {
+    var transform = MDLTransform()
 
     var name: String = "Untitled Model"
     var meshes: [Mesh]
@@ -103,7 +103,7 @@ extension Model {
 
         var unif = uniforms
 
-        unif.modelMatrix = transform.modelMatrix
+        unif.modelMatrix = transform.matrix
 
         encoder.setVertexBytes(
             &unif,

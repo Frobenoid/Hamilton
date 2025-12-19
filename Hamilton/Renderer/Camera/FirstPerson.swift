@@ -24,7 +24,7 @@ struct FirstPerson: Camera {
         (float4x4(translation: position) * float4x4(rotation: rotation)).inverse
     }
 
-    var transform: Transform = Transform()
+    var transform = MDLTransform()
 
     init(
         fov: Float = 45.0,
@@ -36,7 +36,7 @@ struct FirstPerson: Camera {
         camera.nearVisibilityDistance = near
         camera.farVisibilityDistance = far
         camera.fieldOfView = fov
-        transform.position = [0, 0, 5]
+        transform.translation = [0, 0, 5]
     }
 
     mutating func updateAspect(size: CGSize) {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import MetalKit
 import simd
 
 class TransformNode: Node {
@@ -59,15 +60,15 @@ class TransformNode: Node {
     }
 
     override func execute() throws {
-        var transform = Transform(
-            position: position,
-            rotation: rotation,
-            scale: scale
-        )
+        let transform = MDLTransform()
+        transform.translation = position
+        transform.rotation = rotation
+        transform.scale = [scale, scale, scale]
 
         if var model = inputs[0].currentValue as? Model {
             model.transform = transform
 
+            print(model.transform.scale)
             try outputs[0].setUntypedCurrentValue(to: model)
         }
     }
