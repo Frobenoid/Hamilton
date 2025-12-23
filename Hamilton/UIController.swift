@@ -20,8 +20,14 @@ struct UIController: View {
             MetalView()
                 .environment(graph)
 
-            GraphView()
-                .opacity(editorMode == .Edit ? 1 : 0)
+            GraphView {
+                ForEach(0..<10) {
+                    i in
+                    SubViewTest()
+                }
+            }
+            .opacity(editorMode == .Edit ? 1 : 0)
+
             //            ScrollView([.horizontal, .vertical]) {
             //                GraphCanvas()
             //                    .frame(width: 2000, height: 2000)

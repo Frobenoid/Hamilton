@@ -13,7 +13,14 @@ struct GraphCamera {
     var scale: CGFloat = 1
 }
 
-struct GraphView: View {
+struct GraphView<Content: View>: View {
+
+    let content: Content
+
+    init(@ViewBuilder content: () -> Content) {
+        self.content = content()
+    }
+
     @State var camera = GraphCamera()
     /// Tap location in world coordinates
     @State var tapLocation = CGPoint.zero
@@ -57,48 +64,29 @@ struct GraphView: View {
             }
     }
 
-    var scaleAnimation: Animation {
-        .interactiveSpring(
-            response: 0.3,
-            dampingFraction: 0.8
-        )
-    }
-
-    var positionAnimation: Animation {
-        .easeInOut(duration: 0.3)
-    }
-
     var body: some View {
         GeometryReader { geo in
             ZStack {
+
                 Color.clear
                     .contentShape(Rectangle())
                     .gesture(drag)
                     .gesture(magnification)
                     .gesture(tap)
-                ForEach(0..<10) {
-                    i in
-                    SubViewTest()
-                        .offset(
-                            CGSize(
-                                width: camera.position.x,
-                                height: camera.position.y
-                            )
+
+                content
+                    .offset(
+                        CGSize(
+                            width: camera.position.x,
+                            height: camera.position.y
                         )
-                        .scaleEffect(
-                            camera.scale,
-                            anchor: .center
-                        )
-                }
+                    )
+                    .scaleEffect(
+                        camera.scale,
+                        anchor: .center
+                    )
+
             }
-            .animation(
-                scaleAnimation,
-                value: camera.scale
-            )
-            .animation(
-                positionAnimation,
-                value: camera.position
-            )
         }
     }
 }
@@ -136,5 +124,10 @@ struct SubViewTest: View {
 }
 
 #Preview {
-    GraphView()
+    GraphView {
+        ForEach(0..<10) {
+            i in
+            SubViewTest()
+        }
+    }
 }
