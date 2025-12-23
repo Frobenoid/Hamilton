@@ -15,14 +15,14 @@ struct GraphCamera {
 
 struct GraphView: View {
     @State var camera = GraphCamera()
-    @State var circleOffset = CGPoint.zero
     /// Tap location in world coordinates
     @State var tapLocation = CGPoint.zero
 
+    // TODO: Move this into a settings struct.
+    var scalingFactor: CGFloat = 0.5
     var translationFactor: CGFloat {
         1 / (camera.scale * 10)
     }
-    var scalingFactor: CGFloat = 0.5
 
     var magnification: some Gesture {
         MagnifyGesture()
@@ -35,6 +35,7 @@ struct GraphView: View {
     }
 
     var drag: some Gesture {
+        // TODO: Restrict velocity to avoid blow-ups.
         DragGesture()
             .onChanged { gesture in
                 camera.position.x +=
