@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-struct GraphCamera {
+struct CanvasCamera {
     var position: CGPoint = .zero
     // This should be in a defined range.
     var scale: CGFloat = 1
 }
 
-struct GraphView<Content: View>: View {
+struct CanvasView<Content: View>: View {
 
     let content: Content
 
@@ -21,7 +21,7 @@ struct GraphView<Content: View>: View {
         self.content = content()
     }
 
-    @State var camera = GraphCamera()
+    @State var camera = CanvasCamera()
     /// Tap location in world coordinates
     @State var tapLocation = CGPoint.zero
 
@@ -124,7 +124,7 @@ struct SubViewTest: View {
 }
 
 #Preview {
-    GraphView {
+    CanvasView {
         ForEach(0..<10) {
             i in
             SubViewTest()

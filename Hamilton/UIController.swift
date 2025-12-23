@@ -20,7 +20,7 @@ struct UIController: View {
             MetalView()
                 .environment(graph)
 
-            GraphView {
+            CanvasView {
                 ForEach(0..<10) {
                     i in
                     SubViewTest()
