@@ -57,6 +57,17 @@ struct GraphView: View {
             }
     }
 
+    var scaleAnimation: Animation {
+        .interactiveSpring(
+            response: 0.3,
+            dampingFraction: 0.8
+        )
+    }
+
+    var positionAnimation: Animation {
+        .easeInOut(duration: 0.3)
+    }
+
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -81,14 +92,11 @@ struct GraphView: View {
                 }
             }
             .animation(
-                .interactiveSpring(
-                    response: 0.3,
-                    dampingFraction: 0.8
-                ),
+                scaleAnimation,
                 value: camera.scale
             )
             .animation(
-                .easeInOut(duration: 0.3),
+                positionAnimation,
                 value: camera.position
             )
         }
