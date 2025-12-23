@@ -29,7 +29,7 @@ struct GraphView: View {
             .onChanged { gesture in
                 camera.scale = max(
                     min(gesture.magnification * scalingFactor, 1),
-                    0.3
+                    0.2
                 )
             }
     }
@@ -87,7 +87,7 @@ struct GraphView: View {
                 value: camera.scale
             )
             .animation(
-                .easeInOut(duration: 0.5),
+                .easeInOut(duration: 0.3),
                 value: camera.position
             )
         }
