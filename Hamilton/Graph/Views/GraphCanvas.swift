@@ -23,7 +23,6 @@ struct GraphCanvasView: View {
                 }
                 .offset(geo.size / 2)
             }
-            .coordinateSpace(name: "Graph")
             .overlayPreferenceValue(SocketAnchorKey.self) { anchors in
 
                 ForEach(graph.edges, id: \.id) { edge in
