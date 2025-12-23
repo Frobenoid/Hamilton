@@ -18,15 +18,9 @@ struct UIController: View {
     var body: some View {
         ZStack {
             MetalView()
-                .environment(graph)
 
-            CanvasView {
-                ForEach(0..<10) {
-                    i in
-                    SubViewTest()
-                }
-            }
-            .opacity(editorMode == .Edit ? 1 : 0)
+            GraphCanvasView()
+                .opacity(editorMode == .Edit ? 1 : 0)
 
             //            ScrollView([.horizontal, .vertical]) {
             //                GraphCanvas()
@@ -45,6 +39,7 @@ struct UIController: View {
             }
         }
         .environment(nodeUI)
+        .environment(graph)
         .focusable()
         .focused($focused)
         .onKeyPress(.escape) {

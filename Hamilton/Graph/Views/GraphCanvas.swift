@@ -7,6 +7,73 @@
 
 import SwiftUI
 
+struct GraphCanvasView: View {
+    @Environment(Graph.self) var graph: Graph
+    var body: some View {
+        GeometryReader { geo in
+            CanvasView {
+                ForEach(graph.nodes, id: \.id) { node in
+                    NodeView(node: node)
+                        .focusable()
+                        .onDeleteCommand {
+                            if node.id != 0 {
+                                graph.deleteNode(withID: node.id)
+                            }
+                        }
+                }
+            }
+            .coordinateSpace(name: "Graph")
+            .overlayPreferenceValue(SocketAnchorKey.self) { anchors in
+
+                ForEach(graph.edges, id: \.id) { edge in
+
+                    if let
+                        source = anchors[
+                            SocketAnchor(
+                                nodeID: edge.sourceNode,
+                                socketID: edge.sourceSocket,
+                                isOutput: true
+                            )
+                        ],
+
+                        let destination = anchors[
+                            SocketAnchor(
+                                nodeID: edge.destinationNode,
+                                socketID: edge.destinationSocket
+                            )
+                        ]
+                    {
+                        let start = geo[source]
+                        let end = geo[destination]
+
+                        EdgeShape(start: start, end: end)
+                            .stroke(
+                                Color.background.opacity(0.8),
+                                style: StrokeStyle(
+                                    lineWidth: 5,
+                                    lineCap: .round,
+                                    lineJoin: .round
+                                )
+                            )
+                            .contentShape(
+                                EdgeShape(start: start, end: end)
+                                    .stroke(lineWidth: 15)
+                            )
+                            .gesture(
+                                TapGesture(count: 2).onEnded({
+                                    _ in
+                                    graph.disconnect(edge.id)
+                                    try! Evaluator(graph: graph).evaluate()
+                                })
+                            )
+                    }
+
+                }
+            }
+        }
+    }
+}
+
 struct GraphCanvas: View {
     @Environment(Graph.self) var graph: Graph
     var body: some View {
@@ -85,6 +152,9 @@ struct GraphCanvas: View {
         return g
     }()
 
-    GraphCanvas().environment(graph).environment(ui)
+    //    GraphCanvas().environment(graph).environment(ui)
 
+    GraphCanvasView()
+        .environment(graph)
+        .environment(ui)
 }

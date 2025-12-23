@@ -22,6 +22,20 @@ struct NodeView: View {
             * uiSettings.socketSectionSize + uiSettings.titleSize
     }
 
+    var drag: some Gesture {
+        DragGesture(minimumDistance: 3)
+            .updating($dragOffset) { value, state, _ in
+                state = value.translation
+                node.isDragging = true
+            }
+            .onEnded {
+                value in
+
+                offset.width += value.translation.width
+                offset.height += value.translation.height
+            }
+    }
+
     var body: some View {
         GeometryReader { geo in
             VStack(spacing: 0) {
@@ -71,22 +85,7 @@ struct NodeView: View {
                 ) : node.offset
 
         )
-        .gesture(
-            DragGesture(minimumDistance: 3)
-                .updating($dragOffset) { value, state, _ in
-                    state = value.translation
-                    node.isDragging = true
-                    node.offset = offset + dragOffset
-                }
-                .onEnded {
-                    value in
-
-                    offset.width += value.translation.width
-                    offset.height += value.translation.height
-                    node.offset = offset
-                    node.isDragging = false
-                }
-        )
+        .gesture(drag)
     }
 }
 
