@@ -27,7 +27,6 @@ struct GraphView: View {
     var magnification: some Gesture {
         MagnifyGesture()
             .onChanged { gesture in
-                // TODO: Make this smoother.
                 camera.scale = max(
                     min(gesture.magnification * scalingFactor, 1),
                     0.3
@@ -60,7 +59,8 @@ struct GraphView: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Rectangle()
+                Color.clear
+                    .contentShape(Rectangle())
                     .gesture(drag)
                     .gesture(magnification)
                     .gesture(tap)
@@ -79,6 +79,17 @@ struct GraphView: View {
                         )
                 }
             }
+            .animation(
+                .interactiveSpring(
+                    response: 0.3,
+                    dampingFraction: 0.8
+                ),
+                value: camera.scale
+            )
+            .animation(
+                .easeInOut(duration: 0.5),
+                value: camera.position
+            )
         }
     }
 }
@@ -107,7 +118,7 @@ struct SubViewTest: View {
 
     var body: some View {
         Circle()
-            .background(isSelected ? Color.red : nil)
+            .fill(Color.blue)
             //            .gesture(tap)
             .gesture(drag)
             .position(position)

@@ -20,13 +20,15 @@ struct UIController: View {
             MetalView()
                 .environment(graph)
 
-            ScrollView([.horizontal, .vertical]) {
-                GraphCanvas()
-                    .frame(width: 2000, height: 2000)
-                    .environment(graph)
-            }
-            .defaultScrollAnchor(UnitPoint(x: 0.5, y: 0.5))
-            .opacity(editorMode == .Edit ? 1 : 0)
+            GraphView()
+                .opacity(editorMode == .Edit ? 1 : 0)
+            //            ScrollView([.horizontal, .vertical]) {
+            //                GraphCanvas()
+            //                    .frame(width: 2000, height: 2000)
+            //                    .environment(graph)
+            //            }
+            //            .defaultScrollAnchor(UnitPoint(x: 0.5, y: 0.5))
+            //            .opacity(editorMode == .Edit ? 1 : 0)
 
             VStack {
                 Spacer()

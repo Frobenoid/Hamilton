@@ -11,8 +11,7 @@ import SwiftUI
 struct HamiltonApp: App {
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-            GraphView()
+            ContentView()
         }
     }
 }
