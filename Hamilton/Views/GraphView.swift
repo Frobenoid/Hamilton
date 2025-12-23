@@ -20,7 +20,7 @@ struct GraphView: View {
     @State var tapLocation = CGPoint.zero
 
     var translationFactor: CGFloat {
-        1 / (camera.scale * 9)
+        1 / (camera.scale * 10)
     }
     var scalingFactor: CGFloat = 0.5
 
@@ -39,14 +39,12 @@ struct GraphView: View {
         DragGesture()
             .onChanged { gesture in
                 camera.position.x +=
-                    gesture.translation.width
+                    gesture.predictedEndTranslation.width
                     * translationFactor
                 camera.position.y +=
-                    gesture.translation.height
+                    gesture.predictedEndTranslation.height
                     * translationFactor
-                print("Triggering drag on parent view")
             }
-            .onEnded { _ in }
     }
 
     var tap: some Gesture {
@@ -56,7 +54,6 @@ struct GraphView: View {
                     x: event.location.x + camera.position.x,
                     y: event.location.y + camera.position.y
                 )
-                print("Tap at \(tapLocation)")
             }
     }
 
@@ -90,7 +87,7 @@ struct SubViewTest: View {
     @State var position: CGPoint = .zero
     @State var isSelected: Bool = false
 
-    // TODO:
+    // TODO: Implement selection!
     var tap: some Gesture {
         SpatialTapGesture()
             .onEnded { event in
@@ -105,7 +102,6 @@ struct SubViewTest: View {
                     x: position.x + gesture.translation.width,
                     y: position.y + gesture.translation.height
                 )
-                print("Triggering drag on child view")
             }
     }
 
