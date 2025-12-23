@@ -9,12 +9,10 @@ import SwiftUI
 
 struct NodeView: View {
     let node: Node
-
     let uiSettings = NodeUISettings()
+    
     @State private var offset = CGSize.zero
-    @GestureState private var dragOffset: CGSize = .zero
-    @State private var isDragging = false
-    @State private var isSelected = false
+    @State private var position: CGPoint = .zero
 
     func nodeSize() -> CGFloat {
         return
@@ -23,16 +21,9 @@ struct NodeView: View {
     }
 
     var drag: some Gesture {
-        DragGesture(minimumDistance: 3)
-            .updating($dragOffset) { value, state, _ in
-                state = value.translation
-                node.isDragging = true
-            }
-            .onEnded {
-                value in
-
-                offset.width += value.translation.width
-                offset.height += value.translation.height
+        DragGesture(coordinateSpace: .local)
+            .onChanged { gesture in
+                position = gesture.location
             }
     }
 
@@ -77,14 +68,7 @@ struct NodeView: View {
             maxWidth: uiSettings.maxWidth
         )
         .frame(height: nodeSize())
-        .offset(
-            self.node.isDragging
-                ? CGSize(
-                    width: offset.width + dragOffset.width,
-                    height: offset.height + dragOffset.height
-                ) : node.offset
-
-        )
+        .position(position)
         .gesture(drag)
     }
 }

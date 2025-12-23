@@ -15,9 +15,6 @@ class Node {
 
     // UI Related (move this)
     var label: String = ""
-    var isSelected: Bool = false
-    var isDragging: Bool = false
-    var offset: CGSize = .zero
 
     public func execute() throws {}
 

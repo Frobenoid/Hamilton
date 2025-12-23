@@ -67,7 +67,6 @@ struct CanvasView<Content: View>: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-
                 Color.clear
                     .contentShape(Rectangle())
                     .gesture(drag)
@@ -85,7 +84,6 @@ struct CanvasView<Content: View>: View {
                         camera.scale,
                         anchor: .center
                     )
-
             }
         }
     }
@@ -119,7 +117,6 @@ struct SubViewTest: View {
             //            .gesture(tap)
             .gesture(drag)
             .position(position)
-
     }
 }
 
