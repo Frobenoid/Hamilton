@@ -27,9 +27,6 @@ struct CanvasView<Content: View>: View {
 
     // TODO: Move this into a settings struct.
     var scalingFactor: CGFloat = 0.5
-    var translationFactor: CGFloat {
-        1 / (camera.scale * 10)
-    }
 
     var magnification: some Gesture {
         MagnifyGesture()
@@ -38,19 +35,6 @@ struct CanvasView<Content: View>: View {
                     min(gesture.magnification * scalingFactor, 1),
                     0.2
                 )
-            }
-    }
-
-    var drag: some Gesture {
-        // TODO: Restrict velocity to avoid blow-ups.
-        DragGesture()
-            .onChanged { gesture in
-                camera.position.x +=
-                    gesture.predictedEndTranslation.width
-                    * translationFactor
-                camera.position.y +=
-                    gesture.predictedEndTranslation.height
-                    * translationFactor
             }
     }
 
@@ -67,11 +51,11 @@ struct CanvasView<Content: View>: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
-                Color.clear
-                    .contentShape(Rectangle())
-                    .gesture(drag)
-                    .gesture(magnification)
-                    .gesture(tap)
+                CanvasScrollView(
+                    cameraPosition: $camera.position
+                )
+                .gesture(magnification)
+                .gesture(tap)
 
                 content
                     .offset(
