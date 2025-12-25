@@ -10,9 +10,18 @@ import SwiftUI
 struct NodeView: View {
     let node: Node
     let uiSettings = NodeUISettings()
-    
-    @State private var offset = CGSize.zero
+
+    @GestureState private var translation: CGSize = CGSize.zero
+    @State private var offset: CGSize = .zero
     @State private var position: CGPoint = .zero
+    @State private var isAligned = false
+
+    // TODO: Complete this implementation.
+    func isAlignedToGrid(at: CGPoint) -> Bool {
+        let x = Int(at.x)
+        let y = Int(at.y)
+        return x % 30 == 0 || y % 30 == 0
+    }
 
     func nodeSize() -> CGFloat {
         return
@@ -21,9 +30,19 @@ struct NodeView: View {
     }
 
     var drag: some Gesture {
-        DragGesture(coordinateSpace: .local)
+        DragGesture()
+            .updating($translation) { drag, translation, _ in
+                translation = drag.translation
+            }
             .onChanged { gesture in
-                position = gesture.location
+                isAligned = isAlignedToGrid(at: gesture.location)
+            }
+            .onEnded { drag in
+
+                offset = CGSize(
+                    width: offset.width + drag.translation.width,
+                    height: offset.height + drag.translation.height
+                )
             }
     }
 
@@ -36,14 +55,15 @@ struct NodeView: View {
                     .padding(10)
                     .frame(height: uiSettings.titleSize)
 
-                if node.inputs.count > 0 {
+                if !node.inputs.isEmpty {
                     Divider()
 
                     ForEach(node.inputs, id: \.id) { input in
                         InputView(input: input)
                     }
                 }
-                if node.outputs.count > 0 {
+
+                if !node.outputs.isEmpty {
                     Divider()
 
                     ForEach(node.outputs, id: \.id) { output in
@@ -62,13 +82,21 @@ struct NodeView: View {
             RoundedRectangle(cornerRadius: 8)
                 .stroke(.gray.opacity(0.2), lineWidth: 1)
         )
+        .sensoryFeedback(.alignment, trigger: isAligned) { oldValue, newValue in
+            !oldValue && newValue
+        }
         .frame(
-            minWidth: uiSettings.minWidth,
             idealWidth: uiSettings.minWidth,
             maxWidth: uiSettings.maxWidth
         )
         .frame(height: nodeSize())
         .position(position)
+        .offset(
+            CGSize(
+                width: offset.width + translation.width,
+                height: offset.height + translation.height
+            )
+        )
         .gesture(drag)
     }
 }
