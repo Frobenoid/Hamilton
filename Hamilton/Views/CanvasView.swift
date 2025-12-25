@@ -22,6 +22,8 @@ struct CanvasView<Content: View>: View {
     }
 
     @State var camera = CanvasCamera()
+    @State var contextMenuPosition: CGPoint = .zero
+
     /// Tap location in world coordinates
     @State var tapLocation = CGPoint.zero
 
@@ -52,7 +54,9 @@ struct CanvasView<Content: View>: View {
         GeometryReader { geo in
             ZStack {
                 CanvasScrollView(
-                    cameraPosition: $camera.position
+                    cameraPosition: $camera.position,
+                    contextMenuPosition: $contextMenuPosition,
+                    viewHeight: geo.size.height
                 )
                 .gesture(magnification)
                 .gesture(tap)
@@ -67,6 +71,9 @@ struct CanvasView<Content: View>: View {
                         anchor: .center
                     )
             }
+        }
+        .contextMenu {
+            Text("\(contextMenuPosition)")
         }
     }
 }

@@ -15,6 +15,7 @@ class Node {
 
     // UI Related (move this)
     var label: String = ""
+    var initialPosition: CGPoint = .zero
 
     public func execute() throws {}
 

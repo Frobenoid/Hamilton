@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-
 struct GraphCanvasView: View {
     @Environment(Graph.self) var graph: Graph
     var body: some View {
@@ -43,8 +42,6 @@ struct GraphCanvasView: View {
         g.addNode(BinOpNode())
         return g
     }()
-
-    //    GraphCanvas().environment(graph).environment(ui)
 
     GraphCanvasView()
         .environment(graph)

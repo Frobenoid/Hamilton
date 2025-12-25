@@ -10,6 +10,8 @@ import SwiftUI
 
 struct CanvasScrollView: NSViewRepresentable {
     @Binding var cameraPosition: CGPoint
+    @Binding var contextMenuPosition: CGPoint
+    var viewHeight: Double
 
     class Coordinator: NSObject {
         var parent: CanvasScrollView
@@ -27,10 +29,14 @@ struct CanvasScrollView: NSViewRepresentable {
 
                 parent.cameraPosition.x += event.scrollingDeltaX
                 parent.cameraPosition.y += event.scrollingDeltaY
+            }
 
-                print(
-                    "(X: \(event.scrollingDeltaX), Y: \(event.scrollingDeltaY))"
-                )
+            if event.type == .rightMouseDown {
+                parent.contextMenuPosition.x =
+                    event.locationInWindow.x + parent.cameraPosition.x
+                parent.contextMenuPosition.y =
+                    -event.locationInWindow.y + parent.viewHeight
+                    + parent.cameraPosition.y
             }
         }
     }
@@ -42,7 +48,9 @@ struct CanvasScrollView: NSViewRepresentable {
     func makeNSView(context: Context) -> NSView {
         let view = NSView()
 
-        NSEvent.addLocalMonitorForEvents(matching: [.scrollWheel]) { event in
+        NSEvent.addLocalMonitorForEvents(matching: [
+            .scrollWheel, .rightMouseDown,
+        ]) { event in
             context.coordinator.handleEvent(event)
             return event
         }
