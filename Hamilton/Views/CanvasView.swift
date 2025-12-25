@@ -75,10 +75,8 @@ struct CanvasView<Content: View>: View {
 
                 content
                     .offset(
-                        CGSize(
-                            width: camera.position.x,
-                            height: camera.position.y
-                        )
+                        x: camera.position.x,
+                        y: camera.position.y
                     )
                     .scaleEffect(
                         camera.scale,
