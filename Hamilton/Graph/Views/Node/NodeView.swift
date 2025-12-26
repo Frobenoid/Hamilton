@@ -50,7 +50,7 @@ struct NodeView: View {
         GeometryReader { geo in
             VStack(spacing: 0) {
 
-                Text("\(node.label)")
+                Text("\(node.label): \(node.initialPosition)")
                     .font(.headline)
                     .padding(10)
                     .frame(height: uiSettings.titleSize)

@@ -15,8 +15,6 @@ struct CanvasScrollView: NSViewRepresentable {
 
     class Coordinator: NSObject {
         var parent: CanvasScrollView
-        var accumulatedScrollDeltaX: CGFloat = 0
-        var accumulatedScrollDeltaY: CGFloat = 0
 
         init(parent: CanvasScrollView) {
             self.parent = parent
@@ -24,19 +22,16 @@ struct CanvasScrollView: NSViewRepresentable {
 
         @objc func handleEvent(_ event: NSEvent) {
             if event.type == .scrollWheel {
-                accumulatedScrollDeltaX += event.scrollingDeltaX
-                accumulatedScrollDeltaY += event.scrollingDeltaY
-
                 parent.cameraPosition.x += event.scrollingDeltaX
                 parent.cameraPosition.y += event.scrollingDeltaY
             }
 
             if event.type == .rightMouseDown {
                 parent.contextMenuPosition.x =
-                    event.locationInWindow.x + parent.cameraPosition.x
+                    event.locationInWindow.x - parent.cameraPosition.x
                 parent.contextMenuPosition.y =
                     -event.locationInWindow.y + parent.viewHeight
-                    + parent.cameraPosition.y
+                    - parent.cameraPosition.y
             }
         }
     }

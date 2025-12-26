@@ -42,6 +42,7 @@ struct CanvasView<Content: View>: View {
     var body: some View {
         GeometryReader { geo in
             ZStack {
+                Text("Camera: \(camera.position)")
                 CanvasScrollView(
                     cameraPosition: $camera.position,
                     contextMenuPosition: $contextMenuPosition,
