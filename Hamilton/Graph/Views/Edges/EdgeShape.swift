@@ -53,14 +53,4 @@ struct EdgeShape: Shape {
     {
         return max(min(x, upperBound), lowerBound)
     }
-
-    var animatableData:
-        AnimatablePair<CGPoint.AnimatableData, CGPoint.AnimatableData>
-    {
-        get { AnimatablePair(start.animatableData, end.animatableData) }
-        set {
-            start.animatableData = newValue.first
-            end.animatableData = newValue.second
-        }
-    }
 }

@@ -18,15 +18,9 @@ struct UIController: View {
     var body: some View {
         ZStack {
             MetalView()
-                .environment(graph)
 
-            ScrollView([.horizontal, .vertical]) {
-                GraphCanvas()
-                    .frame(width: 2000, height: 2000)
-                    .environment(graph)
-            }
-            .defaultScrollAnchor(UnitPoint(x: 0.5, y: 0.5))
-            .opacity(editorMode == .Edit ? 1 : 0)
+            GraphCanvasView()
+                .opacity(editorMode == .Edit ? 1 : 0)
 
             VStack {
                 Spacer()
@@ -37,6 +31,7 @@ struct UIController: View {
             }
         }
         .environment(nodeUI)
+        .environment(graph)
         .focusable()
         .focused($focused)
         .onKeyPress(.escape) {
@@ -51,9 +46,5 @@ struct UIController: View {
             focused = true
         }
         .focusEffectDisabled()
-        .contextMenu {
-            ContextMenu(editorMode: editorMode)
-                .environment(graph)
-        }
     }
 }

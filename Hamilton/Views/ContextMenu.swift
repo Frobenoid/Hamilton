@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContextMenu: View {
     @Environment(Graph.self) var graph
+    var initialPosition: CGPoint = .zero
 
     var editorMode: EditorMode
     var body: some View {
@@ -39,14 +40,23 @@ struct ContextMenu: View {
                     Image(systemName: "curlybraces")
                     Text("Vector")
                 }
-                
+
                 Button {
-                    graph.addNode(UIntVectorNode())
+                    // TODO: Refactor node creation to initialize incrementally.
+                    // GOAL:
+                    // let node = Node()
+                    // ... switch ...
+                    // node.type = UIntVectorNode.Self
+                    // node.initialPosition = initialPosition
+                    // context.addCommand(AddNode(node))
+                    let node = UIntVectorNode()
+                    node.initialPosition = initialPosition
+                    graph.addNode(node)
                 } label: {
                     Image(systemName: "curlybraces")
                     Text("UInt Vector")
                 }
-                
+
             } label: {
                 Image(systemName: "sum")
                 Text("Math")
@@ -65,7 +75,7 @@ struct ContextMenu: View {
                 Image(systemName: "rotate.3d")
                 Text("Subdivision")
             }
-            
+
             Button {
                 graph.addNode(TimeNode())
             } label: {
@@ -79,7 +89,7 @@ struct ContextMenu: View {
                 Image(systemName: "waveform.path")
                 Text("Wave")
             }
-            
+
             Button {
                 graph.addNode(TransformNode())
             } label: {
