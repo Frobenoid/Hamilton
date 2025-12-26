@@ -42,6 +42,13 @@ struct ContextMenu: View {
                 }
 
                 Button {
+                    // TODO: Refactor node creation to initialize incrementally.
+                    // GOAL:
+                    // let node = Node()
+                    // ... switch ...
+                    // node.type = UIntVectorNode.Self
+                    // node.initialPosition = initialPosition
+                    // context.addCommand(AddNode(node))
                     let node = UIntVectorNode()
                     node.initialPosition = initialPosition
                     graph.addNode(node)
