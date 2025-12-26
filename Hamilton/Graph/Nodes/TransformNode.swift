@@ -68,7 +68,6 @@ class TransformNode: Node {
         if var model = inputs[0].currentValue as? Model {
             model.transform = transform
 
-            print(model.transform.scale)
             try outputs[0].setUntypedCurrentValue(to: model)
         }
     }

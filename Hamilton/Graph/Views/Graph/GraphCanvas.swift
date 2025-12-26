@@ -9,24 +9,33 @@ import SwiftUI
 
 struct GraphCanvasView: View {
     @Environment(Graph.self) var graph: Graph
+    @State var contextMenuPosition: CGPoint = .zero
     var body: some View {
         GeometryReader { geo in
-            CanvasView {
-                ForEach(graph.nodes, id: \.id) { node in
-                    NodeView(node: node)
-                        .focusable()
-                        .onDeleteCommand {
-                            if node.id != 0 {
-                                graph.deleteNode(withID: node.id)
+            CanvasView(
+                content: {
+                    ForEach(graph.nodes, id: \.id) { node in
+                        NodeView(node: node)
+                            .focusable()
+                            .onDeleteCommand {
+                                if node.id != 0 {
+                                    graph.deleteNode(withID: node.id)
+                                }
                             }
-                        }
-                }
-                .offset(geo.size / 2)
-            }
+                    }
+                },
+                contextMenuPosition: $contextMenuPosition
+            )
             .overlayPreferenceValue(SocketAnchorKey.self) { anchors in
                 EdgesView(
                     anchors: anchors,
                     geometryProxy: geo
+                )
+            }
+            .contextMenu {
+                ContextMenu(
+                    initialPosition: contextMenuPosition,
+                    editorMode: .Edit,
                 )
             }
         }

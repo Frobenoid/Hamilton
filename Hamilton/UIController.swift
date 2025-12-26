@@ -46,9 +46,5 @@ struct UIController: View {
             focused = true
         }
         .focusEffectDisabled()
-        .contextMenu {
-            ContextMenu(editorMode: editorMode)
-                .environment(graph)
-        }
     }
 }

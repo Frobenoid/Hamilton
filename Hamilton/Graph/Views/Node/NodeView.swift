@@ -90,7 +90,7 @@ struct NodeView: View {
             maxWidth: uiSettings.maxWidth
         )
         .frame(height: nodeSize())
-        .position(position)
+        .position(node.initialPosition)
         .offset(
             CGSize(
                 width: offset.width + translation.width,

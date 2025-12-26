@@ -13,19 +13,18 @@ struct CanvasCamera {
     var scale: CGFloat = 1
 }
 
+/// This view creates a scrollable and pinchable canvas.
+///
+/// This tracks:
+/// 1. Right click position.
+/// 2. Panning.
+/// 3. Zooming.
+///
 struct CanvasView<Content: View>: View {
 
-    let content: Content
-
-    init(@ViewBuilder content: () -> Content) {
-        self.content = content()
-    }
-
+    @ViewBuilder let content: Content
     @State var camera = CanvasCamera()
-    @State var contextMenuPosition: CGPoint = .zero
-
-    /// Tap location in world coordinates
-    @State var tapLocation = CGPoint.zero
+    @Binding var contextMenuPosition: CGPoint
 
     // TODO: Move this into a settings struct.
     var scalingFactor: CGFloat = 0.5
@@ -40,16 +39,6 @@ struct CanvasView<Content: View>: View {
             }
     }
 
-    var tap: some Gesture {
-        SpatialTapGesture()
-            .onEnded { event in
-                tapLocation = CGPoint(
-                    x: event.location.x + camera.position.x,
-                    y: event.location.y + camera.position.y
-                )
-            }
-    }
-
     var body: some View {
         GeometryReader { geo in
             ZStack {
@@ -59,7 +48,6 @@ struct CanvasView<Content: View>: View {
                     viewHeight: geo.size.height
                 )
                 .gesture(magnification)
-                .gesture(tap)
 
                 content
                     .offset(
@@ -71,9 +59,6 @@ struct CanvasView<Content: View>: View {
                         anchor: .center
                     )
             }
-        }
-        .contextMenu {
-            Text("\(contextMenuPosition)")
         }
     }
 }
@@ -110,10 +95,14 @@ struct SubViewTest: View {
 }
 
 #Preview {
-    CanvasView {
-        ForEach(0..<10) {
-            i in
-            SubViewTest()
-        }
-    }
+    @Previewable @State var contextMenuPosition: CGPoint = .zero
+    CanvasView(
+        content: {
+            ForEach(0..<10) {
+                i in
+                SubViewTest()
+            }
+        },
+        contextMenuPosition: $contextMenuPosition
+    )
 }

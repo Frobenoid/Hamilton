@@ -59,5 +59,6 @@ struct CanvasScrollView: NSViewRepresentable {
     }
 
     func updateNSView(_ nsView: NSView, context: Context) {
+        context.coordinator.parent.viewHeight = viewHeight
     }
 }
