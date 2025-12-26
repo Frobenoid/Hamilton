@@ -13,7 +13,6 @@ struct ContextMenu: View {
 
     var editorMode: EditorMode
     var body: some View {
-        Text("Menu: \(initialPosition)")
         if editorMode == .Edit {
             Text("Add")
                 .font(.headline)
