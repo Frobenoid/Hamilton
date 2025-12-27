@@ -148,4 +148,14 @@ struct HamiltonTests {
             }
         )
     }
+
+    @Test func nodeConstruction() {
+        var node = HNode()
+        node.type = Test()
+        var d = ParameterBuilder()
+        node.type?.declare(&d)
+        d.build(node: &node)
+        
+        #expect(node.inputs.count == 1)
+    }
 }
