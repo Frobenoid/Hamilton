@@ -13,7 +13,6 @@ struct UIController: View {
 
     @State var editorMode: EditorMode = .Edit
     @State var nodeUI: NodeUISettings
-    @FocusState var focused: Bool
 
     var body: some View {
         ZStack {
@@ -33,7 +32,6 @@ struct UIController: View {
         .environment(nodeUI)
         .environment(graph)
         .focusable()
-        .focused($focused)
         .onKeyPress(.escape) {
             editorMode = .Normal
             return .handled
@@ -41,9 +39,6 @@ struct UIController: View {
         .onKeyPress(keys: ["i"]) { _ in
             editorMode = .Edit
             return .handled
-        }
-        .onAppear {
-            focused = true
         }
         .focusEffectDisabled()
     }
