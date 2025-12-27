@@ -7,12 +7,15 @@
 
 import Foundation
 
-class OutputNode: Node {
-    override init() {
-        super.init()
-        label = "Output Mesh"
-        
-        addInput(
+struct OutputNode: NodeType {
+    var label: String = "Output Mesh"
+
+    var description: String = "This node outputs a mesh"
+
+    func exec(_ p: NodeParameters) throws {}
+
+    func declare(_ b: inout ParameterBuilder) {
+        b.addInput(
             Input<Model>()
                 .withLabel("Output Model")
                 .withDefaultValue(.init(name: "Default Model", type: .box))

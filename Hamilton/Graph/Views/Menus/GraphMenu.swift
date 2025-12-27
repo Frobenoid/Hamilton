@@ -10,7 +10,12 @@ import SwiftUI
 struct GraphViewMenu: View {
     @Environment(Graph.self) var graph
     var position: CGPoint
-
+    lazy var node: Node = {
+        var node = Node()
+        node.initialPosition = position
+        return node
+    }()
+        
     var body: some View {
         Text("Add")
             .font(.headline)
@@ -19,21 +24,22 @@ struct GraphViewMenu: View {
         // TODO: the graph this should add them into a dispatch queue.
         Menu {
             Button {
-                graph.addNode(ConstantNode())
+//                node.type = ConstantNode()
+//                graph.addNode(ConstantNode())
             } label: {
                 Image(systemName: "number")
                 Text("Constant")
             }
 
             Button {
-                graph.addNode(BinOpNode())
+//                graph.addNode(BinOpNode())
             } label: {
                 Image(systemName: "sum")
                 Text("Binary Operation")
             }
 
             Button {
-                graph.addNode(VectorNode())
+//                graph.addNode(VectorNode())
             } label: {
                 Image(systemName: "curlybraces")
                 Text("Vector")
@@ -47,10 +53,10 @@ struct GraphViewMenu: View {
                 // node.type = UIntVectorNode.Self
                 // node.initialPosition = initialPosition
                 // context.addCommand(AddNode(node))
-                let node = UIntVectorNode()
-                node.initialPosition = position
-
-                graph.addNode(node)
+//                let node = UIntVectorNode()
+//                node.initialPosition = position
+//
+//                graph.addNode(node)
             } label: {
                 Image(systemName: "curlybraces")
                 Text("UInt Vector")
@@ -62,35 +68,35 @@ struct GraphViewMenu: View {
         }
 
         Button {
-            graph.addNode(PrimitiveNode())
+//            graph.addNode(PrimitiveNode())
         } label: {
             Image(systemName: "rotate.3d")
             Text("Primitive")
         }
 
         Button {
-            graph.addNode(SubdivisionNode())
+//            graph.addNode(SubdivisionNode())
         } label: {
             Image(systemName: "rotate.3d")
             Text("Subdivision")
         }
 
         Button {
-            graph.addNode(TimeNode())
+//            graph.addNode(TimeNode())
         } label: {
             Image(systemName: "timer")
             Text("Time")
         }
 
         Button {
-            graph.addNode(WaveNode())
+//            graph.addNode(WaveNode())
         } label: {
             Image(systemName: "waveform.path")
             Text("Wave")
         }
 
         Button {
-            graph.addNode(TransformNode())
+//            graph.addNode(TransformNode())
         } label: {
             Image(systemName: "move.3d")
             Text("Transform")

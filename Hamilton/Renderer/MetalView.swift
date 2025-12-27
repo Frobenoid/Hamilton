@@ -45,7 +45,14 @@ struct MetalViewRepresentable: NSViewRepresentable {
 #Preview {
     @Previewable @State var graph = {
         var graph = Graph()
-        graph.addNode(OutputNode())
+
+        var node = Node()
+        node.type = Test()
+        var d = ParameterBuilder()
+        node.type.declare(&d)
+        d.build(node: &node)
+
+        graph.addNode(node)
         return graph
     }()
 

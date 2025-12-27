@@ -11,7 +11,14 @@ struct ContentView: View {
     @State private var nodeUI = NodeUISettings()
     @State private var graph = {
         var g = Graph()
-        g.addNode(OutputNode())
+        
+        var node = Node()
+        node.type = OutputNode()
+        var d = ParameterBuilder()
+        node.type.declare(&d)
+        d.build(node: &node)
+
+        g.addNode(node)
         return g
     }()
 

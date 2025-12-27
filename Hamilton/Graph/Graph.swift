@@ -16,7 +16,8 @@ class Graph {
 
     /// Inserts a node to the graph.
     public func addNode(_ node: Node) {
-        node.setID(to: nodes.count)
+        var node = node
+        node.id = nodes.count
         nodes.append(node)
     }
 
@@ -37,7 +38,8 @@ class Graph {
             nodes.swapAt(id, prevId)
 
             // Update swapped node id.
-            nodes[id].setID(to: id)
+            //            nodes[id].setID(to: id)
+            nodes[id].id = id
 
             // Update the origin of all connections that
             // were previously linked to the node at the top
