@@ -47,7 +47,7 @@ struct MetalViewRepresentable: NSViewRepresentable {
         var graph = Graph()
 
         var node = Node()
-        node.type = Test()
+        node.type = OutputNode()
         var d = ParameterBuilder()
         node.type.declare(&d)
         d.build(node: &node)
