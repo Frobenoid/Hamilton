@@ -153,11 +153,43 @@ struct HamiltonTests {
         var builder = NodeBuilder()
         let output = builder.build(ofType: OutputNode())
         let null = builder.build(ofType: NullNode())
-        
+
         #expect(output.inputs.count == 1)
         #expect(output.outputs.count == 0)
-        
+
         #expect(null.inputs.count == 0)
         #expect(null.outputs.count == 0)
+    }
+
+    @Test func evaluator() {
+        var builder = NodeBuilder()
+        let a = builder.build(ofType: ConstantNode())
+        let b = builder.build(ofType: ConstantNode())
+        let c = builder.build(ofType: BinOpNode())
+
+        let g = Graph()
+
+        g.addNode(a)
+        g.addNode(b)
+        g.addNode(c)
+
+        g.connect(
+            sourceNode: 0,
+            sourceSocket: 0,
+            destinationNode: 2,
+            destinationSocket: 0
+        )
+
+        g.connect(
+            sourceNode: 1,
+            sourceSocket: 0,
+            destinationNode: 2,
+            destinationSocket: 1
+        )
+
+        try! Evaluator(graph: g).evaluate()
+
+        #expect(g.nodes[2].outputs[0].currentValue as! Float == 2.0)
+
     }
 }

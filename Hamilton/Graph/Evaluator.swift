@@ -73,30 +73,37 @@ extension Evaluator {
     }
 
     private func propagateValues(for node: NodeID) {
-//        graph
-//            .edges
-//            // Get neighbors of current node.
-//            .filter { $0.sourceNode == node }
-//            // Propagate values for each neighbor.
-//            .forEach { edge in
-//
-//                if let output = try? graph.nodes[edge.sourceNode]
-//                    .getUntypedOutput(at: edge.sourceSocket)
-//                {
-//                    try! graph.nodes[edge.destinationNode]
-//                        .setUntypedInput(
-//                            at: edge.destinationSocket,
-//                            to: output
-//                        )
-//                } else {
-//                    return
-//                }
-//            }
+        graph
+            .edges
+            // Get neighbors of current node.
+            .filter { $0.sourceNode == node }
+            // Propagate values for each neighbor.
+            .forEach { edge in
+
+                if let output =
+                    graph
+                    .nodes[edge.sourceNode]
+                    .outputs[edge.sourceSocket]
+                    .currentValue as Any?
+                {
+                    try?
+                        graph
+                        .nodes[edge.destinationNode]
+                        .inputs[edge.destinationSocket]
+                        .setUntypedCurrentValue(to: output)
+                } else {
+                    return
+                }
+            }
+
     }
 
     /// ``node`` should always be within range.
     private func execute(_ node: NodeID) {
-//        try! graph.nodes[node].execute()
+        var params = NodeParameters(node: graph.nodes[node])
+        debugPrint(params.inputs)
+        try! graph.nodes[node].execute(&params)
+        debugPrint(params)
     }
 
 }

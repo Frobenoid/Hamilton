@@ -79,30 +79,30 @@ struct NodeParameters {
         node.outputs
     }
 
-    public func getInput<T>(at output: SocketID) throws(GraphError)
+    public func getInput<T>(at input: SocketID) throws(GraphError)
         -> T
     {
-        if output < outputs.count {
-            guard let out = outputs[output].defaultValue as? T else {
+        if input < inputs.count {
+            guard let inp = inputs[input].currentValue as? T else {
                 throw GraphError.imposibleCasting(
-                    from: T.self,
+                    from: inputs[input].currentValue.self as Any,
                     to: T.self
                 )
             }
-            return out
+            return inp
         } else {
-            throw GraphError.outOfRangeOutput(output: output)
+            throw GraphError.outOfRangeInput(input: input)
         }
     }
 
-    mutating public func setOutput<T>(at input: SocketID, to value: T)
+    mutating public func setOutput<T>(at output: SocketID, to value: T)
         throws(GraphError)
     {
-        if input < inputs.count {
+        if output < outputs.count {
             // TODO: Make sure we can cast!
-            try inputs[input].setUntypedCurrentValue(to: value)
+            try outputs[output].setUntypedCurrentValue(to: value)
         } else {
-            throw GraphError.outOfRangeInput(input: input)
+            throw GraphError.outOfRangeOutput(output: output)
         }
     }
 
