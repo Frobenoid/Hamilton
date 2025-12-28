@@ -18,122 +18,113 @@ enum PrimitiveType: String, CaseIterable, Identifiable {
     case capsule
 }
 
-//class PrimitiveNode: Node {
-//
-//    var position: vector_float3 {
-//        inputs[4].untypedCurrentValue() as! vector_float3
-//    }
-//
-//    var rotation: vector_float3 {
-//        inputs[5].untypedCurrentValue() as! vector_float3
-//    }
-//
-//    var scale: Float {
-//        inputs[6].untypedCurrentValue() as! Float
-//    }
-//
-//    private enum Inputs: Int {
-//        case PrimitiveType = 0
-//        case Extent = 1
-//        case GeometryType = 2
-//        case Segments = 3
-//    }
-//
-//    private enum Outputs: Int {
-//        case OutputMesh = 0
-//    }
-//
-//    override init() {
-//        super.init()
-//        label = "Primitive"
-//
-//        addInput(
-//            Input<PrimitiveType>()
-//                .withDefaultValue(.box)
-//                .asUserModifiable()
-//                .withLabel("Primitive Type")
-//        )
-//
-//        addInput(
-//            Input<vector_float3>()
-//                .withDefaultValue([1.0, 1.0, 1.0])
-//                .withLabel("Extent")
-//                .asUserModifiable()
-//        )
-//
-//        addInput(
-//            Input<MDLGeometryType>()
-//                .withDefaultValue(.triangles)
-//                .withLabel("Geometry Type")
-//                .asUserModifiable()
-//        )
-//
-//        addInput(
-//            Input<vector_uint3>()
-//                .withDefaultValue(.one)
-//                .withLabel("Segment")
-//                .asUserModifiable()
-//        )
-//
-//        // Transform
-//        addInput(
-//            Input<vector_float3>()
-//                .withLabel("Position")
-//                .withDefaultValue(.zero)
-//                .asUserModifiable()
-//        )
-//
-//        addInput(
-//            Input<vector_float3>()
-//                .withLabel("Rotation")
-//                .withDefaultValue(.zero)
-//                .asUserModifiable()
-//        )
-//
-//        addInput(
-//            Input<Float>()
-//                .withLabel("Scale")
-//                .withDefaultValue(1.0)
-//                .asUserModifiable()
-//        )
-//
-//        addOutput(
-//            Output<Model>()
-//                .withLabel("Output Mesh")
-//        )
-//    }
-//
-//    override func execute() throws {
-//        let primitiveType =
-//            inputs[Inputs.PrimitiveType.rawValue].currentValue as! PrimitiveType
-//
-//        let extent =
-//            inputs[Inputs.Extent.rawValue].currentValue as! vector_float3
-//
-//        let geometryType =
-//            inputs[Inputs.GeometryType.rawValue].currentValue
-//            as! MDLGeometryType
-//
-//        let segments =
-//            inputs[Inputs.Segments.rawValue].currentValue as! vector_uint3
-//
-//        var primitive = Model(
-//            name: "Primitive Model",
-//            type: primitiveType,
-//            extent: extent,
-//            segments: segments,
-//            geometryType: geometryType
-//        )
-//
-//        let transform = MDLTransform()
-//        transform.translation = position
-//        transform.rotation = rotation
-//        transform.scale = vector_float3(x: scale, y: scale, z: scale)
-//
-//        primitive.transform = transform
-//
-//        try outputs[Outputs.OutputMesh.rawValue].setUntypedCurrentValue(
-//            to: primitive
-//        )
-//    }
-//}
+struct PrimitiveNode: NodeType {
+    var label: String = "Primitive"
+
+    var description: String = "A primitive mesh"
+
+    private enum Inputs: Int {
+        case PrimitiveType = 0
+        case Extent = 1
+        case GeometryType = 2
+        case Segments = 3
+    }
+
+    private enum Outputs: Int {
+        case OutputMesh = 0
+    }
+
+    func exec(_ p: inout NodeParameters) throws {
+        let primitiveType: PrimitiveType = try p.getInput(
+            at: Inputs.PrimitiveType.rawValue
+        )
+
+        let extent: vector_float3 = try p.getInput(at: Inputs.Extent.rawValue)
+
+        let geometryType: MDLGeometryType = try p.getInput(
+            at: Inputs.GeometryType.rawValue
+        )
+
+        let segments: vector_uint3 = try p.getInput(
+            at: Inputs.Segments.rawValue
+        )
+
+        var primitive = Model(
+            name: "Primitive Model",
+            type: primitiveType,
+            extent: extent,
+            segments: segments,
+            geometryType: geometryType
+        )
+
+        let position: vector_float3 = try p.getInput(at: 4)
+        let rotation: vector_float3 = try p.getInput(at: 5)
+        let scale: Float = try p.getInput(at: 6)
+
+        let transform = MDLTransform()
+        transform.translation = position
+        transform.rotation = rotation
+        transform.scale = vector_float3(x: scale, y: scale, z: scale)
+
+        primitive.transform = transform
+
+        try p.setOutput(at: Outputs.OutputMesh.rawValue, to: primitive)
+    }
+
+    func declare(_ b: inout ParameterBuilder) {
+        b.addInput(
+            Input<PrimitiveType>()
+                .withDefaultValue(.box)
+                .asUserModifiable()
+                .withLabel("Primitive Type")
+        )
+
+        b.addInput(
+            Input<vector_float3>()
+                .withDefaultValue([1.0, 1.0, 1.0])
+                .withLabel("Extent")
+                .asUserModifiable()
+        )
+
+        b.addInput(
+            Input<MDLGeometryType>()
+                .withDefaultValue(.triangles)
+                .withLabel("Geometry Type")
+                .asUserModifiable()
+        )
+
+        b.addInput(
+            Input<vector_uint3>()
+                .withDefaultValue(.one)
+                .withLabel("Segment")
+                .asUserModifiable()
+        )
+
+        b.addInput(
+            Input<vector_float3>()
+                .withLabel("Position")
+                .withDefaultValue(.zero)
+                .asUserModifiable()
+        )
+
+        b.addInput(
+            Input<vector_float3>()
+                .withLabel("Rotation")
+                .withDefaultValue(.zero)
+                .asUserModifiable()
+        )
+
+        b.addInput(
+            Input<Float>()
+                .withLabel("Scale")
+                .withDefaultValue(1.0)
+                .asUserModifiable()
+        )
+
+        b.addOutput(
+            Output<Model>()
+                .withLabel("Output Mesh")
+        )
+    }
+
+}

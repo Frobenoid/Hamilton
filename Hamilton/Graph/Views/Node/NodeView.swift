@@ -103,9 +103,10 @@ struct NodeView: View {
 
 #Preview {
     @Previewable @State var graph = {
+        var b = NodeBuilder()
         var g = Graph()
-//        g.addNode(PrimitiveNode())
-//        g.addNode(BinOpNode())
+        g.addNode(b.build(ofType: PrimitiveNode()))
+        g.addNode(b.build(ofType: BinOpNode()))
         return g
     }()
 

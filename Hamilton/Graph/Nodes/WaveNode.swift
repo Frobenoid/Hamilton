@@ -7,6 +7,20 @@
 
 import Foundation
 
+struct WaveNode: NodeType {
+    var label: String
+    
+    var description: String
+    
+    func exec(_ p: inout NodeParameters) throws {
+    }
+    
+    func declare(_ b: inout ParameterBuilder) {
+    }
+    
+    
+}
+
 //class WaveNode: Node {
 //    override init() {
 //        super.init()

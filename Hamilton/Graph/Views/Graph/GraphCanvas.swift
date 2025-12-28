@@ -33,10 +33,7 @@ struct GraphCanvasView: View {
                 )
             }
             .contextMenu {
-                ContextMenu(
-                    initialPosition: contextMenuPosition,
-                    editorMode: .Edit,
-                )
+                GraphViewMenu(position: contextMenuPosition)
             }
         }
     }
@@ -46,9 +43,9 @@ struct GraphCanvasView: View {
     @Previewable @State var ui = NodeUISettings()
     @Previewable @State var graph: Graph = {
         var g = Graph()
-//        g.addNode(ConstantNode())
-//        g.addNode(ConstantNode())
-//        g.addNode(BinOpNode())
+        //        g.addNode(ConstantNode())
+        //        g.addNode(ConstantNode())
+        //        g.addNode(BinOpNode())
         return g
     }()
 

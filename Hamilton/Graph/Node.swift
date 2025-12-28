@@ -11,14 +11,15 @@ protocol NodeType {
     var label: String { get }
     var description: String { get }
 
-    func exec(_ p: NodeParameters) throws
+    func exec(_ p: inout NodeParameters) throws
     func declare(_ b: inout ParameterBuilder)
 }
 
 /// Contains information about the actual node, including:
 /// 1. UI Information.
 /// 2. Pointers to the node type.
-struct Node {
+@Observable
+class Node {
     // Index in parent graph.
     var idInGraph: Int = -1
     var id: Int {
@@ -26,6 +27,7 @@ struct Node {
             idInGraph
         }
         set {
+            idInGraph = newValue
             inputs.indices.forEach { i in
                 inputs[i].parentID = newValue
             }
@@ -61,7 +63,7 @@ extension Node {
         type.declare
     }
 
-    var execute: (NodeParameters) throws -> Void {
+    var execute: (inout NodeParameters) throws -> Void {
         type.exec
     }
 }
@@ -77,7 +79,7 @@ struct NodeParameters {
         node.outputs
     }
 
-    public func getOutput<T>(at output: SocketID) throws(GraphError)
+    public func getInput<T>(at output: SocketID) throws(GraphError)
         -> T
     {
         if output < outputs.count {
@@ -93,7 +95,7 @@ struct NodeParameters {
         }
     }
 
-    mutating public func setInput<T>(at input: SocketID, to value: T)
+    mutating public func setOutput<T>(at input: SocketID, to value: T)
         throws(GraphError)
     {
         if input < inputs.count {
@@ -134,11 +136,11 @@ struct NodeBuilder {
 
     mutating func build(ofType: any NodeType) -> Node {
         var node = Node()
-        
+
         node.type = ofType
         node.declare(&p)
         p.build(node: &node)
-        
+
         return node
     }
 }

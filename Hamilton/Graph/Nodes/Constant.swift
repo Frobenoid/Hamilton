@@ -12,7 +12,7 @@ struct ConstantNode: NodeType {
 
     var description: String = "A constant floating point value"
 
-    func exec(_ p: NodeParameters) throws {
+    func exec(_ p: inout NodeParameters) throws {
     }
 
     func declare(_ b: inout ParameterBuilder) {

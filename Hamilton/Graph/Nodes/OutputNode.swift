@@ -12,7 +12,7 @@ struct OutputNode: NodeType {
 
     var description: String = "This node outputs a mesh"
 
-    func exec(_ p: NodeParameters) throws {}
+    func exec(_ p: inout NodeParameters) throws {}
 
     func declare(_ b: inout ParameterBuilder) {
         b.addInput(

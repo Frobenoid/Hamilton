@@ -12,7 +12,7 @@ struct NullNode: NodeType {
 
     var description: String = "Testing node"
 
-    func exec(_ p: NodeParameters) throws {
+    func exec(_ p: inout NodeParameters) throws {
     }
 
     func declare(_ b: inout ParameterBuilder) {}

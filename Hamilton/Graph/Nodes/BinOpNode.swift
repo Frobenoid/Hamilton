@@ -7,40 +7,42 @@
 
 import Foundation
 
-//class BinOpNode: Node {
-//
-//    enum Operation {
-//        case sum, mul, sub, div
-//    }
-//
-//    init(variant: Operation = .sum) {
-//        super.init()
-//        label = "Binary Operation"
-//
-//        addInput(
-//            Input<Float>()
-//                .withDefaultValue(0)
-//                .withLabel("Value")
-//                .asUserModifiable()
-//        )
-//
-//        addInput(
-//            Input<Float>()
-//                .withDefaultValue(0)
-//                .withLabel("Value")
-//                .asUserModifiable()
-//        )
-//
-//        addOutput(
-//            Output<Float>()
-//                .withDefaultValue(0)
-//                .withLabel("Value")
-//        )
-//    }
-//
-//    override func execute() throws {
-//        let a = self.inputs[0].currentValue as! Float
-//        let b = self.inputs[1].currentValue as! Float
-//        try self.outputs[0].setUntypedCurrentValue(to: a + b)
-//    }
-//}
+struct BinOpNode: NodeType {
+    var label: String = "Binary Operation"
+
+    var description: String = "A binary operation"
+
+    enum Op {
+        case sum, mul, sub, div
+    }
+
+    func exec(_ p: inout NodeParameters) throws {
+        let a: Float = try p.getInput(at: 0)
+        let b: Float = try p.getInput(at: 1)
+        try p.setOutput(at: 0, to: a + b)
+    }
+
+    func declare(_ b: inout ParameterBuilder) {
+
+        b.addInput(
+            Input<Float>()
+                .withDefaultValue(0)
+                .withLabel("Value")
+                .asUserModifiable()
+        )
+
+        b.addInput(
+            Input<Float>()
+                .withDefaultValue(0)
+                .withLabel("Value")
+                .asUserModifiable()
+        )
+
+        b.addOutput(
+            Output<Float>()
+                .withDefaultValue(0)
+                .withLabel("Value")
+        )
+    }
+
+}

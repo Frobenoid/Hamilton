@@ -16,7 +16,6 @@ class Graph {
 
     /// Inserts a node to the graph.
     public func addNode(_ node: Node) {
-        var node = node
         node.id = nodes.count
         nodes.append(node)
     }
